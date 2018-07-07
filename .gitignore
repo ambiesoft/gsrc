@@ -1,0 +1,11 @@
+.idea/
+chromium/
+depot_tools/
+monorail/
+
+gdev.exe
+gdev.ini
+gdev.iobj
+gdev.ipdb
+gdev.pdb
+
