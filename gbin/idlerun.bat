@@ -1,3 +1,3 @@
 @echo off
-winnice --all-idle %*
+winnice --all-idle --new-process %*
 

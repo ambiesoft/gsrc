@@ -29,6 +29,7 @@
 //chrome/test:chrome_app_unittests
 //chrome/test:interactive_ui_tests
 //chrome/test:load_library_perf_tests
+//chrome/test:ntp_render_browsertests
 //chrome/test:performance_browser_tests
 //chrome/test:sync_integration_tests
 //chrome/test:sync_performance_tests
@@ -270,7 +271,7 @@
 //third_party/crashpad/crashpad/util:crashpad_util_test_process_info_test_child
 //third_party/crashpad/crashpad/util:crashpad_util_test_safe_terminate_process_test_child
 //third_party/crashpad/crashpad/util:http_transport_test_server
-//third_party/crc32c://third_party/crc32c:crc32c_tests
+//third_party/crc32c:crc32c_tests
 //third_party/flatbuffers:flatbuffers_unittest
 //third_party/flatbuffers:flatc
 //third_party/leveldatabase:env_chromium_unittests
@@ -323,8 +324,6 @@
 //tools/accessibility/inspect:ax_dump_tree
 //tools/battor_agent:battor_agent
 //tools/battor_agent:battor_agent_unittests
-//tools/gn:gn
-//tools/gn:gn_unittests
 //tools/imagediff:imagediff
 //tools/perf/clear_system_cache:clear_system_cache
 //tools/traffic_annotation/auditor:traffic_annotation_auditor

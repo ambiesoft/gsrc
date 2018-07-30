@@ -8,7 +8,7 @@ IF "%1"=="2ndlaunch" (
 
 :justlaunch
 start cmd /k
-:: start powershell
+::start powershell
 exit
 
 :docontinue
