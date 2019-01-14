@@ -1,3 +1,4 @@
+*~
 .idea/
 chromium/
 depot_tools/
@@ -15,3 +16,9 @@ gn/
 ninja/
 skia/
 skiaex/
+
+.cipd/
+.gclient
+.gclient_entries
+src/
+
