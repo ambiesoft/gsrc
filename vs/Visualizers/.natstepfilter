@@ -1,0 +1,10 @@
+<StepFilter xmlns="http://schemas.microsoft.com/vstudio/debugger/natstepfilter/2010">
+ 
+<Function><Name>operator new</Name><Action>NoStepInto</Action></Function>
+<Function><Name>operator delete</Name><Action>NoStepInto</Action></Function>
+<!-- Skip everything in std -->
+<Function><Name>std::.*</Name><Action>NoStepInto</Action></Function>
+<!-- all methods on WebKit OwnPtr and variants, ... WTF::*Ptr<*>::* -->
+<!-- <Function><Name>WTF::.*Ptr&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function> -->
+ 
+</StepFilter>
