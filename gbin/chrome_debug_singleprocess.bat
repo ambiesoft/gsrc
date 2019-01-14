@@ -1,0 +1,1 @@
+start "" out\debug\chrome.exe --single-process --no-sandbox http://ambiesoft.fam.cx/webapp/testclient/chromiumprint.html

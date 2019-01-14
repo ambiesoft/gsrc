@@ -1,1 +1,1 @@
-out\debug\headless_example.exe --gpu-startup-dialog --no-sandbox --remote-debugging-port=9222 http://ambiesoft.fam.cx/webapp/testclient/chromiumprint.html
+start "" out\debug\headless_example.exe --gpu-startup-dialog --no-sandbox --remote-debugging-port=9222 http://ambiesoft.fam.cx/webapp/testclient/chromiumprint.html
