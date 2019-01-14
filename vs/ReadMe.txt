@@ -1,0 +1,1 @@
+>mklink /J "%USERPROFILE%\Documents\Visual Studio 2017\Visualizers" THISDIR\vs\Visualizers
