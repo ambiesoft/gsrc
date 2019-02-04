@@ -2,11 +2,15 @@
  
 <Function><Name>operator new</Name><Action>NoStepInto</Action></Function>
 <Function><Name>operator delete</Name><Action>NoStepInto</Action></Function>
+
 <!-- Skip everything in std -->
-<Function><Name>std::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>std::(?!make_unique).*</Name><Action>NoStepInto</Action></Function>
+
+
 <!-- all methods on WebKit OwnPtr and variants, ... WTF::*Ptr<*>::* -->
 <!-- <Function><Name>WTF::.*Ptr&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function> -->
 
 <Function><Name>base::BasicStringPiece&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
- 
+<Function><Name>scoped_refptr&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+
 </StepFilter>
