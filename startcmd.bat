@@ -7,8 +7,10 @@ IF "%1"=="2ndlaunch" (
 )
 
 :justlaunch
-git config --global user.email "ambiesoft.trueff@gmail.com"
-git config --global user.name   "ambiesoft"
+if exist %~dp0gitinit.bat (
+  call %~dp0gitinit.bat
+)
+
 start cmd /k
 ::start powershell
 exit
