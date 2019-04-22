@@ -35,7 +35,7 @@ set DEPOT_TOOLS_WIN_TOOLCHAIN=0
 
 
 REM make current directory the location this script exists.
-cd %~dp0\chromium\src
+cd %~dp0src
 
 
 REM always launch 64bit cmd
