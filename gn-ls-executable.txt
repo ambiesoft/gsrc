@@ -7,6 +7,7 @@
 //cc:cc_perftests
 //cc:cc_unittests
 //chrome:chrome_initial
+//chrome/browser/nacl_host/test:mock_nacl_gdb
 //chrome/browser/vr:vr_common_perftests
 //chrome/browser/vr:vr_common_unittests
 //chrome/browser/vr:vr_pixeltests
@@ -15,6 +16,7 @@
 //chrome/chrome_cleaner/test:test_service
 //chrome/chrome_watcher:system_load_estimator_unittests
 //chrome/credential_provider/setup:gcp_setup
+//chrome/credential_provider/setup:gcp_sfx
 //chrome/credential_provider/test:gcp_unittests
 //chrome/elevation_service:elevation_service
 //chrome/elevation_service:elevation_service_unittests
@@ -60,6 +62,7 @@
 //components/cronet:cronet_unittests
 //components/metrics:metrics_unittests
 //components/mirroring:mirroring_unittests
+//components/nacl/loader:nacl_loader_unittests
 //components/offline_pages:offline_pages_unittests
 //components/rappor:rappor_unittests
 //components/services/filesystem:filesystem
@@ -70,8 +73,6 @@
 //components/subresource_filter/tools:subresource_filter_tool
 //components/subresource_filter/tools:subresource_indexing_tool
 //components/sync:run_sync_testserver
-//components/sync/tools:sync_client
-//components/sync/tools:sync_listen_notifications
 //components/tracing:tracing_perftests
 //components/ukm:ukm_unittests
 //components/url_formatter/top_domains:make_top_domain_skeletons
@@ -141,6 +142,7 @@
 //media/cast:udp_proxy
 //media/gpu:video_decode_accelerator_unittest
 //media/gpu:video_encode_accelerator_unittest
+//media/learning/mojo:media_learning_mojo_unittests
 //media/midi:midi_unittests
 //media/mojo:media_mojo_unittests
 //media/mojo/services:media
@@ -150,6 +152,10 @@
 //mojo:mojo_perftests
 //mojo:mojo_unittests
 //mojo/core:mojo_core_unittests
+//native_client/src/tools/tls_edit:tls_edit
+//native_client/src/trusted/debug_stub:gdb_rsp_unittest
+//native_client/src/trusted/service_runtime:sel_ldr
+//native_client/src/trusted/validator/driver:ncval_new
 //net:cert_verify_tool
 //net:crash_cache
 //net:crypto_message_printer
@@ -276,6 +282,8 @@
 //third_party/crashpad/crashpad/util:crashpad_util_test_safe_terminate_process_test_child
 //third_party/crashpad/crashpad/util:http_transport_test_server
 //third_party/crc32c:crc32c_tests
+//third_party/dawn:dawn_end2end_tests
+//third_party/dawn:dawn_unittests
 //third_party/flatbuffers:flatbuffers_unittest
 //third_party/flatbuffers:flatc
 //third_party/leveldatabase:env_chromium_unittests
@@ -299,9 +307,10 @@
 //third_party/libaddressinput:libaddressinput_unittests
 //third_party/libjingle_xmpp:libjingle_xmpp_unittests
 //third_party/libphonenumber:libphonenumber_unittests
+//third_party/libprotobuf-mutator:override_lite_runtime_plugin
 //third_party/libwebp:cwebp
 //third_party/libwebp:dwebp
-//third_party/lzma_sdk/Util/SfxSetup:7zS2
+//third_party/nasm:nasm
 //third_party/opus:opus_compare
 //third_party/opus:opus_demo
 //third_party/opus:test_opus_api
@@ -317,7 +326,7 @@
 //third_party/protobuf:js_embed
 //third_party/protobuf:protoc
 //third_party/rnnoise:kiss_fft_unittest
-//third_party/swiftshader/tests/unittests:swiftshader_unittests
+//third_party/swiftshader/tests/GLESUnitTests:swiftshader_unittests
 //third_party/tcmalloc:addr2line-pdb
 //third_party/webrtc/rtc_tools:frame_analyzer
 //third_party/yasm:genmacro
