@@ -1,3 +1,3 @@
 @echo off
-winnice --all-idle --new-process %*
+C:\Linkout\winnice\x64\winnice.exe --all-idle --new-process %*
 

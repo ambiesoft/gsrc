@@ -21,10 +21,11 @@ IDE options
       Generate files for an IDE. Currently supported values:
       "eclipse" - Eclipse CDT settings file.
       "vs" - Visual Studio project/solution files.
-             (default Visual Studio version: 2015)
+             (default Visual Studio version: 2017)
       "vs2013" - Visual Studio 2013 project/solution files.
       "vs2015" - Visual Studio 2015 project/solution files.
       "vs2017" - Visual Studio 2017 project/solution files.
+      "vs2019" - Visual Studio 2019 project/solution files.
       "xcode" - Xcode workspace/solution files.
       "qtcreator" - QtCreator project files.
       "json" - JSON file containing target information
@@ -50,6 +51,10 @@ Visual Studio Flags
       As an example, "10.0.15063.0" can be specified to use Creators Update SDK
       instead of the default one.
 
+  --ninja-extra-args=<string>
+      This string is passed without any quoting to the ninja invocation
+      command-line. Can be used to configure ninja flags, like "-j".
+
 Xcode Flags
 
   --workspace=<file_name>
@@ -58,8 +63,7 @@ Xcode Flags
 
   --ninja-extra-args=<string>
       This string is passed without any quoting to the ninja invocation
-      command-line. Can be used to configure ninja flags, like "-j" if using
-      goma for example.
+      command-line. Can be used to configure ninja flags, like "-j".
 
   --root-target=<target_name>
       Name of the target corresponding to "All" target in Xcode. If unset,
@@ -101,4 +105,13 @@ Generic JSON Output
 
   --json-ide-script-args=<argument>
       Optional second argument that will passed to executed script.
+
+Compilation Database
+
+  --export-compile-commands
+      Produces a compile_commands.json file in the root of the build directory
+      containing an array of “command objects”, where each command object
+      specifies one way a translation unit is compiled in the project. This is
+      used for various Clang-based tooling, allowing for the replay of individual
+      compilations independent of the build system.
 

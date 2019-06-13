@@ -1,9 +1,14 @@
 *~
 .idea/
+angle/
 chromium/
 depot_tools/
 monorail/
 T/
+gn/
+ninja/
+skia/
+skiaex/
 
 gdev.exe
 gdev.ini
@@ -12,10 +17,6 @@ gdev.ipdb
 gdev.pdb
 
 
-gn/
-ninja/
-skia/
-skiaex/
 
 .cipd/
 .gclient
