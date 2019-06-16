@@ -1,0 +1,8 @@
+executable("mymain") {
+   deps = [
+      # "//base",
+    ]
+  sources = [
+    "mymain.cc",
+  ]
+}
