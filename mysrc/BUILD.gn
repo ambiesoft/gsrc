@@ -1,6 +1,6 @@
 executable("mymain") {
    deps = [
-      # "//base",
+      "//base",
     ]
   sources = [
     "mymain.cc",
