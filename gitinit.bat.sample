@@ -1,4 +1,0 @@
-REM @echo off
-git config --global user.name "somebody"
-git config --global user.email "somebody@example.com"
-
