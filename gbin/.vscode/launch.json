@@ -5,12 +5,32 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "real2gn",
+            "name": "real2gn - 1",
             "type": "python",
             "request": "launch",
             "pythonPath": "D:\\dsrc\\depot_tools\\win_tools-2_7_13_chromium7_bin\\python\\bin\\python.exe",
             "program": "${workspaceFolder}\\real2gn.py",
             "args": ["D:\\dsrc\\skia\\skia\\buildtools\\third_party\\libunwind\\OWNERS"],
+            "cwd": "D:\\dsrc\\skia\\skia",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "real2gn - 2",
+            "type": "python",
+            "request": "launch",
+            "pythonPath": "D:\\dsrc\\depot_tools\\win_tools-2_7_13_chromium7_bin\\python\\bin\\python.exe",
+            "program": "${workspaceFolder}\\real2gn.py",
+            "args": ["D:\\dsrc\\skia\\skia\\tools\\sk_app\\Application.h"],
+            "cwd": "D:\\dsrc\\chromium\\src",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "real2gn - 3",
+            "type": "python",
+            "request": "launch",
+            "pythonPath": "D:\\dsrc\\depot_tools\\win_tools-2_7_13_chromium7_bin\\python\\bin\\python.exe",
+            "program": "${workspaceFolder}\\real2gn.py",
+            "args": ["tests\\AAClipTest.cpp"],
             "cwd": "D:\\dsrc\\skia\\skia",
             "console": "integratedTerminal"
         },
