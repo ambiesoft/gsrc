@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "real2gn",
+            "type": "python",
+            "request": "launch",
+            "pythonPath": "D:\\dsrc\\depot_tools\\win_tools-2_7_13_chromium7_bin\\python\\bin\\python.exe",
+            "program": "${workspaceFolder}\\real2gn.py",
+            "args": ["D:\\dsrc\\skia\\skia\\buildtools\\third_party\\libunwind\\OWNERS"],
+            "cwd": "D:\\dsrc\\skia\\skia",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "gnrefsr",
+            "type": "python",
+            "request": "launch",
+            "pythonPath": "D:\\dsrc\\depot_tools\\win_tools-2_7_13_chromium7_bin\\python\\bin\\python.exe",
+            "program": "${workspaceFolder}\\gnrefsr.py",
+            "args": ["D:\\dsrc\\skia\\skia\\buildtools\\third_party\\libunwind\\OWNERS"],
+            "cwd": "D:\\dsrc\\skia\\skia",
+            "console": "integratedTerminal"
+        }
+    ]
+}
