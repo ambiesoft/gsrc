@@ -25,7 +25,15 @@ def getRelativePath(sourceDir, path):
     if input = C:\\a\\b\\c\\d\\x.txt and sourceDir = C:\\a\\b,
     the result is c\\d\\x.txt
     '''
-    return os.path.relpath(path, sourceDir)
+    ret = os.path.relpath(path, sourceDir)
+
+    # check if ret is under sourceDir
+    common = os.path.commonprefix(
+        [os.path.abspath(path), os.path.abspath(sourceDir)])
+    if not common or not isSamePath(common, sourceDir):
+        exit("'{0}' is not under source root '{1}'".format(
+            path, os.path.abspath(sourceDir)))
+    return ret
 
 
 def real2gn(inputPath):
@@ -34,13 +42,14 @@ def real2gn(inputPath):
     sourceDir = findSourceRootDirectory()
 
     # get the relative path from .gn dir
-    diffPath = getRelativePath(sourceDir,inputPath)
-    
+    diffPath = getRelativePath(sourceDir, inputPath)
+
     # create output
     diffPath = diffPath.replace('\\', '/')
     gnPath = '//' + diffPath
 
     return gnPath
+
 
 def main():
     if len(sys.argv) <= 1:
@@ -48,6 +57,7 @@ def main():
 
     inputPath = sys.argv[1]
     print(real2gn(inputPath))
-    
+
+
 if __name__ == "__main__":
     main()
