@@ -12,5 +12,13 @@
 
 <Function><Name>base::BasicStringPiece&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>scoped_refptr&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::Lock::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::CommandLine::.*</Name><Action>NoStepInto</Action></Function>
+
+
+<!-- skip SkString and SkOSPath in skia -->
+<Function><Name>SkString::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>SkOSPath::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>SkTArray&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 
 </StepFilter>

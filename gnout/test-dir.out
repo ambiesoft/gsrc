@@ -1,0 +1,85 @@
+ Volume in drive D has no label.
+ Volume Serial Number is 3E83-482D
+
+ Directory of D:\dsrc\chromium\src
+
+06/17/2019  07:09 AM    <DIR>          .
+06/17/2019  07:09 AM    <DIR>          ..
+06/13/2019  07:22 PM             1,289 .clang-format
+06/13/2019  07:22 PM               982 .eslintrc.js
+06/13/2019  07:22 PM            16,745 .git-blame-ignore-revs
+06/13/2019  07:22 PM             1,241 .gitattributes
+06/13/2019  07:22 PM             8,857 .gitignore
+06/13/2019  07:22 PM            23,357 .gn
+06/14/2019  12:05 AM             1,179 .landmines
+06/13/2019  07:22 PM             7,222 .vpython
+06/23/2019  02:36 PM    <DIR>          android_webview
+06/13/2019  07:22 PM    <DIR>          apps
+06/13/2019  07:22 PM    <DIR>          ash
+06/13/2019  07:22 PM            40,874 AUTHORS
+06/13/2019  07:22 PM    <DIR>          base
+06/13/2019  08:50 PM    <DIR>          build
+06/17/2019  07:32 AM            41,472 BUILD.gn
+06/13/2019  07:22 PM    <DIR>          buildtools
+06/13/2019  07:22 PM    <DIR>          build_overrides
+06/13/2019  07:23 PM    <DIR>          cc
+06/13/2019  07:25 PM    <DIR>          chrome
+06/13/2019  07:25 PM    <DIR>          chromecast
+06/13/2019  07:25 PM    <DIR>          chromeos
+06/13/2019  07:25 PM    <DIR>          cloud_print
+06/13/2019  07:25 PM               325 codereview.settings
+06/13/2019  07:22 PM             3,988 CODE_OF_CONDUCT.md
+06/13/2019  07:25 PM    <DIR>          components
+06/13/2019  07:26 PM    <DIR>          content
+06/13/2019  07:26 PM    <DIR>          courgette
+06/13/2019  07:26 PM    <DIR>          crypto
+06/13/2019  07:26 PM    <DIR>          dbus
+06/13/2019  07:22 PM           106,062 DEPS
+06/13/2019  07:26 PM    <DIR>          device
+06/13/2019  07:26 PM    <DIR>          docs
+06/13/2019  07:22 PM               275 ENG_REVIEW_OWNERS
+06/13/2019  07:26 PM    <DIR>          extensions
+06/13/2019  07:26 PM    <DIR>          fuchsia
+06/13/2019  07:26 PM    <DIR>          gin
+06/13/2019  07:26 PM    <DIR>          google_apis
+06/13/2019  07:26 PM    <DIR>          google_update
+06/13/2019  07:27 PM    <DIR>          gpu
+06/13/2019  07:27 PM    <DIR>          headless
+06/13/2019  07:27 PM    <DIR>          infra
+06/13/2019  07:27 PM    <DIR>          ios
+06/13/2019  07:27 PM    <DIR>          ipc
+06/13/2019  07:27 PM    <DIR>          jingle
+06/13/2019  07:22 PM             1,559 LICENSE
+06/13/2019  07:22 PM             1,571 LICENSE.chromium_os
+06/13/2019  07:27 PM    <DIR>          media
+06/13/2019  07:27 PM    <DIR>          mojo
+06/17/2019  07:09 AM    <JUNCTION>     mysrc [D:\dsrc\mysrc]
+06/13/2019  08:46 PM    <DIR>          native_client
+06/13/2019  07:27 PM    <DIR>          native_client_sdk
+06/13/2019  07:28 PM    <DIR>          net
+06/17/2019  05:45 PM    <DIR>          out
+06/13/2019  07:22 PM             1,036 OWNERS
+06/13/2019  07:28 PM    <DIR>          pdf
+06/13/2019  07:28 PM    <DIR>          ppapi
+06/13/2019  07:22 PM           156,823 PRESUBMIT.py
+06/13/2019  07:22 PM            91,520 PRESUBMIT_test.py
+06/13/2019  07:22 PM             7,892 PRESUBMIT_test_mocks.py
+06/13/2019  07:28 PM    <DIR>          printing
+06/13/2019  07:22 PM               489 README.md
+06/13/2019  07:28 PM    <DIR>          remoting
+06/13/2019  07:28 PM    <DIR>          rlz
+06/13/2019  07:28 PM    <DIR>          sandbox
+06/13/2019  07:28 PM    <DIR>          services
+06/13/2019  07:28 PM    <DIR>          skia
+06/13/2019  07:28 PM    <DIR>          sql
+06/13/2019  07:28 PM    <DIR>          storage
+06/13/2019  07:28 PM    <DIR>          styleguide
+06/13/2019  07:28 PM    <DIR>          testing
+06/13/2019  08:50 PM    <DIR>          third_party
+06/13/2019  08:46 PM    <DIR>          tools
+06/13/2019  07:50 PM    <DIR>          ui
+06/13/2019  07:50 PM    <DIR>          url
+06/13/2019  08:45 PM    <DIR>          v8
+06/13/2019  07:22 PM           115,941 WATCHLISTS
+              22 File(s)        630,699 bytes
+              56 Dir(s)  45,968,588,800 bytes free
