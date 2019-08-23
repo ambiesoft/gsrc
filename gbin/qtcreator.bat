@@ -1,0 +1,1 @@
+start "" "Y:\G\Qt\Tools\QtCreator\bin\qtcreator.exe" %*
