@@ -1,8 +1,152 @@
+import("//build/config/jumbo.gni")
+import("//build/config/ui.gni")
+import("//testing/test.gni")
+
 executable("mymain") {
    deps = [
       "//base",
     ]
   sources = [
     "mymain.cc",
+  ]
+}
+executable("my_hello_world") {
+   deps = [
+      "//base",
+    ]
+  sources = [
+    "my_hello_world.cc",
+  ]
+}
+executable("my_message_loop") {
+   deps = [
+      "//base",
+    ]
+  sources = [
+    "my_message_loop.cc",
+  ]
+}
+executable("my_callbacks") {
+   deps = [
+      "//base",
+    ]
+  sources = [
+    "my_callbacks.cc",
+  ]
+}
+
+executable("my_aura_demo") {
+  output_name = "my_aura_demo"
+  testonly = true
+
+  sources = [
+    "my_aura_demo/demo_main.cc",
+  ]
+
+  deps = [
+    "//ui/aura",
+    "//ui/aura:test_support",
+    "//base",
+    "//base:i18n",
+    "//build/win:default_exe_manifest",
+    "//components/viz/host",
+    "//components/viz/service",
+    "//skia",
+    "//third_party/icu",
+    "//ui/base",
+    "//ui/base/ime/init",
+    "//ui/compositor",
+    "//ui/compositor:test_support",
+    "//ui/display",
+    "//ui/events",
+    "//ui/gfx",
+    "//ui/gfx/geometry",
+    "//ui/gl",
+    "//ui/gl/init",
+#    "//mojo/public/cpp/system",
+    "//mojo/core/embedder",
+  ]
+
+  if (use_x11) {
+    deps += [ "//ui/gfx/x" ]
+  }
+}
+
+executable("my_views_examples_exe") {
+  testonly = true
+
+  sources = [
+    "my_views_examples_exe/my_examples_main.cc",
+  ]
+
+  deps = [
+    "//ui/views/examples:views_examples_lib",
+    "//base",
+    "//base:i18n",
+    "//base/test:test_support",
+    "//build/win:default_exe_manifest",
+    "//components/viz/host",
+    "//components/viz/service",
+    "//ui/base",
+    "//ui/base/ime/init",
+    "//ui/compositor",
+    "//ui/compositor:test_support",
+    "//ui/gfx",
+    "//ui/gl",
+    "//ui/gl/init",
+    "//ui/resources:ui_test_pak",
+    "//ui/views",
+    "//ui/views:test_support",
+  ]
+
+  if (use_aura) {
+    deps += [
+      "//ui/aura",
+      "//ui/wm",
+    ]
+  }
+  if (use_x11) {
+    deps += [ "//ui/gfx/x" ]
+  }
+}
+executable("my_views_examples_with_content_exe") {
+  testonly = true
+
+  sources = [
+    "my_views_examples_exe/my_examples_with_content_main_exe.cc",
+  ]
+
+  defines = [ "VIEWS_EXAMPLES_WITH_CONTENT_IMPLEMENTATION" ]
+
+  deps = [
+    "//ui/views/examples:copy_content_resources",
+    "//ui/views/examples:views_examples_with_content_lib",
+    "//base",
+    "//build/win:default_exe_manifest",
+    "//content",
+    "//content:sandbox_helper_win",
+    "//sandbox",
+    "//ui/views_content_client",
+  ]
+
+  if (is_win) {
+    configs += [ "//build/config/win:windowed" ]
+    configs -= [ "//build/config/win:console" ]
+  }
+}
+executable("my_sequence") {
+   deps = [
+      "//base",
+    ]
+  sources = [
+    "my_sequence.cc",
+  ]
+}
+executable("my_threadandmessageloop") {
+   deps = [
+      "//base",
+    ]
+  sources = [
+    "my_threadandmessageloop.cc",
   ]
 }

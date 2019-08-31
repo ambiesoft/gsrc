@@ -4,7 +4,7 @@
 <Function><Name>operator delete</Name><Action>NoStepInto</Action></Function>
 
 <!-- Skip everything in std -->
-<Function><Name>std::(?!make_unique).*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>std::(?!.*make_unique).*</Name><Action>NoStepInto</Action></Function>
 
 
 <!-- all methods on WebKit OwnPtr and variants, ... WTF::*Ptr<*>::* -->
