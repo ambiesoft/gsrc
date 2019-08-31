@@ -1,0 +1,11 @@
+
+std::pair and std::tie
+std::tie(a,s) = std::make_pair(1,"aaa");
+
+RegisterTraceGuids
+
+EventRegister
+
+std::is_copy_constructible<T>::value
+std::is_copy_constructible<T>::value
+https://chromium.googlesource.com/chromium/src/+/master/docs/optional.md

@@ -8,7 +8,6 @@
 //cc:cc_perftests
 //cc:cc_unittests
 //chrome:chrome_initial
-//chrome/browser/nacl_host/test:mock_nacl_gdb
 //chrome/browser/vr:vr_common_perftests
 //chrome/browser/vr:vr_common_unittests
 //chrome/browser/vr:vr_pixeltests
@@ -68,7 +67,6 @@
 //components/cronet:cronet_unittests
 //components/metrics:metrics_unittests
 //components/mirroring:mirroring_unittests
-//components/nacl/loader:nacl_loader_unittests
 //components/offline_pages:offline_pages_unittests
 //components/rappor:rappor_unittests
 //components/services/filesystem:filesystem
@@ -80,6 +78,7 @@
 //components/subresource_filter/tools:subresource_indexing_tool
 //components/tracing:tracing_perftests
 //components/ukm:ukm_unittests
+//components/url_formatter/tools:format_url
 //components/url_formatter/top_domains:make_top_domain_list_for_edit_distance
 //components/url_formatter/top_domains:make_top_domain_skeletons
 //components/url_formatter/top_domains:top_domain_generator
@@ -105,6 +104,7 @@
 //device:device_unittests
 //extensions:extensions_browsertests
 //extensions:extensions_unittests
+//extensions/browser/api/declarative_net_request/filter_list_converter:filter_list_converter
 //extensions/shell:app_shell
 //extensions/shell:app_shell_unittests
 //gin:gin_shell
@@ -157,11 +157,14 @@
 //mojo:mojo_perftests
 //mojo:mojo_unittests
 //mojo/core:mojo_core_unittests
+//mysrc:my_aura_demo
+//mysrc:my_callbacks
+//mysrc:my_hello_world
+//mysrc:my_message_loop
+//mysrc:my_sequence
+//mysrc:my_views_examples_exe
+//mysrc:my_views_examples_with_content_exe
 //mysrc:mymain
-//native_client/src/tools/tls_edit:tls_edit
-//native_client/src/trusted/debug_stub:gdb_rsp_unittest
-//native_client/src/trusted/service_runtime:sel_ldr
-//native_client/src/trusted/validator/driver:ncval_new
 //net:cert_verify_tool
 //net:crash_cache
 //net:crypto_message_printer
@@ -239,6 +242,12 @@
 //storage/browser:dump_file_system
 //testing:empty_main
 //third_party/SPIRV-Tools/src:spirv-as
+//third_party/SPIRV-Tools/src:spirv-cfg
+//third_party/SPIRV-Tools/src:spirv-dis
+//third_party/SPIRV-Tools/src:spirv-link
+//third_party/SPIRV-Tools/src:spirv-opt
+//third_party/SPIRV-Tools/src:spirv-reduce
+//third_party/SPIRV-Tools/src:spirv-val
 //third_party/SPIRV-Tools/src:spvtools_test
 //third_party/angle:angle_shader_translator
 //third_party/angle/src/tests:angle_end2end_tests
@@ -262,6 +271,8 @@
 //third_party/boringssl:boringssl_crypto_tests
 //third_party/boringssl:boringssl_ssl_tests
 //third_party/breakpad:dump_syms
+//third_party/breakpad:google_converter
+//third_party/breakpad:symupload
 //third_party/brotli:brotli
 //third_party/cacheinvalidation:cacheinvalidation_unittests
 //third_party/catapult/telemetry:bitmaptools
@@ -295,6 +306,7 @@
 //third_party/flatbuffers:flatbuffers_unittests
 //third_party/flatbuffers:flatc
 //third_party/glslang/src:glslang_validator
+//third_party/glslang/src:spirv-remap
 //third_party/grpc:grpc_cpp_plugin
 //third_party/leveldatabase:env_chromium_unittests
 //third_party/leveldatabase:leveldb_arena_test
@@ -332,8 +344,8 @@
 //third_party/pdfium:pdfium_unittests
 //third_party/pdfium/samples:pdfium_test
 //third_party/perfetto:perfetto_unittests
-//third_party/perfetto/src/protozero/protoc_plugin:protoc_plugin
-//third_party/perfetto/src/trace_processor:trace_processor_shell_host
+//third_party/perfetto:trace_processor_shell
+//third_party/perfetto/src/protozero/protoc_plugin:protozero_plugin
 //third_party/pffft:pffft_benchmark
 //third_party/pffft:pffft_unittest
 //third_party/protobuf:js_embed
@@ -352,7 +364,6 @@
 //third_party/zlib:zlib_bench
 //tools/accessibility/inspect:ax_dump_events
 //tools/accessibility/inspect:ax_dump_tree
-//tools/gn/tutorial:hello_world
 //tools/imagediff:imagediff
 //tools/perf/clear_system_cache:clear_system_cache
 //tools/traffic_annotation/auditor:traffic_annotation_auditor
@@ -384,6 +395,7 @@
 //url/ipc:url_ipc_unittests
 //v8:bytecode_builtins_list_generator
 //v8:d8
+//v8:gen-regexp-special-case
 //v8:mksnapshot
 //v8:torque
 //v8:torque-language-server

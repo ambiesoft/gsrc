@@ -37,60 +37,60 @@ android_channel
 
 android_full_debug
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:50
+      From //build/config/compiler/BUILD.gn:53
 
     Normally, Android builds are lightly optimized, even for debug builds, to
     keep binary size down. Setting this flag to true disables such optimization
 
 angle_64bit_current_cpu
     Current value (from the default) = false
-      From //third_party/angle/gni/angle.gni:38
+      From //third_party/angle/gni/angle.gni:34
 
 angle_enable_custom_vulkan_cmd_buffers
     Current value (from the default) = true
-      From //third_party/angle/gni/angle.gni:91
+      From //third_party/angle/gni/angle.gni:92
 
     Enable custom (cpu-side) secondary command buffers
 
 angle_enable_d3d11
     Current value (from the default) = true
-      From //third_party/angle/gni/angle.gni:58
+      From //third_party/angle/gni/angle.gni:60
 
 angle_enable_d3d9
     Current value (from the default) = true
-      From //third_party/angle/gni/angle.gni:57
+      From //third_party/angle/gni/angle.gni:59
 
 angle_enable_essl
     Current value (from the default) = true
-      From //third_party/angle/gni/angle.gni:68
+      From //third_party/angle/gni/angle.gni:70
 
 angle_enable_gl
     Current value (from the default) = true
-      From //third_party/angle/gni/angle.gni:59
+      From //third_party/angle/gni/angle.gni:61
 
 angle_enable_gl_null
     Current value (from the default) = true
-      From //third_party/angle/gni/angle.gni:74
+      From //third_party/angle/gni/angle.gni:75
 
 angle_enable_glsl
     Current value (from the default) = true
-      From //third_party/angle/gni/angle.gni:69
+      From //third_party/angle/gni/angle.gni:71
 
 angle_enable_hlsl
     Current value (from the default) = true
-      From //third_party/angle/gni/angle.gni:75
+      From //third_party/angle/gni/angle.gni:76
 
 angle_enable_null
     Current value (from the default) = true
-      From //third_party/angle/gni/angle.gni:67
+      From //third_party/angle/gni/angle.gni:69
 
 angle_enable_trace
     Current value (from the default) = false
-      From //third_party/angle/gni/angle.gni:76
+      From //third_party/angle/gni/angle.gni:77
 
 angle_enable_vulkan
     Current value (from the default) = true
-      From //third_party/angle/gni/angle.gni:65
+      From //third_party/angle/gni/angle.gni:67
 
     ANGLE Vulkan backend on Android requires API level 26, i.e. Oreo, due to
     Vulkan Validation Layers compatibility issues, see http://crrev/c/1405714.
@@ -98,21 +98,17 @@ angle_enable_vulkan
 
 angle_enable_vulkan_gpu_trace_events
     Current value (from the default) = false
-      From //third_party/angle/gni/angle.gni:85
+      From //third_party/angle/gni/angle.gni:86
 
     Enable Vulkan GPU trace event capability
 
 angle_enable_vulkan_validation_layers
     Current value (from the default) = true
-      From //third_party/angle/gni/angle.gni:80
-
-angle_force_thread_safety
-    Current value (from the default) = false
-      From //third_party/angle/gni/angle.gni:70
+      From //third_party/angle/gni/angle.gni:81
 
 angle_libs_suffix
     Current value (from the default) = ""
-      From //third_party/angle/gni/angle.gni:53
+      From //third_party/angle/gni/angle.gni:54
 
 angle_link_glx
     Current value (from the default) = false
@@ -122,11 +118,11 @@ angle_link_glx
 
 angle_shared_libvulkan
     Current value (from the default) = false
-      From //third_party/angle/gni/angle.gni:52
+      From //third_party/angle/gni/angle.gni:48
 
 angle_vulkan_conformant_configs_only
     Current value (from the default) = false
-      From //third_party/angle/gni/angle.gni:88
+      From //third_party/angle/gni/angle.gni:89
 
     Disallow non-conformant configurations in official builds.
 
@@ -159,13 +155,13 @@ asan_use_blacklist
 
 async_ar
     Current value (from the default) = false
-      From //device/vr/buildflags/buildflags.gni:55
+      From //device/vr/buildflags/buildflags.gni:54
 
     Whether to create AR module as an asynchronous DFM.
 
 async_vr
     Current value (from the default) = false
-      From //device/vr/buildflags/buildflags.gni:58
+      From //device/vr/buildflags/buildflags.gni:57
 
     Whether to create VR module as an asynchronous DFM.
 
@@ -177,7 +173,7 @@ audio_processing_in_audio_service_supported
 
 auto_profile_path
     Current value (from the default) = ""
-      From //build/config/compiler/BUILD.gn:94
+      From //build/config/compiler/BUILD.gn:97
 
     AFDO (Automatic Feedback Directed Optimizer) is a form of profile-guided
     optimization that GCC supports. It used by ChromeOS in their official
@@ -186,7 +182,7 @@ auto_profile_path
 
 binutils_path
     Current value (from the default) = "../../third_party/binutils/Linux_x64/Release/bin"
-      From //build/config/compiler/BUILD.gn:59
+      From //build/config/compiler/BUILD.gn:62
 
 blink_animation_use_time_delta
     Current value (from the default) = false
@@ -219,7 +215,7 @@ blink_gc_plugin_option_warn_unneeded_finalizer
 
 blink_symbol_level
     Current value (from the default) = -1
-      From //third_party/blink/renderer/config.gni:32
+      From //third_party/blink/renderer/config.gni:33
 
     How many symbols to include in the build of blink. This affects
     the performance of the build since the symbols are large and dealing with
@@ -270,6 +266,10 @@ build_with_mozilla
 
     Enable to use the Mozilla internal settings.
 
+builtin_cert_verifier_feature_supported
+    Current value (from the default) = false
+      From //net/features.gni:51
+
 cast_is_debug
     Current value (from the default) = true
       From //build/config/chromecast_build.gni:16
@@ -283,6 +283,10 @@ cc_wrapper
       From //build/toolchain/cc_wrapper.gni:36
 
     Set to "ccache", "icecc" or "distcc".  Probably doesn't work on windows.
+
+chrome_orderfile_path
+    Current value (from the default) = ""
+      From //build/config/compiler/BUILD.gn:188
 
 chrome_pgo_phase
     Current value (from the default) = 0
@@ -309,7 +313,7 @@ clang_base_path
 
 clang_sample_profile_path
     Current value (from the default) = ""
-      From //build/config/compiler/BUILD.gn:101
+      From //build/config/compiler/BUILD.gn:104
 
     Path to an AFDO profile to use while building with clang, if any. Empty
     implies none.
@@ -323,7 +327,7 @@ clang_use_chrome_plugins
 
 clang_use_default_sample_profile
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:109
+      From //build/config/compiler/BUILD.gn:112
 
     Some configurations have default sample profiles. If this is true and
     clang_sample_profile_path is empty, we'll fall back to the default.
@@ -358,7 +362,7 @@ com_init_check_hook_disabled
 
 compiler_timing
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:113
+      From //build/config/compiler/BUILD.gn:116
 
     Turn this on to have the compiler output extra timing information.
 
@@ -397,25 +401,27 @@ concurrent_links
 
 content_shell_major_version
     Current value (from the default) = "99"
-      From //content/shell/BUILD.gn:29
+      From //content/shell/BUILD.gn:31
 
 content_shell_product_name
     Current value (from the default) = "Content Shell"
-      From //content/shell/BUILD.gn:27
+      From //content/shell/BUILD.gn:29
 
 content_shell_version
     Current value (from the default) = "99.77.34.5"
-      From //content/shell/BUILD.gn:28
+      From //content/shell/BUILD.gn:30
 
 coverage_instrumentation_input_file
     Current value (from the default) = ""
-      From //build/config/coverage/coverage.gni:22
+      From //build/config/coverage/coverage.gni:24
 
     The path to the coverage instrumentation input file should be a source root
     absolute path (e.g. //out/Release/coverage_instrumentation_input.txt), and
     the file consists of multiple lines where each line represents a path to a
     source file, and the paths must be relative to the root build directory.
     e.g. ../../base/task/post_task.cc for build directory 'out/Release'.
+   
+    NOTE that this arg will be non-op if use_clang_coverage is false.
 
 crashpad_dependencies
     Current value = "chromium"
@@ -566,7 +572,7 @@ enable_app_shell_installer
 
 enable_arcore
     Current value (from the default) = false
-      From //device/vr/buildflags/buildflags.gni:42
+      From //device/vr/buildflags/buildflags.gni:47
 
     Controls inclusion of code for ARCore that must be identical across configs.
     Once crbug.com/920424 is resolved, this will exactly control whether ARCore
@@ -618,7 +624,10 @@ enable_captive_portal_detection
 
 enable_cast_renderer
     Current value (from the default) = false
-      From //build/config/chromecast_build.gni:47
+      From //build/config/chromecast_build.gni:42
+
+    True to enable the cast renderer.  It is enabled by default for non-android
+    builds.
 
 enable_cbcs_encryption_scheme
     Current value (from the default) = true
@@ -648,13 +657,6 @@ enable_cros_libassistant
 
     Enable assistant implementation based on libassistant. This requires
     enable_cros_assistant also enabled.
-
-enable_cross_trusted
-    Current value (from the default) = false
-      From //native_client_sdk/src/BUILD.gn:10
-
-    Set to true if cross compiling trusted (e.g. building sel_ldr_arm on x86)
-    binaries is supported.
 
 enable_dav1d_decoder
     Current value (from the default) = true
@@ -714,7 +716,7 @@ enable_ffmpeg_video_decoders
 
 enable_full_stack_frames_for_profiling
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:67
+      From //build/config/compiler/BUILD.gn:70
 
     Compile in such a way as to make it possible for the profiler to unwind full
     stack frames. Setting this flag has a large effect on the performance of the
@@ -739,16 +741,22 @@ enable_gvr_services
     Current value (from the default) = false
       From //device/vr/buildflags/buildflags.gni:11
 
+enable_gwp_asan
+    Current value (from the default) = true
+      From //components/gwp_asan/buildflags/buildflags.gni:19
+
+    Convenience definition
+
 enable_gwp_asan_malloc
     Current value (from the default) = false
-      From //components/gwp_asan/buildflags/buildflags.gni:10
+      From //components/gwp_asan/buildflags/buildflags.gni:13
 
     Is GWP-ASan malloc/PartitionAlloc hooking enabled for chrome/ on a given
     platform.
 
 enable_gwp_asan_partitionalloc
     Current value (from the default) = true
-      From //components/gwp_asan/buildflags/buildflags.gni:11
+      From //components/gwp_asan/buildflags/buildflags.gni:14
 
 enable_hangout_services_extension
     Current value (from the default) = false
@@ -786,10 +794,6 @@ enable_ipc_logging
 
     Enabling debug builds automatically sets enable_ipc_logging to true.
 
-enable_isolated_xr_service
-    Current value (from the default) = true
-      From //device/vr/buildflags/buildflags.gni:49
-
 enable_iterator_debugging
     Current value (from the default) = false
       From //build/config/BUILD.gn:37
@@ -809,7 +813,7 @@ enable_iterator_debugging
 
 enable_keystone_registration_framework
     Current value (from the default) = true
-      From //chrome/BUILD.gn:51
+      From //chrome/BUILD.gn:52
 
     Indicates whether keystone registration framework should be enabled (see
     action("keystone_registration_framework") below).  There are some tests
@@ -938,12 +942,6 @@ enable_mse_mpeg2ts_stream_parser
     Current value (from the default) = false
       From //media/media_options.gni:64
 
-enable_mus
-    Current value (from the default) = false
-      From //ui/base/ui_features.gni:18
-
-    Set to true to if mus (aka the window service) is enabled.
-
 enable_mutex_priority_inheritance
     Current value (from the default) = false
       From //base/BUILD.gn:59
@@ -953,7 +951,9 @@ enable_mutex_priority_inheritance
     platform requirements to safely enable priority inheritance.
 
 enable_nacl
-    Current value (from the default) = true
+    Current value = false
+      From //out/debug/args.gn:4
+    Overridden from the default = true
       From //components/nacl/features.gni:13
 
 enable_nacl_nonsfi
@@ -981,7 +981,7 @@ enable_nocompile_tests
 
 enable_oculus_vr
     Current value (from the default) = false
-      From //device/vr/buildflags/buildflags.gni:21
+      From //device/vr/buildflags/buildflags.gni:23
 
     To build with Oculus support, the Oculus SDK for Windows will need to be
     installed in third_party/libovr/src.  See
@@ -1016,6 +1016,12 @@ enable_openscreen
 enable_openvr
     Current value (from the default) = true
       From //device/vr/buildflags/buildflags.gni:14
+
+enable_openxr
+    Current value (from the default) = false
+      From //device/vr/buildflags/buildflags.gni:26
+
+    Do not enable OpenXR until it can build without exceptions.
 
 enable_pdf
     Current value (from the default) = true
@@ -1148,7 +1154,7 @@ enable_test_mojo_media_client
 
 enable_vr
     Current value (from the default) = true
-      From //device/vr/buildflags/buildflags.gni:29
+      From //device/vr/buildflags/buildflags.gni:34
 
 enable_vulkan
     Current value (from the default) = false
@@ -1191,7 +1197,7 @@ enable_windows_mr
 
 fatal_linker_warnings
     Current value (from the default) = true
-      From //build/config/compiler/BUILD.gn:83
+      From //build/config/compiler/BUILD.gn:86
 
     Enable fatal linker warnings. Building Chromium with certain versions
     of binutils can cause linker warning.
@@ -1228,27 +1234,23 @@ fieldtrial_testing_like_official_build
     TODO(thakis): It's strange this is called "_like_official_build" but then
     checks is_chrome_branded, not is_official_build.
 
+forbid_non_component_debug_builds
+    Current value (from the default) = true
+      From //build/config/compiler/compiler.gni:81
+
+    Whether an error should be raised on attempts to make debug builds with
+    is_component_build=false. Very large debug symbols can have unwanted side
+    effects so this is enforced by default for chromium.
+
 force_local_build_id
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:135
+      From //build/config/compiler/BUILD.gn:138
 
     By default only the binaries in official builds get build IDs.
 
 full_wpo_on_official
     Current value (from the default) = false
-      From //build/config/compiler/compiler.gni:170
-
-gcc_target_rpath
-    Current value (from the default) = ""
-      From //build/config/gcc/BUILD.gn:19
-
-    When non empty, overrides the target rpath value. This allows a user to
-    make a Chromium build where binaries and shared libraries are meant to be
-    installed into separate directories, like /usr/bin/chromium and
-    /usr/lib/chromium for instance. It is useful when a build system that
-    generates a whole target root filesystem (like Yocto) is used on top of gn,
-    especially when cross-compiling.
-    Note: this gn arg is similar to gyp target_rpath generator flag.
+      From //build/config/compiler/compiler.gni:175
 
 generate_linker_map
     Current value (from the default) = false
@@ -1265,7 +1267,7 @@ generate_order_files
 
 gold_path
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:71
+      From //build/config/compiler/BUILD.gn:74
 
     When we are going to use gold we need to find it.
     This is initialized below, after use_gold might have been overridden.
@@ -1411,7 +1413,7 @@ include_transport_security_state_preload_list
 
 include_vr_data
     Current value (from the default) = false
-      From //device/vr/buildflags/buildflags.gni:34
+      From //device/vr/buildflags/buildflags.gni:39
 
     Whether to include VR extras like test APKs in non-VR-specific targets
 
@@ -1445,20 +1447,13 @@ is_cast_audio_only
 
 is_cast_desktop_build
     Current value (from the default) = false
-      From //build/config/chromecast_build.gni:39
+      From //build/config/chromecast_build.gni:35
 
     True if Chromecast build is targeted for linux desktop. This type of build
     is useful for testing and development, but currently supports only a subset
     of Cast functionality. Though this defaults to true for x86 Linux devices,
     this should be overriden manually for an embedded x86 build.
     TODO(slan): Remove instances of this when x86 is a fully supported platform.
-
-is_cast_using_cma_backend
-    Current value (from the default) = true
-      From //build/config/chromecast_build.gni:27
-
-    If true, use cast CMA backend instead of default chromium media pipeline.
-    TODO(sanfin): Remove this flag when all builds enable CMA.
 
 is_cfi
     Current value (from the default) = false
@@ -1491,7 +1486,9 @@ is_clang
     Set to true when compiling with the Clang compiler.
 
 is_component_build
-    Current value (from the default) = true
+    Current value = true
+      From //out/debug/args.gn:3
+    Overridden from the default = true
       From //build/config/BUILDCONFIG.gn:165
 
     Component build. Setting to true compiles targets declared as "components"
@@ -1685,10 +1682,6 @@ jumbo_file_merge_limit
     high and low-core build performance. -1 means do the default which
     varies depending on whether goma is enabled.
 
-ldso_path
-    Current value (from the default) = ""
-      From //build/config/gcc/BUILD.gn:20
-
 libcxx_abi_unstable
     Current value (from the default) = true
       From //build/config/c++/BUILD.gn:17
@@ -1773,7 +1766,7 @@ link_pulseaudio
 
 linux_use_bundled_binutils
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:57
+      From //build/config/compiler/BUILD.gn:60
 
 llvm_force_head_revision
     Current value (from the default) = false
@@ -1813,7 +1806,7 @@ mips_use_mmi
 
 modularize_vr_native
     Current value (from the default) = false
-      From //device/vr/buildflags/buildflags.gni:52
+      From //device/vr/buildflags/buildflags.gni:51
 
     When true, portions of VR's native code are included in the VR DFM.
 
@@ -1885,22 +1878,15 @@ msvc_use_absolute_paths
 
 msvs_xtree_patched
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:77
+      From //build/config/compiler/BUILD.gn:80
 
     Whether the VS xtree header has been patched to disable warning 4702. If
     it has, then we don't need to disable 4702 (unreachable code warning).
     The patch is preapplied to the internal toolchain and hence all bots.
 
-nacl_sdk_untrusted
-    Current value (from the default) = false
-      From //native_client_sdk/src/BUILD.gn:14
-
-    Build the nacl SDK untrusted components.  This is disabled by default since
-    not all NaCl untrusted compilers are in goma (e.g arm-nacl-glibc)
-
 ndk_api_level_at_least_26
     Current value (from the default) = false
-      From //third_party/angle/gni/angle.gni:46
+      From //third_party/angle/gni/angle.gni:42
 
 optimize_for_fuzzing
     Current value (from the default) = false
@@ -2122,7 +2108,7 @@ reporter_branding_path
 
 ro_segment_workaround_for_valgrind
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:118
+      From //build/config/compiler/BUILD.gn:121
 
     Set to true to pass --no-rosegment to lld. This is a workaround
     for a KI issue in Valgrind,
@@ -2159,7 +2145,7 @@ rtc_build_json
 
 rtc_build_libevent
     Current value (from the default) = false
-      From //third_party/webrtc/webrtc.gni:226
+      From //third_party/webrtc/webrtc.gni:227
 
 rtc_build_libsrtp
     Current value (from the default) = true
@@ -2221,7 +2207,7 @@ rtc_enable_external_auth
 
 rtc_enable_libevent
     Current value (from the default) = false
-      From //third_party/webrtc/webrtc.gni:225
+      From //third_party/webrtc/webrtc.gni:226
 
 rtc_enable_protobuf
     Current value (from the default) = true
@@ -2287,7 +2273,7 @@ rtc_include_ilbc
 
 rtc_include_internal_audio_device
     Current value (from the default) = false
-      From //third_party/webrtc/webrtc.gni:241
+      From //third_party/webrtc/webrtc.gni:242
 
     Chromium uses its own IO handling, so the internal ADM is only built for
     standalone WebRTC.
@@ -2300,13 +2286,13 @@ rtc_include_opus
 
 rtc_include_pulse_audio
     Current value (from the default) = false
-      From //third_party/webrtc/webrtc.gni:237
+      From //third_party/webrtc/webrtc.gni:238
 
     Excluded in Chromium since its prerequisites don't require Pulse Audio.
 
 rtc_include_tests
     Current value (from the default) = false
-      From //third_party/webrtc/webrtc.gni:244
+      From //third_party/webrtc/webrtc.gni:245
 
     Include tests in standalone checkout.
 
@@ -2372,7 +2358,7 @@ rtc_use_dummy_audio_file_devices
 
 rtc_use_gtk
     Current value (from the default) = false
-      From //third_party/webrtc/webrtc.gni:234
+      From //third_party/webrtc/webrtc.gni:235
 
     Build sources requiring GTK. NOTICE: This is not present in Chrome OS
     build environments, even if available for Chromium builds.
@@ -2412,7 +2398,7 @@ rtc_use_x11
 
 rtc_use_x11_extensions
     Current value (from the default) = false
-      From //third_party/webrtc/webrtc.gni:248
+      From //third_party/webrtc/webrtc.gni:249
 
     Set this to false to skip building code that also requires X11 extensions
     such as Xdamage, Xfixes.
@@ -2438,7 +2424,7 @@ safe_browsing_mode
 
 sample_profile_is_accurate
     Current value (from the default) = false
-      From //build/config/compiler/compiler.gni:101
+      From //build/config/compiler/compiler.gni:106
 
     Whether we should consider the profile we're using to be accurate. Accurate
     profiles have the benefit of (potentially substantial) binary size
@@ -2495,7 +2481,7 @@ start_daemons_for_testing
 
 strip_absolute_paths_from_debug_symbols
     Current value (from the default) = true
-      From //build/config/compiler/compiler.gni:196
+      From //build/config/compiler/compiler.gni:201
 
 strip_debug_info
     Current value (from the default) = false
@@ -2507,13 +2493,13 @@ strip_debug_info
 
 support_webgl2_compute_context
     Current value (from the default) = true
-      From //third_party/blink/renderer/config.gni:41
+      From //third_party/blink/renderer/config.gni:42
 
     If true, webgl2-compute context will be supported.
 
 supports_llvm
     Current value (from the default) = true
-      From //third_party/swiftshader/src/Reactor/BUILD.gn:21
+      From //third_party/swiftshader/src/Reactor/BUILD.gn:22
 
 symbol_level
     Current value (from the default) = -1
@@ -2550,7 +2536,7 @@ system_libdir
 
 target_cpu
     Current value = "x86"
-      From //out/debug/args.gn:3
+      From //out/debug/args.gn:5
     Overridden from the default = ""
       (Internally set; try `gn help target_cpu`.)
 
@@ -2593,7 +2579,7 @@ target_winuwp_version
 
 thin_lto_enable_optimizations
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:132
+      From //build/config/compiler/BUILD.gn:135
 
 toolkit_views
     Current value (from the default) = true
@@ -2603,7 +2589,7 @@ toolkit_views
 
 treat_warnings_as_errors
     Current value (from the default) = true
-      From //build/config/compiler/BUILD.gn:46
+      From //build/config/compiler/BUILD.gn:49
 
     Default to warnings as errors for default workflow, where we catch
     warnings with known toolchains. Allow overriding this e.g. for Chromium
@@ -2728,13 +2714,13 @@ use_custom_libcxx_for_host
 
 use_cxx11
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:97
+      From //build/config/compiler/BUILD.gn:100
 
     Allow projects that wish to stay on C++11 to override Chromium's default.
 
 use_cxx11_on_android
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:140
+      From //build/config/compiler/BUILD.gn:143
 
     C++11 may not be an option if Android test infrastructure is used.
 
@@ -2797,7 +2783,7 @@ use_gcm_from_platform
 
 use_ghash
     Current value (from the default) = true
-      From //build/config/compiler/BUILD.gn:122
+      From //build/config/compiler/BUILD.gn:125
 
     Turn this on to use ghash feature of lld for faster debug link on Windows.
     http://blog.llvm.org/2018/01/improving-link-time-on-windows-with.html
@@ -2821,7 +2807,7 @@ use_gnome_keyring
 
 use_gold
     Current value (from the default) = false
-      From //build/config/compiler/compiler.gni:182
+      From //build/config/compiler/compiler.gni:187
 
 use_goma
     Current value (from the default) = false
@@ -2837,7 +2823,7 @@ use_gtk
 
 use_icf
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:156
+      From //build/config/compiler/BUILD.gn:159
 
     Set to true to use icf, Identical Code Folding.
    
@@ -2897,7 +2883,7 @@ use_libpci
 
 use_lld
     Current value (from the default) = true
-      From //build/config/compiler/compiler.gni:176
+      From //build/config/compiler/compiler.gni:181
 
     Set to true to use lld, the LLVM linker.
 
@@ -2910,7 +2896,7 @@ use_locally_built_instrumented_libraries
 
 use_low_quality_image_interpolation
     Current value (from the default) = false
-      From //third_party/blink/renderer/config.gni:35
+      From //third_party/blink/renderer/config.gni:36
 
     If true, defaults image interpolation to low quality.
 
@@ -2995,7 +2981,7 @@ use_pulseaudio
 
 use_rtti
     Current value (from the default) = false
-      From //build/config/compiler/BUILD.gn:88
+      From //build/config/compiler/BUILD.gn:91
 
     Build with C++ RTTI enabled. Chromium builds without RTTI by default,
     but some sanitizers are known to require it, like CFI diagnostics
@@ -3022,7 +3008,7 @@ use_static_angle
 
 use_swiftshader_with_subzero
     Current value (from the default) = true
-      From //third_party/swiftshader/src/Reactor/BUILD.gn:20
+      From //third_party/swiftshader/src/Reactor/BUILD.gn:21
 
 use_sysroot
     Current value (from the default) = true
@@ -3151,17 +3137,18 @@ use_vr_assets_component
     Whether to register, download, etc. the VR assets component.
 
 use_webaudio_ffmpeg
-    Current value (from the default) = true
-      From //third_party/blink/renderer/config.gni:38
+    Current value (from the default) = false
+      From //third_party/blink/renderer/config.gni:39
 
     If true, ffmpeg will be used for computing FFTs for WebAudio
 
 use_webaudio_pffft
-    Current value (from the default) = false
-      From //third_party/blink/renderer/config.gni:19
+    Current value (from the default) = true
+      From //third_party/blink/renderer/config.gni:20
 
     If true, use PFFFT for WebAudio FFT support.  This can be used for
-    any Android architecture and also Linux and Windows.
+    any Android architecture and also Linux and Windows.  Do not use for Mac
+    because the FFT library there is much faster.
 
 use_xcode_clang
     Current value (from the default) = false
@@ -3687,4 +3674,16 @@ windows_sdk_path
     Full path to the Windows SDK, not including a backslash at the end.
     This value is the default location, override if you have a different
     installation location.
+
+x64_arch
+    Current value (from the default) = ""
+      From //build/config/x64.gni:16
+
+    The micro architecture of x64 cpu. This will be a string like "haswell" or
+    "skylake". An empty string means to use the default architecture which is
+    "x86-64".
+    CPU options for "x86-64" in GCC can be found at
+    https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+    CPU options for "x86-64" in llvm can be found at
+    https://github.com/llvm/llvm-project/blob/master/llvm/include/llvm/Support/X86TargetParser.def
 
