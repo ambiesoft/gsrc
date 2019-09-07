@@ -53,6 +53,10 @@
 //chrome/test/chromedriver:chromedriver_unittests
 //chrome/tools/convert_dict:convert_dict
 //chrome/updater/win:updater
+//chrome/updater/win:updater_unittests
+//chrome/updater/win/installer:installer
+//chrome/updater/win/installer:installer_unittest
+//chrome/updater/win/test:updater_test_process
 //cloud_print:cloud_print_unittests
 //cloud_print/virtual_driver/win/install:virtual_driver_setup
 //components:components_browsertests
@@ -65,23 +69,22 @@
 //components/cronet:cronet_sample_test
 //components/cronet:cronet_tests
 //components/cronet:cronet_unittests
+//components/gwp_asan:gwp_asan_unittests
 //components/metrics:metrics_unittests
 //components/mirroring:mirroring_unittests
 //components/offline_pages:offline_pages_unittests
 //components/rappor:rappor_unittests
-//components/services/filesystem:filesystem
 //components/services/filesystem:filesystem_service_unittests
-//components/services/leveldb:leveldb
 //components/services/leveldb:leveldb_service_unittests
 //components/subresource_filter/tools:ruleset_converter
 //components/subresource_filter/tools:subresource_filter_tool
 //components/subresource_filter/tools:subresource_indexing_tool
 //components/tracing:tracing_perftests
 //components/ukm:ukm_unittests
+//components/url_formatter/spoof_checks/top_domains:make_top_domain_list_for_edit_distance
+//components/url_formatter/spoof_checks/top_domains:make_top_domain_skeletons
+//components/url_formatter/spoof_checks/top_domains:top_domain_generator
 //components/url_formatter/tools:format_url
-//components/url_formatter/top_domains:make_top_domain_list_for_edit_distance
-//components/url_formatter/top_domains:make_top_domain_skeletons
-//components/url_formatter/top_domains:top_domain_generator
 //components/variations:variations_unittests
 //components/viz:viz_perftests
 //components/viz:viz_unittests
@@ -161,7 +164,9 @@
 //mysrc:my_callbacks
 //mysrc:my_hello_world
 //mysrc:my_message_loop
+//mysrc:my_sandbox_poc
 //mysrc:my_sequence
+//mysrc:my_threadandmessageloop
 //mysrc:my_views_examples_exe
 //mysrc:my_views_examples_with_content_exe
 //mysrc:mymain
@@ -232,8 +237,6 @@
 //services/service_manager/tests/shutdown:shutdown_client
 //services/service_manager/tests/shutdown:shutdown_service
 //services/tracing:trace_json_exporter
-//services/video_capture:video_capture
-//services/viz:viz
 //skia:filter_fuzz_stub
 //skia:image_operations_bench
 //skia:skia_unittests
@@ -302,6 +305,7 @@
 //third_party/crashpad/crashpad/util:http_transport_test_server
 //third_party/crc32c:crc32c_tests
 //third_party/dawn:dawn_end2end_tests
+//third_party/dawn:dawn_perf_tests
 //third_party/dawn:dawn_unittests
 //third_party/flatbuffers:flatbuffers_unittests
 //third_party/flatbuffers:flatc
@@ -333,6 +337,7 @@
 //third_party/libwebp:cwebp
 //third_party/libwebp:dwebp
 //third_party/nasm:nasm
+//third_party/one_euro_filter:one_euro_filter_unittests
 //third_party/opus:opus_compare
 //third_party/opus:opus_demo
 //third_party/opus:test_opus_api
@@ -348,7 +353,6 @@
 //third_party/perfetto/src/protozero/protoc_plugin:protozero_plugin
 //third_party/pffft:pffft_benchmark
 //third_party/pffft:pffft_unittest
-//third_party/protobuf:js_embed
 //third_party/protobuf:protoc
 //third_party/sqlite:sqlite_shell
 //third_party/swiftshader/tests/GLESUnitTests:swiftshader_unittests
@@ -370,8 +374,8 @@
 //tools/traffic_annotation/auditor:traffic_annotation_auditor_unittests
 //tools/v8_context_snapshot:v8_context_snapshot_generator
 //ui/accessibility:accessibility_unittests
+//ui/aura:aura_demo
 //ui/aura:aura_unittests
-//ui/aura:demo
 //ui/base:ui_base_unittests
 //ui/compositor:compositor_unittests
 //ui/display:display_unittests
@@ -417,3 +421,4 @@
 //v8/test/mkgrokdump:mkgrokdump
 //v8/test/unittests:unittests
 //v8/test/wasm-api-tests:wasm_api_tests
+//weblayer/shell:weblayer_shell

@@ -14,6 +14,16 @@
 <Function><Name>scoped_refptr&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::Lock::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::CommandLine::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::win::GenericScopedHandle&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::AutoLock::*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::internal::BasicAutoLock&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+
+<!--
+content_shell.exe!base::win::GenericScopedHandle<base::win::HandleTraits,base::win::VerifierTraits>::IsValid() Line 59
+	at C:\gsrc\chromium\src\base\win\scoped_handle.h(59)
+-->
+
+
 
 
 <!-- skip SkString and SkOSPath in skia -->
