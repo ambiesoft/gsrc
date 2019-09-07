@@ -1,0 +1,17 @@
+https://developercommunity.visualstudio.com/content/problem/586075/visual-studio-2019-its-impossible-to-turn-off-the.html#reply-587860
+From: https://gist.github.com/hmemcpy/5bc6b5cc11050b502ca3
+
+Create a file called devenv.pkgundef in each Visual Studio's Common7\IDE (you'll need elevation for this)
+Add the following entries to the file:
+
+[$RootKey$\Packages\{7fe30a77-37f9-4cf2-83dd-96b207028e1b}]
+[$RootKey$\SourceControlProviders\{11b8e6d7-c08b-4385-b321-321078cdd1f8}]
+3. Close Visual Studio
+
+4. In an elevated command prompt in the Common7\IDE directory run the command 
+devenv /updateconfiguration
+
+5. Repeat for every instance of Visual Studio
+Locations might include:
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE

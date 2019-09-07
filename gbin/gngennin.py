@@ -18,7 +18,7 @@ def query_yes_no(question, default="no"):
         It must be "yes" (the default), "no" or None (meaning
         an answer is required of the user).
 
-    The "answer" return value is one of "yes" or "no".
+    The "answer" returned is one of "yes" or "no".
     """
     valid = {"yes":"yes",   "y":"yes",  "ye":"yes",
              "no":"no",     "n":"no"}
@@ -78,7 +78,7 @@ def main():
      else:
        os.remove(path.join(outdir, slnFilename))
   
-  ninjaarg = ['ninja', '-C', outdir, fullTarget[2:]]
+  ninjaarg = ['autoninja', '-C', outdir, fullTarget[2:]]
   if(args.j):
     ninjaarg.append('-j')
     ninjaarg.append(str(args.j))
