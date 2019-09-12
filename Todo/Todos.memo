@@ -9,3 +9,9 @@ EventRegister
 std::is_copy_constructible<T>::value
 std::is_copy_constructible<T>::value
 https://chromium.googlesource.com/chromium/src/+/master/docs/optional.md
+
+
+MOCKMETHOD1() in gtest mock
+
+WeakPointer
+

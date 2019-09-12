@@ -1,3 +1,3 @@
 @echo off
-dir out\debug\*.sln
+dir out\debug\*.sln %*
 

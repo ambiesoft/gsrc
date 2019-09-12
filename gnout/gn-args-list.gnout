@@ -1221,7 +1221,9 @@ fatal_linker_warnings
     of binutils can cause linker warning.
 
 ffmpeg_branding
-    Current value (from the default) = "Chromium"
+    Current value = "Chrome"
+      From //out/debug/args.gn:11
+    Overridden from the default = "Chromium"
       From //third_party/ffmpeg/ffmpeg_options.gni:34
 
     Controls whether we build the Chromium or Google Chrome version of FFmpeg.
@@ -1810,7 +1812,9 @@ mac_sdk_min
       From //build/config/mac/mac_sdk_overrides.gni:12
 
 media_use_ffmpeg
-    Current value (from the default) = true
+    Current value = true
+      From //out/debug/args.gn:8
+    Overridden from the default = true
       From //media/media_options.gni:41
 
     Enable usage of FFmpeg within the media library. Used for most software
@@ -1818,7 +1822,9 @@ media_use_ffmpeg
     implementors must provide their own demuxers and decoders.
 
 media_use_libvpx
-    Current value (from the default) = true
+    Current value = true
+      From //out/debug/args.gn:9
+    Overridden from the default = true
       From //media/media_options.gni:45
 
     Enable usage of libvpx within the media library. Used for software based
@@ -2105,7 +2111,9 @@ pkg_config
     the sysroot mechanism to find the right .pc files.
 
 proprietary_codecs
-    Current value (from the default) = false
+    Current value = true
+      From //out/debug/args.gn:10
+    Overridden from the default = false
       From //build/config/features.gni:26
 
     Enables proprietary codecs and demuxers; e.g. H264, AAC, MP3, and MP4.
@@ -2376,7 +2384,7 @@ rtc_use_gtk
     build environments, even if available for Chromium builds.
 
 rtc_use_h264
-    Current value (from the default) = false
+    Current value (from the default) = true
       From //third_party/webrtc/webrtc.gni:153
 
 rtc_use_metal_rendering
@@ -2857,7 +2865,7 @@ use_incremental_wpo
     Windows build.
 
 use_jumbo_build
-    Current value = true
+    Current value = false
       From //out/debug/args.gn:6
     Overridden from the default = false
       From //build/config/jumbo.gni:12

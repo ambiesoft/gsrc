@@ -172,13 +172,13 @@ INT_PTR CALLBACK MainUIWindow::SpawnTargetWndProc(HWND dialog,
   switch (message_id) {
     case WM_INITDIALOG: {
       // Initialize the window text for DLL name edit box
-      HWND edit_box_dll_name = ::GetDlgItem(dialog, IDC_DLL_NAME);
-      wchar_t current_dir[MAX_PATH];
-      if (GetCurrentDirectory(MAX_PATH, current_dir)) {
-        base::string16 dll_path = base::string16(current_dir) +
-                                base::string16(kDefaultDll_);
-        ::SetWindowText(edit_box_dll_name, dll_path.c_str());
-      }
+	  wchar_t exe_dir[MAX_PATH];
+      GetModuleFileName(NULL, exe_dir, MAX_PATH);
+      *wcsrchr(exe_dir, L'\\') = L'\0';
+      base::string16 dll_path =
+          base::string16(exe_dir) + base::string16(kDefaultDll_);
+      ::SetWindowText(::GetDlgItem(dialog, IDC_DLL_NAME), dll_path.c_str());
+      
 
       // Initialize the window text for Entry Point edit box
       HWND edit_box_entry_point = ::GetDlgItem(dialog, IDC_ENTRY_POINT);
