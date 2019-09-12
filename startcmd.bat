@@ -11,8 +11,8 @@ if exist %~dp0gitinit.bat (
   call %~dp0gitinit.bat
 )
 
-start cmd /k
-::start powershell
+::start cmd /k
+start powershell
 exit
 
 :docontinue
@@ -34,8 +34,9 @@ REM (by default, depot_tools will try to use a google-internal version).
 set DEPOT_TOOLS_WIN_TOOLCHAIN=0
 
 
-REM make current directory the location this script exists.
-cd %~dp0chromium
+if exist %~dp0chromium\src (
+  cd %~dp0chromium\src
+)
 
 
 REM always launch 64bit cmd

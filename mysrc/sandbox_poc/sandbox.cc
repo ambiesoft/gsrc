@@ -96,6 +96,7 @@ int APIENTRY _tWinMain(HINSTANCE instance, HINSTANCE, wchar_t* command_line,
     // created
     broker_service->WaitForAllTargets();
   } else {
+    Sleep(10000);
     // This is an instance that has been spawned inside the sandbox by the
     // broker, so we need to parse the command line to figure out which DLL to
     // load and what entry point to call
@@ -119,7 +120,7 @@ int APIENTRY _tWinMain(HINSTANCE instance, HINSTANCE, wchar_t* command_line,
     // attach to it quickly enough. Therefore, you can uncomment the
     // following line and attach (w. msdev or windbg) as the target is sleeping
 
-    // Sleep(10000);
+    Sleep(10000);
 
     if (sandbox::SBOX_ALL_OK != (result = target_service->Init())) {
       // TODO(finnur): write the initialization error to the log file

@@ -6,24 +6,23 @@
 <!-- Skip everything in std -->
 <Function><Name>std::(?!.*make_unique).*</Name><Action>NoStepInto</Action></Function>
 
-
 <!-- all methods on WebKit OwnPtr and variants, ... WTF::*Ptr<*>::* -->
 <!-- <Function><Name>WTF::.*Ptr&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function> -->
 
-<Function><Name>base::BasicStringPiece&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
-<Function><Name>scoped_refptr&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
-<Function><Name>base::Lock::.*</Name><Action>NoStepInto</Action></Function>
-<Function><Name>base::CommandLine::.*</Name><Action>NoStepInto</Action></Function>
-<Function><Name>base::win::GenericScopedHandle&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::AutoLock::*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::BasicStringPiece&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::CommandLine::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::Lock::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::OnceCallback&lt;.*&gt;::OnceCallback*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::internal::BasicAutoLock&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::internal::CallbackBase::CallbackBase*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::win::GenericScopedHandle&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 
-<!--
-content_shell.exe!base::win::GenericScopedHandle<base::win::HandleTraits,base::win::VerifierTraits>::IsValid() Line 59
-	at C:\gsrc\chromium\src\base\win\scoped_handle.h(59)
--->
+<Function><Name>gfx::Rect::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>gfx::Size::.*</Name><Action>NoStepInto</Action></Function>
 
-
+<Function><Name>sandbox::AutoLock::*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>scoped_refptr&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 
 
 <!-- skip SkString and SkOSPath in skia -->

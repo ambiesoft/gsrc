@@ -3,8 +3,8 @@
 
  Directory of C:\gsrc\chromium\src
 
-09/04/2019  11:09 PM    <DIR>          .
-09/04/2019  11:09 PM    <DIR>          ..
+09/11/2019  12:00 PM    <DIR>          .
+09/11/2019  12:00 PM    <DIR>          ..
 09/01/2019  04:57 AM             1,289 .clang-format
 09/01/2019  04:57 AM             1,422 .eslintrc.js
 09/01/2019  04:57 AM            16,745 .git-blame-ignore-revs
@@ -18,11 +18,12 @@
 09/01/2019  04:57 AM    <DIR>          ash
 09/01/2019  04:57 AM            41,425 AUTHORS
 09/01/2019  04:57 AM    <DIR>          base
-09/01/2019  06:46 AM    <DIR>          build
+09/09/2019  11:26 AM    <DIR>          build
 09/05/2019  11:35 AM            42,517 BUILD.gn
 09/01/2019  04:57 AM    <DIR>          buildtools
 09/01/2019  04:57 AM    <DIR>          build_overrides
 09/01/2019  04:58 AM    <DIR>          cc
+09/11/2019  12:15 PM               201 ccccccc
 09/02/2019  02:02 PM    <DIR>          chrome
 09/01/2019  05:04 AM    <DIR>          chromecast
 09/02/2019  02:02 PM    <DIR>          chromeos
@@ -53,11 +54,11 @@
 09/01/2019  04:57 AM             1,571 LICENSE.chromium_os
 09/01/2019  05:12 AM    <DIR>          media
 09/01/2019  05:12 AM    <DIR>          mojo
-09/01/2019  04:03 PM    <JUNCTION>     mysrc [\??\C:\gsrc\mysrc]
+09/09/2019  11:37 AM    <JUNCTION>     mysrc [C:\gsrc\mysrc]
 09/01/2019  06:41 AM    <DIR>          native_client
 09/01/2019  05:12 AM    <DIR>          native_client_sdk
 09/01/2019  05:13 AM    <DIR>          net
-09/05/2019  08:11 PM    <DIR>          out
+09/09/2019  09:26 AM    <DIR>          out
 09/03/2019  01:38 PM    <DIR>          out64
 09/01/2019  04:57 AM             1,084 OWNERS
 09/01/2019  05:13 AM    <DIR>          pdf
@@ -83,5 +84,5 @@
 09/02/2019  02:08 PM    <DIR>          v8
 09/01/2019  04:57 AM           116,064 WATCHLISTS
 09/01/2019  05:43 AM    <DIR>          weblayer
-              22 File(s)        652,570 bytes
-              58 Dir(s)  756,230,565,888 bytes free
+              23 File(s)        652,771 bytes
+              58 Dir(s)  564,799,778,816 bytes free
