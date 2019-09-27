@@ -18,6 +18,7 @@ def main():
         else:
             args.append(real2gn.real2gn(arg))
 
+#	print(args)
     subprocess.call(args)
 
 if __name__ == "__main__":

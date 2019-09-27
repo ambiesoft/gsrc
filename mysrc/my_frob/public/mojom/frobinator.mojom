@@ -1,0 +1,7 @@
+// mysrc/my_frob/public/mojom/frobinator.mojom
+
+module frob.mojom;
+
+interface Frobinator {
+  Frobinate();
+};
