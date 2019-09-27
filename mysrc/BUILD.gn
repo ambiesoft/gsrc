@@ -170,3 +170,24 @@ test("my_sandbox_poc") {
     "//sandbox/win:sandbox",
   ]
 }
+
+executable("my_frob")
+{
+  deps = [
+    "my_frob/public/mojom",
+    "//mojo/core/embedder",
+  ]
+  sources = [
+    "my_frob/frobinator_impl.cc",
+  ]
+}
+
+executable("my_mojo_sample")
+{
+  deps = [
+    "//mojo/core/embedder",
+  ]
+  sources = [
+    "my_mojo_sample.cc",
+  ]
+}

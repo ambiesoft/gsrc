@@ -15,3 +15,10 @@ MOCKMETHOD1() in gtest mock
 
 WeakPointer
 
+int64t tmp;
+int file_size = base::checked_cast<int>(tmp);
+
+// safe upcast
+// 実行時にチェックできる
+template<typename To>
+inline To ImplicitCast_(To x) { return x; }
