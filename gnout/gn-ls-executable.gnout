@@ -162,8 +162,10 @@
 //mojo/core:mojo_core_unittests
 //mysrc:my_aura_demo
 //mysrc:my_callbacks
+//mysrc:my_frob
 //mysrc:my_hello_world
 //mysrc:my_message_loop
+//mysrc:my_mojo_sample
 //mysrc:my_sandbox_poc
 //mysrc:my_sequence
 //mysrc:my_threadandmessageloop

@@ -22,3 +22,17 @@ int file_size = base::checked_cast<int>(tmp);
 // 実行時にチェックできる
 template<typename To>
 inline To ImplicitCast_(To x) { return x; }
+
+
+PortRef: PortName nameとPort port_
+PortName: ２つの64ビット値
+Port: 
+  state:
+  // Maps a peer port name to a list of PortRefs for all local ports which have
+  // the port name key designated as their peer port. The set of local ports
+  // which have the same peer port is expected to always be relatively small and
+  // usually 1. Hence we just use a flat_map of local PortRefs keyed on each
+  // local port's name.
+  using PeerPortMap =
+      std::unordered_map<PeerPortName, base::flat_map<LocalPortName, PortRef>>;
+
