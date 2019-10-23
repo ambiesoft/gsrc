@@ -25,6 +25,11 @@
 <Function><Name>base::Optional&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 
 
+<Function><Name>base::StackVector&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+
+
+
+
 
 
 
@@ -32,6 +37,16 @@
 
 <Function><Name>gfx::Rect::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>gfx::Size::.*</Name><Action>NoStepInto</Action></Function>
+
+
+<Function><Name>mojo::ScopedHandleBase&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>mojo::core::ports::PortName::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>mojo::core::ports::NodeName::.*</Name><Action>NoStepInto</Action></Function>
+
+
+
+
+
 
 <Function><Name>sandbox::AutoLock::*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>scoped_refptr&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>

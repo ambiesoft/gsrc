@@ -215,9 +215,7 @@ blink_gc_plugin_option_warn_unneeded_finalizer
     when finalized.
 
 blink_symbol_level
-    Current value = 0
-      From //out/debug/args.gn:4
-    Overridden from the default = -1
+    Current value (from the default) = -1
       From //third_party/blink/renderer/config.gni:33
 
     How many symbols to include in the build of blink. This affects
