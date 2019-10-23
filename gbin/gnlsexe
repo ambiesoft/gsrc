@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+gn ls --type=executable out/debug "$@"

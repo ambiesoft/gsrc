@@ -1,6 +1,7 @@
 import sys
 import os
 import subprocess
+import platform
 
 import real2gn
 

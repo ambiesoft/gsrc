@@ -1,2 +1,2 @@
 @echo off
-python %~dp0gnrefsr.py %*
+python %~dp0gnrefsreal.py %*
