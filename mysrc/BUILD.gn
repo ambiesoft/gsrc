@@ -150,25 +150,28 @@ executable("my_threadandmessageloop") {
     "my_threadandmessageloop.cc",
   ]
 }
-test("my_sandbox_poc") {
-  sources = [
-    "sandbox_poc/main_ui_window.cc",
-    "sandbox_poc/main_ui_window.h",
-    "sandbox_poc/resource.h",
-    "sandbox_poc/sandbox.cc",
-    "sandbox_poc/sandbox.h",
-    "sandbox_poc/sandbox.rc",
-  ]
 
-  configs -= [ "//build/config/win:console" ]
-  configs += [ "//build/config/win:windowed" ]
+if (is_win) {
+  test("my_sandbox_poc") {
+    sources = [
+      "sandbox_poc/main_ui_window.cc",
+      "sandbox_poc/main_ui_window.h",
+      "sandbox_poc/resource.h",
+      "sandbox_poc/sandbox.cc",
+      "sandbox_poc/sandbox.h",
+      "sandbox_poc/sandbox.rc",
+    ]
 
-  libs = [ "comctl32.lib" ]
+    configs -= [ "//build/config/win:console" ]
+    configs += [ "//build/config/win:windowed" ]
 
-  deps = [
-    "//sandbox/win:pocdll",
-    "//sandbox/win:sandbox",
-  ]
+    libs = [ "comctl32.lib" ]
+
+    deps = [
+      "//sandbox/win:pocdll",
+      "//sandbox/win:sandbox",
+    ]
+  }
 }
 
 executable("my_frob")
