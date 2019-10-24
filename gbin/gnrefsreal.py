@@ -11,8 +11,11 @@ def isOption(arg):
     return arg[0]=='-'
 
 def main():
-    args = ['cmd', '/c', os.path.join(os.path.dirname(__file__), 'gnrefs')]
-    
+    # args = ['cmd', '/c', os.path.join(os.path.dirname(__file__), 'gnrefs')]
+    args = [os.path.join(os.path.dirname(__file__), 'gnrefs')]
+    if platform.system().lower()[0:7] == 'windows':
+        args.insert(0, '/c')
+        args.insert(0, 'cmd')
     for arg in sys.argv[1:]:
         if isOption(arg):
             args.append(arg)
