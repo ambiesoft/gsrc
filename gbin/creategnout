@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo creating outputs of varios gn commands...
+dir > $(dirname -- "$0")/../gnout/test-dir.out
+
+echo creating gn-ls-executable.gnout...
+gn ls out/debug --type=executable > $(dirname -- "$0")/../gnout/gn-ls-executable.gnout
+
+echo creating gn-ls.gnout...
+gn ls out/debug > $(dirname -- "$0")/../gnout/gn-ls.gnout
+
+echo creating gn-args-list.gnout...
+gn args out/debug --list > $(dirname -- "$0")/../gnout/gn-args-list.gnout
+
+
