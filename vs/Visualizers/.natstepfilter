@@ -59,5 +59,10 @@
 <Function><Name>SkString::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>SkOSPath::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>SkTArray&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>sk_sp&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>SkTHashMap&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+
+
+
 
 </StepFilter>

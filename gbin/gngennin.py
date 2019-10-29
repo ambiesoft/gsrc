@@ -87,7 +87,7 @@ def main():
 
 
   tmpSlnFileName = targetName + '_gngennin'
-  gngenarg = ['gn', 'gen', '--ide=vs2019', '--filters='+fullTarget, '--sln=' + tmpSlnFileName, outdir]
+  gngenarg = ['gn', 'gen', '--ide=vs', '--filters='+fullTarget, '--sln=' + tmpSlnFileName, outdir]
   print(gngenarg)
   subprocess.call(['cmd', '/c'] + gngenarg)
   os.rename(path.join(outdir, tmpSlnFileName+'.sln'), path.join(outdir, slnFilename))
