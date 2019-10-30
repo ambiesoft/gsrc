@@ -34,8 +34,8 @@ REM (by default, depot_tools will try to use a google-internal version).
 set DEPOT_TOOLS_WIN_TOOLCHAIN=0
 
 
-if exist %~dp0chromium\src (
-  cd %~dp0chromium\src
+if exist %~dp0chromium_git\chromium\src (
+  cd %~dp0chromium_git\chromium\src
 )
 
 
