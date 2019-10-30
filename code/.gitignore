@@ -4,6 +4,7 @@ myinfo/
 .idea/
 angle/
 chromium/
+chromium_git/
 depot_tools/
 monorail/
 T/
