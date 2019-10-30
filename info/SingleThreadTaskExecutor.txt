@@ -1,0 +1,7 @@
+SingleThreadTaskExecutor
+  SequenceManager
+    CreateUnboundSequenceManager()によってつくられる
+    実際に作られるのはSequenceManagerImpl
+    これはタスクキューの管理。複数のタスクキューを管理できる。１つのタスクキューは２つのサブキューからなる。
+    １，インカミングタスクキュー：ポストされたタスクはここに入る。空のキューに追加されたときはDoWork()がスケジュールされる。
+    ２，ワークキュー：DoWork()実行中にこのキューが空の場合、インカミングタスクキュー内のタスクがここに移される。

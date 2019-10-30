@@ -1,0 +1,24 @@
+extensions/browser/api/display_source/BUILD.gn:    if (proprietary_codecs && enable_wifi_display) {
+extensions/common/BUILD.gn:    if (proprietary_codecs && enable_wifi_display) {
+extensions/renderer/BUILD.gn:  if (proprietary_codecs && enable_wifi_display) {
+extensions/renderer/BUILD.gn:  if (enable_wifi_display && proprietary_codecs) {
+media/base/android/BUILD.gn:    if (proprietary_codecs) {
+media/BUILD.gn:    "USE_PROPRIETARY_CODECS=$proprietary_codecs",
+media/BUILD.gn:if (proprietary_codecs && media_use_ffmpeg) {
+media/BUILD.gn:if (proprietary_codecs) {
+media/BUILD.gn:if (proprietary_codecs) {
+media/cdm/BUILD.gn:  if (proprietary_codecs) {
+media/filters/BUILD.gn:  if (proprietary_codecs) {
+media/filters/BUILD.gn:    if (proprietary_codecs) {
+media/filters/BUILD.gn:  if (proprietary_codecs) {
+media/formats/BUILD.gn:  if (proprietary_codecs) {
+media/formats/BUILD.gn:  if (proprietary_codecs && enable_hevc_demuxing) {
+media/formats/BUILD.gn:  if (proprietary_codecs && enable_dolby_vision_demuxing) {
+media/formats/BUILD.gn:  if (proprietary_codecs && enable_mse_mpeg2ts_stream_parser) {
+media/formats/BUILD.gn:  if (proprietary_codecs && enable_mse_mpeg2ts_stream_parser &&
+media/formats/BUILD.gn:  if (proprietary_codecs) {
+media/formats/BUILD.gn:  if (proprietary_codecs) {
+media/test/BUILD.gn:if (proprietary_codecs) {
+media/video/BUILD.gn:  if (proprietary_codecs && enable_hevc_demuxing) {
+out/debug/args.gn:proprietary_codecs = true
+out/release/args.gn:proprietary_codecs = true

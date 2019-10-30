@@ -1,0 +1,6 @@
+戻り値を->で指定して２つのstring,wstringをつくれる？
+template <class Key, class Value, class GetKeyFromValue, class KeyCompare>
+auto flat_tree<Key, Value, GetKeyFromValue, KeyCompare>::begin() const
+    -> const_iterator {
+  return impl_.body_.begin();
+}

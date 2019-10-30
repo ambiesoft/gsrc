@@ -1,0 +1,62 @@
+﻿  static_assert(std::is_pod<Payload>::value, "Payload must be a POD-struct");
+C:\LegacyPrograms\chrome-win32\chrome.exe --profile-directory="Profile 1"
+what is --headless
+
+The subset of the virtual address space of a process that resides in physical memory is known as the working set .
+
+set_thread_description_func
+
+RegisterWaitForSingleObject
+
+TRACE_EVENT0
+
+atexit([]() { delete sk_atomic_load(&gUserTracer); });
+
+Assertion
+---------
+CHECK(condition) macro is active in both debug and release builds and
+effectively performs a LOG(FATAL) which terminates the process and
+generates a crashdump unless a debugger is attached.
+CHECK_EQ
+
+
+Aura
+----
+Chrome UI form Chrome on Windows and Chrome OS is built using the Views UI framework
+that lives in src/views.
+A view hierarchy is hosted within a Widget. A Widget is a cross-platform type,
+and relies on a NativeWidget implementation that is specific to each host environment
+to perform some duties.
+
+Option
+------
+disable-breakpad
+renderer-process-limit -> RenderProcessHost::SetMaxRendererProcessCount(process_limit);
+
+
+
+scheme
+------
+chrome-extension
+chrome-native
+chrome-search
+chrome-distiller
+
+v8-file
+-------
+snapshot_blob.bin
+
+
+
+・各種のDLLのMAIN
+・WinMain
+１，install_static情報をchrome_elfから取得。chrome_elfはdllmainで初期化していると思われる。
+各種パラメータの保持（アプリの名前やバージョン）
+２，CrashReporting起動
+－databasepath=ローカルパス＋crashpad
+－FastCommand(--profile-directory and --show-app-list)のちぇっく
+３，chromeMain(in chrome.dll)
+-Create ChromeMainDelegate() (inherited from content::ContentMainDelegate)
+４，content::ContentMain (in content.dll)
+-content should only have the core code needed to render a page.
+-embedder.dll::service_manager::Main

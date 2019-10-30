@@ -1,0 +1,5 @@
+WebAssembly
+1, It enables to open a native document on the web.
+2, No installaton of App, and it is run on a sandbox process.
+3, Universal platform.
+

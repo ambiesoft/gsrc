@@ -1,0 +1,5 @@
+1, Launch Chrome or Chromium with --no-sandbox --enable-gpu-benchmarking
+2, Open the JS console (Ctrl+Shift+J (Windows / Linux) or Cmd+Opt+J (MacOS))
+3, Execute: chrome.gpuBenchmarking.printToSkPicture('/tmp') This returns “undefined” on success.
+
+https://debugger.skia.org

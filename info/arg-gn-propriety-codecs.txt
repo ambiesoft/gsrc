@@ -1,0 +1,8 @@
+is_debug = false
+is_component_build = true
+symbol_level = 0
+
+media_use_ffmpeg = true
+media_use_libvpx = true
+proprietary_codecs = true
+ffmpeg_branding = "Chrome"

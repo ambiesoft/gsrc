@@ -1,0 +1,2 @@
+﻿# スタートアップトレース
+chrome.lnk --trace-startup --trace-startup-file=c:\Users\bjdTfeRf\Desktop\aaa.json -trace-startup-duration=10

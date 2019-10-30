@@ -1,0 +1,7 @@
+device-scale-factor=double
+
+// Enables the exporting of the tracing events to ETW. This is only supported on
+// Windows Vista and later.
+trace-export-events-to-etw
+
+

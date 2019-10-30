@@ -1,0 +1,17 @@
+﻿ChromeMainDelegate <- ContentMainDelegate
+{
+  // Client is the interface that the embeder implements.
+  ChromeContentClient(<-ContentClient) chrome_content_client;
+  std::unique_ptr<ChromeContentBrowserClient> chrome_content_browser_client_;
+
+  // This field is loaded by LoadServiceManifestDataPack() and passed to
+  // ContentBrowserClient in CreateContentBrowserClient()
+  std::unique_ptr<ui::DataPack> service_manifest_data_pack_;
+}
+
+delegateとclientの違いは謎
+
+chrome_pdf::PPP_GetInterface
+
+
+LayoutLocale::hasScriptForHan() determines whether the locale can choose the correct font for the Unified Han Ideographs or not.

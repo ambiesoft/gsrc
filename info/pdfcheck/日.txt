@@ -1,0 +1,22 @@
+﻿日 : org : 0x65E5=26085
+
+⽇ : jp : 0x2F47=12103
+
+glyphがeng pageでは7189(これはsimsunのglyph), jp pageでは2473(これはmeiryoのglyph)
+
+Q:glyph idが設定されている箇所を見つける
+ShapeResultBuffer->ShapeResult results_[]->runs_[]->glyph_data_[]->glyph
+これはFont::DrawTextでスタック上に作成される。
+ShapeCacheがShapeResultをもっている
+HarfBuzzShaper::shapeがつくりキャッシュに入れる。
+TextRunはテキストを持っている
+harfbuzz_bufferのglyph_infosがglyphをもっている
+hb_buffer_create()でつくられどこかで設定される(halfbuzzを調べないとならない）
+range->bufferでどこかにせっていされる
+glyph_infoのglyphが入出力の両方を兼ねる
+
+
+OpenTypeではいくつものcharcodeが持てるため、対応はCMAPでもつ
+
+skiaオブジェクト作成時はcharではなくglyphで追加しているかどうか？→YES
+
