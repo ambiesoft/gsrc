@@ -1,3 +1,4 @@
 @echo off
-dir out\debug\*.sln %*
+call checktarget.bat
+dir out\%CURRENT_DEBUGDIR%\*.sln %*
 

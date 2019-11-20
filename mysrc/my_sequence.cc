@@ -2,7 +2,7 @@
 #include "base/task/post_task.h"
 #include "base/run_loop.h"
 #include "base/message_loop/message_loop.h"
-
+#include "base/task/thread_pool/thread_pool_instance.h" 
 
 class A {
  public:
@@ -29,12 +29,13 @@ int main() {
   A a;
   base::MessageLoop main_loop;
   base::RunLoop run_loop;
-  
-  //scoped_refptr<SequencedTaskRunner> task_runner_for_a =
-  //    base::CreateSequencedTaskRunnerWithTraits({base::ThreadPool()});
+  base::ThreadPoolInstance::Create("MMM");
+
   scoped_refptr<base::SequencedTaskRunner> task_runner_for_a =
-	  base::CreateSequencedTaskRunnerWithTraits({
-	  base::MayBlock(), base::TaskPriority::BEST_EFFORT});
+      base::CreateSequencedTaskRunnerWithTraits({base::ThreadPool()});
+  //scoped_refptr<base::SequencedTaskRunner> task_runner_for_a =
+	 // base::CreateSequencedTaskRunnerWithTraits({
+	 // base::MayBlock(), base::ThreadPool(), base::TaskPriority::BEST_EFFORT});
 
   task_runner_for_a->PostTask(
       FROM_HERE, base::BindOnce(&A::AddValue, base::Unretained(&a), 42));
@@ -47,10 +48,12 @@ int main() {
   other_task_runner->PostTask(
       FROM_HERE, base::BindOnce(&A::AddValue, base::Unretained(&a), 1));
 
+  main_loop.task_runner()->PostTask(
+      FROM_HERE, base::BindOnce(&A::AddValue, base::Unretained(&a), 9999));
   main_loop.task_runner()->PostDelayedTask(
       FROM_HERE, run_loop.QuitClosure(),
       base::TimeDelta::FromMicroseconds(1000));
 
-  run_loop.Run();
+  run_loop.RunUntilIdle();
   return 0;
 }

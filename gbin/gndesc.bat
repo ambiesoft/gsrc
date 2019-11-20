@@ -1,4 +1,5 @@
 @echo off
-echo gn desc out\debug %*
-gn desc out\debug %*
+call checktarget.bat
+echo gn desc out\%CURRENT_DEBUGDIR% %*
+gn desc out\%CURRENT_DEBUGDIR% %*
 

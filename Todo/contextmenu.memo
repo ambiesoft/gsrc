@@ -1,0 +1,129 @@
+content.dll!content::CustomContextMenuContext::CustomContextMenuContext() Line 14
+	at C:\gsrc\chromium\src\content\public\common\context_menu_params.cc(14)
+content.dll!content::ContextMenuParams::ContextMenuParams() Line 35
+	at C:\gsrc\chromium\src\content\public\common\context_menu_params.cc(35)
+content.dll!content::ContextMenuParamsBuilder::Build(const blink::WebContextMenuData & data) Line 20
+	at C:\gsrc\chromium\src\content\renderer\context_menu_params_builder.cc(20)
+content.dll!content::RenderFrameImpl::ShowContextMenu(const blink::WebContextMenuData & data) Line 5139
+	at C:\gsrc\chromium\src\content\renderer\render_frame_impl.cc(5139)
+blink_core.dll!blink::ContextMenuController::ShowContextMenu(blink::LocalFrame * frame, const blink::PhysicalOffset & point, blink::WebMenuSourceType source_type) Line 499
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\page\context_menu_controller.cc(499)
+blink_core.dll!blink::ContextMenuController::HandleContextMenuEvent(blink::MouseEvent * mouse_event) Line 101
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\page\context_menu_controller.cc(101)
+blink_core.dll!blink::Node::DefaultEventHandler(blink::Event & event) Line 2841
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\dom\node.cc(2841)
+blink_core.dll!blink::Element::DefaultEventHandler(blink::Event & event) Line 2010
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\dom\element.cc(2010)
+blink_core.dll!blink::HTMLElement::DefaultEventHandler(blink::Event & event) Line 1407
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\html\html_element.cc(1407)
+blink_core.dll!blink::EventDispatcher::DispatchEventPostProcess(blink::Node * activation_target, blink::EventDispatchHandlingState * pre_dispatch_event_handler_result) Line 355
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\dom\events\event_dispatcher.cc(355)
+blink_core.dll!blink::EventDispatcher::Dispatch() Line 212
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\dom\events\event_dispatcher.cc(212)
+blink_core.dll!blink::MouseEvent::DispatchEvent(blink::EventDispatcher & dispatcher) Line 433
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\events\mouse_event.cc(433)
+blink_core.dll!blink::EventDispatcher::DispatchEvent(blink::Node & node, blink::Event & event) Line 63
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\dom\events\event_dispatcher.cc(63)
+blink_core.dll!blink::Node::DispatchEventInternal(blink::Event & event) Line 2769
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\dom\node.cc(2769)
+blink_core.dll!blink::EventTarget::DispatchEvent(blink::Event & event) Line 740
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\dom\events\event_target.cc(740)
+blink_core.dll!blink::MouseEventManager::DispatchMouseEvent(blink::EventTarget * target, const WTF::AtomicString & mouse_event_type, const blink::WebMouseEvent & mouse_event, const WTF::String & canvas_region_id, const blink::FloatPoint * last_position, blink::EventTarget * related_target, bool check_for_listener, const int & pointer_id, const WTF::String & pointer_type) Line 344
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\input\mouse_event_manager.cc(344)
+blink_core.dll!blink::EventHandler::SendContextMenuEvent(const blink::WebMouseEvent & event, blink::Element * override_target_element) Line 2029
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\input\event_handler.cc(2029)
+blink_core.dll!blink::WebViewImpl::MouseContextMenu(const blink::WebMouseEvent & event) Line 435
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\exported\web_view_impl.cc(435)
+blink_core.dll!blink::WebViewImpl::HandleMouseUp(blink::LocalFrame & main_frame, const blink::WebMouseEvent & event) Line 451
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\exported\web_view_impl.cc(451)
+blink_core.dll!blink::PageWidgetDelegate::HandleInputEvent(blink::PageWidgetEventHandler & handler, const blink::WebCoalescedInputEvent & coalesced_event, blink::LocalFrame * root) Line 145
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\page\page_widget_delegate.cc(145)
+blink_core.dll!blink::WebViewImpl::HandleInputEvent(const blink::WebCoalescedInputEvent & coalesced_event) Line 1813
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\exported\web_view_impl.cc(1813)
+blink_core.dll!blink::WebViewFrameWidget::HandleInputEvent(const blink::WebCoalescedInputEvent & event) Line 110
+	at C:\gsrc\chromium\src\third_party\blink\renderer\core\frame\web_view_frame_widget.cc(110)
+content.dll!content::RenderWidgetInputHandler::HandleInputEvent(const blink::WebCoalescedInputEvent & coalesced_event, const ui::LatencyInfo & latency_info, base::OnceCallback<void (content::InputEventAckState, const ui::LatencyInfo &, std::__1::unique_ptr<ui::DidOverscrollParams,std::__1::default_delete<ui::DidOverscrollParams>>, base::Optional<cc::TouchAction>)> callback) Line 442
+	at C:\gsrc\chromium\src\content\renderer\input\render_widget_input_handler.cc(442)
+content.dll!content::RenderWidget::HandleInputEvent(const blink::WebCoalescedInputEvent & input_event, const ui::LatencyInfo & latency_info, base::OnceCallback<void (content::InputEventAckState, const ui::LatencyInfo &, std::__1::unique_ptr<ui::DidOverscrollParams,std::__1::default_delete<ui::DidOverscrollParams>>, base::Optional<cc::TouchAction>)> callback) Line 1164
+	at C:\gsrc\chromium\src\content\renderer\render_widget.cc(1164)
+content.dll!content::MainThreadEventQueue::HandleEventOnMainThread(const blink::WebCoalescedInputEvent & event, const ui::LatencyInfo & latency, base::OnceCallback<void (content::InputEventAckState, const ui::LatencyInfo &, std::__1::unique_ptr<ui::DidOverscrollParams,std::__1::default_delete<ui::DidOverscrollParams>>, base::Optional<cc::TouchAction>)> handled_callback) Line 627
+	at C:\gsrc\chromium\src\content\renderer\input\main_thread_event_queue.cc(627)
+content.dll!content::QueuedWebInputEvent::Dispatch(content::MainThreadEventQueue * queue) Line 121
+	at C:\gsrc\chromium\src\content\renderer\input\main_thread_event_queue.cc(121)
+content.dll!content::MainThreadEventQueue::DispatchEvents() Line 422
+	at C:\gsrc\chromium\src\content\renderer\input\main_thread_event_queue.cc(422)
+content.dll!base::internal::FunctorTraits<void (content::MainThreadEventQueue::*)() __attribute__((thiscall)),void>::Invoke<void (content::MainThreadEventQueue::*)() __attribute__((thiscall)),scoped_refptr<content::MainThreadEventQueue>>(void(content::MainThreadEventQueue::*)() method, scoped_refptr<content::MainThreadEventQueue> && receiver_ptr) Line 498
+	at C:\gsrc\chromium\src\base\bind_internal.h(498)
+content.dll!base::internal::InvokeHelper<0,void>::MakeItSo<void (content::MainThreadEventQueue::*)() __attribute__((thiscall)),scoped_refptr<content::MainThreadEventQueue>>(void(content::MainThreadEventQueue::*)() && functor, scoped_refptr<content::MainThreadEventQueue> && args) Line 598
+	at C:\gsrc\chromium\src\base\bind_internal.h(598)
+content.dll!base::internal::Invoker<base::internal::BindState<void (content::MainThreadEventQueue::*)() __attribute__((thiscall)),scoped_refptr<content::MainThreadEventQueue>>,void ()>::RunImpl<void (content::MainThreadEventQueue::*)() __attribute__((thiscall)),std::__1::tuple<scoped_refptr<content::MainThreadEventQueue>>,0>(void(content::MainThreadEventQueue::*)() && functor, std::__1::tuple<scoped_refptr<content::MainThreadEventQueue>> && bound, std::__1::integer_sequence<unsigned int,0>) Line 671
+	at C:\gsrc\chromium\src\base\bind_internal.h(671)
+content.dll!base::internal::Invoker<base::internal::BindState<void (content::MainThreadEventQueue::*)() __attribute__((thiscall)),scoped_refptr<content::MainThreadEventQueue>>,void ()>::RunOnce(base::internal::BindStateBase * base) Line 640
+	at C:\gsrc\chromium\src\base\bind_internal.h(640)
+base.dll!base::OnceCallback<void ()>::Run() Line 99
+	at C:\gsrc\chromium\src\base\callback.h(99)
+base.dll!base::TaskAnnotator::RunTask(const char * trace_event_name, base::PendingTask * pending_task) Line 144
+	at C:\gsrc\chromium\src\base\task\common\task_annotator.cc(144)
+base.dll!base::sequence_manager::internal::ThreadControllerImpl::DoWork(base::sequence_manager::internal::ThreadControllerImpl::WorkType work_type) Line 193
+	at C:\gsrc\chromium\src\base\task\sequence_manager\thread_controller_impl.cc(193)
+base.dll!base::internal::FunctorTraits<void (base::sequence_manager::internal::ThreadControllerImpl::*)(base::sequence_manager::internal::ThreadControllerImpl::WorkType) __attribute__((thiscall)),void>::Invoke<void (base::sequence_manager::internal::ThreadControllerImpl::*)(base::sequence_manager::internal::ThreadControllerImpl::WorkType) __attribute__((thiscall)),const base::WeakPtr<base::sequence_manager::internal::ThreadControllerImpl> &,const base::sequence_manager::internal::ThreadControllerImpl::WorkType &>(void(base::sequence_manager::internal::ThreadControllerImpl::*)(base::sequence_manager::internal::ThreadControllerImpl::WorkType) method, const base::WeakPtr<base::sequence_manager::internal::ThreadControllerImpl> & receiver_ptr, const base::sequence_manager::internal::ThreadControllerImpl::WorkType & args) Line 498
+	at C:\gsrc\chromium\src\base\bind_internal.h(498)
+base.dll!base::internal::InvokeHelper<1,void>::MakeItSo<void (base::sequence_manager::internal::ThreadControllerImpl::*const &)(base::sequence_manager::internal::ThreadControllerImpl::WorkType) __attribute__((thiscall)),const base::WeakPtr<base::sequence_manager::internal::ThreadControllerImpl> &,const base::sequence_manager::internal::ThreadControllerImpl::WorkType &>(void(base::sequence_manager::internal::ThreadControllerImpl::*)(base::sequence_manager::internal::ThreadControllerImpl::WorkType) & functor, const base::WeakPtr<base::sequence_manager::internal::ThreadControllerImpl> & weak_ptr, const base::sequence_manager::internal::ThreadControllerImpl::WorkType & args) Line 621
+	at C:\gsrc\chromium\src\base\bind_internal.h(621)
+base.dll!base::internal::Invoker<base::internal::BindState<void (base::sequence_manager::internal::ThreadControllerImpl::*)(base::sequence_manager::internal::ThreadControllerImpl::WorkType) __attribute__((thiscall)),base::WeakPtr<base::sequence_manager::internal::ThreadControllerImpl>,base::sequence_manager::internal::ThreadControllerImpl::WorkType>,void ()>::RunImpl<void (base::sequence_manager::internal::ThreadControllerImpl::*const &)(base::sequence_manager::internal::ThreadControllerImpl::WorkType) __attribute__((thiscall)),const std::__1::tuple<base::WeakPtr<base::sequence_manager::internal::ThreadControllerImpl>,base::sequence_manager::internal::ThreadControllerImpl::WorkType> &,0,1>(void(base::sequence_manager::internal::ThreadControllerImpl::*)(base::sequence_manager::internal::ThreadControllerImpl::WorkType) & functor, const std::__1::tuple<base::WeakPtr<base::sequence_manager::internal::ThreadControllerImpl>,base::sequence_manager::internal::ThreadControllerImpl::WorkType> & bound, std::__1::integer_sequence<unsigned int,0,1>) Line 671
+	at C:\gsrc\chromium\src\base\bind_internal.h(671)
+base.dll!base::internal::Invoker<base::internal::BindState<void (base::sequence_manager::internal::ThreadControllerImpl::*)(base::sequence_manager::internal::ThreadControllerImpl::WorkType) __attribute__((thiscall)),base::WeakPtr<base::sequence_manager::internal::ThreadControllerImpl>,base::sequence_manager::internal::ThreadControllerImpl::WorkType>,void ()>::Run(base::internal::BindStateBase * base) Line 653
+	at C:\gsrc\chromium\src\base\bind_internal.h(653)
+base.dll!base::RepeatingCallback<void ()>::Run() Line 132
+	at C:\gsrc\chromium\src\base\callback.h(132)
+base.dll!base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>::ForwardRepeating<>() Line 122
+	at C:\gsrc\chromium\src\base\cancelable_callback.h(122)
+base.dll!base::internal::FunctorTraits<void (base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>::*)() __attribute__((thiscall)),void>::Invoke<void (base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>::*)() __attribute__((thiscall)),const base::WeakPtr<base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>> &>(void(base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>::*)() method, const base::WeakPtr<base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>> & receiver_ptr) Line 498
+	at C:\gsrc\chromium\src\base\bind_internal.h(498)
+base.dll!base::internal::InvokeHelper<1,void>::MakeItSo<void (base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>::*const &)() __attribute__((thiscall)),const base::WeakPtr<base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>> &>(void(base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>::*)() & functor, const base::WeakPtr<base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>> & weak_ptr) Line 621
+	at C:\gsrc\chromium\src\base\bind_internal.h(621)
+base.dll!base::internal::Invoker<base::internal::BindState<void (base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>::*)() __attribute__((thiscall)),base::WeakPtr<base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>>>,void ()>::RunImpl<void (base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>::*const &)() __attribute__((thiscall)),const std::__1::tuple<base::WeakPtr<base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>>> &,0>(void(base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>::*)() & functor, const std::__1::tuple<base::WeakPtr<base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>>> & bound, std::__1::integer_sequence<unsigned int,0>) Line 671
+	at C:\gsrc\chromium\src\base\bind_internal.h(671)
+base.dll!base::internal::Invoker<base::internal::BindState<void (base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>::*)() __attribute__((thiscall)),base::WeakPtr<base::internal::CancelableCallbackImpl<base::RepeatingCallback<void ()>>>>,void ()>::Run(base::internal::BindStateBase * base) Line 653
+	at C:\gsrc\chromium\src\base\bind_internal.h(653)
+base.dll!base::OnceCallback<void ()>::Run() Line 99
+	at C:\gsrc\chromium\src\base\callback.h(99)
+base.dll!base::TaskAnnotator::RunTask(const char * trace_event_name, base::PendingTask * pending_task) Line 144
+	at C:\gsrc\chromium\src\base\task\common\task_annotator.cc(144)
+base.dll!base::sequence_manager::internal::ThreadControllerWithMessagePumpImpl::DoWorkImpl(base::sequence_manager::LazyNow * continuation_lazy_now, bool * ran_task) Line 365
+	at C:\gsrc\chromium\src\base\task\sequence_manager\thread_controller_with_message_pump_impl.cc(365)
+base.dll!base::sequence_manager::internal::ThreadControllerWithMessagePumpImpl::DoSomeWork() Line 218
+	at C:\gsrc\chromium\src\base\task\sequence_manager\thread_controller_with_message_pump_impl.cc(218)
+base.dll!base::MessagePumpForUI::DoRunLoop() Line 217
+	at C:\gsrc\chromium\src\base\message_loop\message_pump_win.cc(217)
+base.dll!base::MessagePumpWin::Run(base::MessagePump::Delegate * delegate) Line 76
+	at C:\gsrc\chromium\src\base\message_loop\message_pump_win.cc(76)
+base.dll!base::sequence_manager::internal::ThreadControllerWithMessagePumpImpl::Run(bool application_tasks_allowed, base::TimeDelta timeout) Line 463
+	at C:\gsrc\chromium\src\base\task\sequence_manager\thread_controller_with_message_pump_impl.cc(463)
+base.dll!base::RunLoop::Run() Line 156
+	at C:\gsrc\chromium\src\base\run_loop.cc(156)
+base.dll!base::Thread::Run(base::RunLoop * run_loop) Line 305
+	at C:\gsrc\chromium\src\base\threading\thread.cc(305)
+base.dll!base::Thread::ThreadMain() Line 376
+	at C:\gsrc\chromium\src\base\threading\thread.cc(376)
+base.dll!base::`anonymous namespace'::ThreadFunc(void * params) Line 104
+	at C:\gsrc\chromium\src\base\threading\platform_thread_win.cc(104)
+[External Code]
+kernel32.dll![Frames below may be incorrect and/or missing, no symbols loaded for kernel32.dll]
+
+
+FrameHostMsg_ContextMenu
+
+IDC_CONTENT_CONTEXT_COPYIMAGE
+
+// show menu
+void RenderFrameHostImpl::OnContextMenu(const ContextMenuParams& params)
+void WebContentsImpl::ShowContextMenu(RenderFrameHost* render_frame_host,
+                                      const ContextMenuParams& params)
+void RenderViewContextMenu::InitMenu()
+
+// menuselected (browser process)
+void RenderViewContextMenu::ExecCopyImageAt()
+send(FrameMsg_CopyImageAt)
+// render process
+void RenderFrameImpl::OnCopyImageAt(int x, int y)

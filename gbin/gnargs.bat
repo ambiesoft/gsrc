@@ -1,3 +1,4 @@
 @echo off
-gn args out\debug %*
+call checktarget.bat
+gn args out\%CURRENT_DEBUGDIR% %*
 

@@ -4,10 +4,11 @@ import argparse
 from os import path
 import os
 
-def myexit(message):
+def myexit(message=None, ret=1):
   '''Show message and quit'''
-  print(message)
-  exit(1)
+  if message:
+    print(message)
+  exit(ret)
 
 # http://code.activestate.com/recipes/577058/
 def query_yes_no(question, default="no"):
@@ -43,6 +44,15 @@ def query_yes_no(question, default="no"):
                              "(or 'y' or 'n').\n")
 
   
+def toOutDir(dir):
+  if not dir:
+    return None
+  return path.join('out', dir)
+
+def getLastPart(path, sep='/'):
+  out = path.split(sep)[-1]
+  return out
+
 def main():
   '''
   run gn gen for creating visual studio's sln.
@@ -58,23 +68,22 @@ def main():
   fullTarget = args.target
   outdir = args.outdir
   if not outdir:
-    outdir=path.join('out', 'debug')
+    outdir = toOutDir(os.getenv('CURRENT_DEBUGDIR'))
+    if not outdir:
+      outdir=path.join('out', 'debug')
   
   if not fullTarget:
     myexit('fullTarget is empty.')
   if fullTarget[0:2] != '//':
     myexit('targe must be full target')
     
-  # Name is after colon
-  targetName = fullTarget.split(':')[-1]
-  if not targetName:
-    # if no colon, target name is same as folder name
-    targetName = fullTarget.split('/')[-1]
+  # Name is after colon, if not colon after '/'
+  targetName = fullTarget.split(':')[-1].split('/')[-1]
   
-  slnFilename = targetName+'.sln'
+  slnFilename = targetName + '.sln'
   if path.exists(path.join(outdir, slnFilename)):
      if 'yes' != query_yes_no(slnFilename + ' already exists. Do you want to run "gn gen" again?'):
-       myexit(0)
+       myexit(ret=0)
      else:
        os.remove(path.join(outdir, slnFilename))
   
@@ -83,8 +92,9 @@ def main():
     ninjaarg.append('-j')
     ninjaarg.append(str(args.j))
   print(ninjaarg)
-  subprocess.call(['cmd', '/c'] + ninjaarg)  
-
+  ret = subprocess.call(['cmd', '/c'] + ninjaarg)
+  if ret != 0:
+    myexit(ret=ret)
 
   tmpSlnFileName = targetName + '_gngennin'
   gngenarg = ['gn', 'gen', '--ide=vs', '--filters='+fullTarget, '--sln=' + tmpSlnFileName, outdir]

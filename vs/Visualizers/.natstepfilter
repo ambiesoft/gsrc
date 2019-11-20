@@ -1,4 +1,7 @@
 <StepFilter xmlns="http://schemas.microsoft.com/vstudio/debugger/natstepfilter/2010">
+
+<Function><Name>memset</Name><Action>NoStepInto</Action></Function>
+<Function><Name>strcmp</Name><Action>NoStepInto</Action></Function>
  
 <Function><Name>operator new</Name><Action>NoStepInto</Action></Function>
 <Function><Name>operator delete</Name><Action>NoStepInto</Action></Function>
@@ -26,6 +29,8 @@
 
 
 <Function><Name>base::StackVector&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::flat_map&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+
 
 
 
@@ -61,6 +66,23 @@
 <Function><Name>SkTArray&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>sk_sp&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>SkTHashMap&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+
+
+<Function><Name>CefCppToCRefCounted&lt;.*&gt;::Wrap</Name><Action>NoStepInto</Action></Function>
+
+
+<Function><Name>base::Unretained&lt;.*&gt;</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::internal::UnretainedWrapper&lt;.*&gt;::</Name><Action>NoStepInto</Action></Function>
+
+<Function><Name>base::BindRepeating&lt;.*&gt;</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::BindOnce&lt;.*&gt;</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::Bind&lt;.*&gt;</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::RepeatingCallback&lt;.*&gt;::~RepeatingCallback</Name><Action>NoStepInto</Action></Function>
+
+
+
+
+
 
 
 
