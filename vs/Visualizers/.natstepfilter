@@ -31,6 +31,9 @@
 <Function><Name>base::StackVector&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::flat_map&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 
+<Function><Name>base::ObserverList&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+
+
 
 
 
@@ -42,6 +45,8 @@
 
 <Function><Name>gfx::Rect::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>gfx::Size::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>gfx::Point::.*</Name><Action>NoStepInto</Action></Function>
+
 
 
 <Function><Name>mojo::ScopedHandleBase&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>

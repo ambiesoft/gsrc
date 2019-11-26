@@ -1,0 +1,20 @@
+gin:Library for interacting with V8
+Blink Bindings:Auto-generating glue code from a WebIDL-like language
+
+instance of V8 is called 'isolate'
+within 'isolates', there are 'context'
+every iframe have their own 'context'
+
+*Scanner
+** input=UTF-16-encoded source text
+** output=stream of Tokens
+
+*Parser
+input=stream of Tokens
+output=AST(Abstract Syntax Tree)
+
+*Parer= PreParser + Full Parser
+**PreParser=Sysntax check, scope analysis, (does not create AST nodes)
+
+*Interpreter(called 'ignition')
+**ByteCodeGenerator = input:AST, output=bytecode

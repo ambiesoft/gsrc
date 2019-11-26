@@ -1,0 +1,4 @@
+DemoHostはHostFrameSinkManagerをもつ
+HostFrameSinkManagerはmojom::FrameSinkManagerClientを実装する
+つまりサービスを管理し、サービスへのインターフェースを提供する
+BindAndSetManager()でthisをFrameSinkManagerClientとしてbindする。
