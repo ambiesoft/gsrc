@@ -1,6 +1,6 @@
 call C:\Linkout\bat\addpath.bat %~dp0depot_tools
 
-start "" python %~dp0chromium\src\tools\md_browser\md_browser.py
+start "" python %~dp0cg\chromium\src\tools\md_browser\md_browser.py
 
 echo %PATH%
 
