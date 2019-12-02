@@ -33,6 +33,8 @@
 
 <Function><Name>base::ObserverList&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 
+<Function><Name>base::RefCountedThreadSafe&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+
 
 
 
