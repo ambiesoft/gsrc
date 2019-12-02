@@ -28,6 +28,12 @@ if not "%ProgramFiles(x86)%"=="" (
     if exist %SystemRoot%\Sysnative\* set "SystemPath=%SystemRoot%\Sysnative"
 )
 
+if not exist %~dp0depot_tools\ (
+    echo depot_tools not found
+    echo Install depot_tools from https://commondatastorage.googleapis.com/chrome-infra-docs/flat/depot_tools/docs/html/depot_tools_tutorial.html
+    pause
+    exit
+)
 
 REM set path to depot_tools
 set PATH=%~dp0depot_tools;%~dp0gbin;%PATH%
