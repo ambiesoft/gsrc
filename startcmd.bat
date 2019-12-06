@@ -13,6 +13,7 @@ if exist %~dp0gitinit.bat (
 
 if exist C:\LegacyPrograms\clink\clink.bat (
   C:\LegacyPrograms\clink\clink.bat
+  exit /b
 ) else (
   start cmd /k
   REM start powershell

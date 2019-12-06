@@ -2,7 +2,9 @@
 
 <Function><Name>memset</Name><Action>NoStepInto</Action></Function>
 <Function><Name>strcmp</Name><Action>NoStepInto</Action></Function>
- 
+<Function><Name>_Init_thread_header</Name><Action>NoStepInto</Action></Function>
+<Function><Name>_Init_thread_footer</Name><Action>NoStepInto</Action></Function>
+
 <Function><Name>operator new</Name><Action>NoStepInto</Action></Function>
 <Function><Name>operator delete</Name><Action>NoStepInto</Action></Function>
 
