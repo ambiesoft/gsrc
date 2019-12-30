@@ -13,38 +13,39 @@
 #include "base/power_monitor/power_monitor.h"
 #include "base/power_monitor/power_monitor_device_source.h"
 #include "base/run_loop.h"
-#include "base/test/scoped_task_environment.h"
+#include "base/test/task_environment.h"
 #include "base/test/test_discardable_memory_allocator.h"
 #include "base/test/test_timeouts.h"
 #include "build/build_config.h"
 #include "components/viz/host/host_frame_sink_manager.h"
 #include "components/viz/service/display_embedder/server_shared_bitmap_manager.h"
 #include "components/viz/service/frame_sinks/frame_sink_manager_impl.h"
+#include "mojo/core/embedder/embedder.h"
 #include "ui/base/ime/init/input_method_initializer.h"
 #include "ui/base/material_design/material_design_controller.h"
 #include "ui/base/resource/resource_bundle.h"
 #include "ui/base/ui_base_paths.h"
 #include "ui/compositor/test/in_process_context_factory.h"
 #include "ui/display/screen.h"
+#include "ui/gfx/font_util.h"
 #include "ui/gl/gl_switches.h"
 #include "ui/gl/init/gl_factory.h"
+#include "ui/views/buildflags.h"
 #include "ui/views/examples/example_base.h"
 #include "ui/views/examples/examples_window.h"
 #include "ui/views/test/desktop_test_views_delegate.h"
-#include "mojo/core/embedder/embedder.h"
 
 #if defined(USE_AURA)
 #include "ui/aura/env.h"
 #include "ui/wm/core/wm_state.h"
 #endif
 
-#if !defined(OS_CHROMEOS) && defined(USE_AURA)
+#if BUILDFLAG(ENABLE_DESKTOP_AURA)
 #include "ui/views/widget/desktop_aura/desktop_screen.h"
 #endif
 
 #if defined(OS_WIN)
 #include "ui/base/win/scoped_ole_initializer.h"
-#include "ui/gfx/win/direct_write.h"
 #endif
 
 #if defined(USE_X11)
@@ -56,7 +57,7 @@ base::LazyInstance<base::TestDiscardableMemoryAllocator>::DestructorAtExit
 
 int main(int argc, char** argv) {
 #if defined(OS_WIN)
-  ui::ScopedOleInitializer ole_initializer_;
+  ui::ScopedOleInitializer ole_initializer;
 #endif
 
   base::CommandLine::Init(argc, argv);
@@ -69,6 +70,8 @@ int main(int argc, char** argv) {
 
   base::AtExitManager at_exit;
 
+  mojo::core::Init();
+
 #if defined(USE_X11)
   // This demo uses InProcessContextFactory which uses X on a separate Gpu
   // thread.
@@ -77,7 +80,7 @@ int main(int argc, char** argv) {
 
   gl::init::InitializeGLOneOff();
 
-  // The use of base::test::ScopedTaskEnvironment below relies on the timeout
+  // The use of base::test::TaskEnvironment below relies on the timeout
   // values from TestTimeouts. This ensures they're properly initialized.
   TestTimeouts::Initialize();
 
@@ -91,8 +94,8 @@ int main(int argc, char** argv) {
       &host_frame_sink_manager, &frame_sink_manager);
   context_factory->set_use_test_surface(false);
 
-  base::test::ScopedTaskEnvironment scoped_task_environment(
-      base::test::ScopedTaskEnvironment::MainThreadType::UI);
+  base::test::TaskEnvironment task_environment(
+      base::test::TaskEnvironment::MainThreadType::UI);
 
   base::i18n::InitializeICU();
 
@@ -108,9 +111,7 @@ int main(int argc, char** argv) {
   base::PowerMonitor::Initialize(
       std::make_unique<base::PowerMonitorDeviceSource>());
 
-#if defined(OS_WIN)
-  gfx::win::InitializeDirectWrite();
-#endif
+  gfx::InitializeFonts();
 
 #if defined(USE_AURA)
   std::unique_ptr<aura::Env> env = aura::Env::CreateInstance();
@@ -125,13 +126,11 @@ int main(int argc, char** argv) {
 #if defined(USE_AURA)
     wm::WMState wm_state;
 #endif
-#if !defined(OS_CHROMEOS) && defined(USE_AURA)
+#if BUILDFLAG(ENABLE_DESKTOP_AURA)
     std::unique_ptr<display::Screen> desktop_screen(
         views::CreateDesktopScreen());
     display::Screen::SetScreenInstance(desktop_screen.get());
 #endif
-
-    mojo::core::Init();
 
     // This app isn't a test and shouldn't timeout.
     base::RunLoop::ScopedDisableRunTimeoutForTest disable_timeout;

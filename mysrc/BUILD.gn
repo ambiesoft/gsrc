@@ -1,5 +1,6 @@
 import("//build/config/jumbo.gni")
 import("//build/config/ui.gni")
+import("//build/config/win/console_app.gni")
 import("//testing/test.gni")
 
 executable("mymain") {
@@ -193,4 +194,56 @@ executable("my_mojo_sample")
   sources = [
     "my_mojo_sample.cc",
   ]
+}
+
+
+
+executable("my_simple_views") {
+  testonly = true
+
+  sources = [
+    "my_simple_views/main.cc",
+    "my_simple_views/my_examples_window.cc",
+    "my_simple_views/my_examples_window.h",
+    "my_simple_views/my_example_base.cc",
+    "my_simple_views/my_example_base.h",
+  ]
+
+  deps = [
+    "//ui/views/examples:views_examples_lib",
+    "//base",
+    "//base:i18n",
+    "//base/test:test_support",
+    "//build/win:default_exe_manifest",
+    "//components/viz/host",
+    "//components/viz/service",
+    "//ui/base",
+    "//ui/base/ime/init",
+    "//ui/compositor",
+    "//ui/compositor:test_support",
+    "//ui/gfx",
+    "//ui/gl",
+    "//ui/gl/init",
+    "//ui/resources:ui_test_pak",
+    "//ui/views",
+    "//ui/views:test_support",
+  ]
+
+  if (win_console_app) {
+    defines += [ "WIN_CONSOLE_APP" ]
+  } else {
+    # Set /SUBSYSTEM:WINDOWS unless a console build has been requested.
+    configs -= [ "//build/config/win:console" ]
+    configs += [ "//build/config/win:windowed" ]
+  }
+
+  if (use_aura) {
+    deps += [
+      "//ui/aura",
+      "//ui/wm",
+    ]
+  }
+  if (use_x11) {
+    deps += [ "//ui/gfx/x" ]
+  }
 }

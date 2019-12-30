@@ -1,1 +1,1 @@
-chrome.lnk --trace-startup --trace-startup-file=%~dp0foo.json --trace-startup-duration=10
+chrome.lnk --no-sandbox --trace-startup=*,disabled-by-default-memory-infra --trace-startup-file=%~dp0foo.json --trace-startup-duration=5  http://ambiesoft.mooo.com/webapp/testclient/html5videoMDP.html
