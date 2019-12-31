@@ -207,6 +207,10 @@ executable("my_simple_views") {
     "my_simple_views/my_examples_window.h",
     "my_simple_views/my_example_base.cc",
     "my_simple_views/my_example_base.h",
+    "my_simple_views/my_label_example.cc",
+    "my_simple_views/my_label_example.h",
+    "my_simple_views/my_example_combobox_model.cc",
+    "my_simple_views/my_example_combobox_model.h",
   ]
 
   deps = [
