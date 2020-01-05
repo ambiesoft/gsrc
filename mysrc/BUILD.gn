@@ -2,6 +2,7 @@ import("//build/config/jumbo.gni")
 import("//build/config/ui.gni")
 import("//build/config/win/console_app.gni")
 import("//testing/test.gni")
+import("//mojo/public/tools/bindings/mojom.gni")
 
 executable("mymain") {
    deps = [
@@ -250,4 +251,18 @@ executable("my_simple_views") {
   if (use_x11) {
     deps += [ "//ui/gfx/x" ]
   }
+}
+
+
+
+
+executable("my_mojom_main") {
+   deps = [
+      "//base",
+      "//mojo/core/embedder",
+      "my_mojo_db/public/mojom",
+  ]
+  sources = [
+    "my_mojom_main/my_mojom_main.cc",
+  ]
 }

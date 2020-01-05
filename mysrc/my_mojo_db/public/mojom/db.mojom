@@ -1,0 +1,9 @@
+module db.mojom;
+
+interface Table {
+  AddRow(int32 key, string data);
+};
+
+interface Database {
+  CreateTable(Table& table);
+};
