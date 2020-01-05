@@ -1,0 +1,3 @@
+[submodule "gbin/slnStartupProject"]
+	path = gbin/slnStartupProject
+	url = git@github.com:ambiesoft/slnStartupProject.git
