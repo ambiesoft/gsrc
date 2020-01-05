@@ -112,8 +112,12 @@ def main():
   
 
   # select startup project
+  slnStartupProjectExe = os.path.join(THISDIR, "slnStartupProject\\bin\\slnStartupProject.exe")
+  if not os.path.isfile(slnStartupProjectExe):
+    myexit(r"""'{}' is not found. Run 'git submodule update -i'""".format(slnStartupProjectExe))
+
   slnStartupProjectArg = [
-    os.path.join(THISDIR, "slnStartupProject\\bin\\slnStartupProject.exe"),
+    slnStartupProjectExe,
     slnFull,
     targetName
   ]
