@@ -4,6 +4,8 @@ import argparse
 from os import path
 import os
 
+THISDIR = os.path.dirname(os.path.realpath(__file__))
+
 def myexit(message=None, ret=1):
   '''Show message and quit'''
   if message:
@@ -75,7 +77,7 @@ def main():
   if not fullTarget:
     myexit('fullTarget is empty.')
   if fullTarget[0:2] != '//':
-    myexit('targe must be full target')
+    myexit('target must be full target')
     
   # Name is after colon, if not colon after '/'
   targetName = fullTarget.split(':')[-1].split('/')[-1]
@@ -87,6 +89,8 @@ def main():
      else:
        os.remove(path.join(outdir, slnFilename))
   
+
+  # ninja
   ninjaarg = ['autoninja', '-C', outdir, fullTarget[2:]]
   if(args.j):
     ninjaarg.append('-j')
@@ -96,11 +100,25 @@ def main():
   if ret != 0:
     myexit(ret=ret)
 
+
+  # gn gen
   tmpSlnFileName = targetName + '_gngennin'
   gngenarg = ['gn', 'gen', '--ide=vs2019', '--filters='+fullTarget, '--sln=' + tmpSlnFileName, outdir]
   print(gngenarg)
   subprocess.call(['cmd', '/c'] + gngenarg)
-  os.rename(path.join(outdir, tmpSlnFileName+'.sln'), path.join(outdir, slnFilename))
+  slnTmpFull = path.join(outdir, tmpSlnFileName+'.sln')
+  slnFull = path.join(outdir, slnFilename)
+  os.rename(slnTmpFull, slnFull)
   
+
+  # select startup project
+  slnStartupProjectArg = [
+    os.path.join(THISDIR, "slnStartupProject\\bin\\slnStartupProject.exe"),
+    slnFull,
+    targetName
+  ]
+  print(slnStartupProjectArg)
+  subprocess.call(slnStartupProjectArg)
+
 if __name__ == "__main__":
   main() 
