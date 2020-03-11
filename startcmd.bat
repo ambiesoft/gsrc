@@ -52,5 +52,6 @@ if exist %~dp0cg\chromium\src (
 
 REM always launch 64bit cmd
 REM echo start %SystemPath%\cmd.exe /k %~dp0%~nx0 2ndlaunch
+call %~dp0gbin\settarget32.bat
 start %SystemPath%\cmd.exe /k %~dp0%~nx0 2ndlaunch
 
