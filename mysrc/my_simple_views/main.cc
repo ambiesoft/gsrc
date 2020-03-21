@@ -8,6 +8,7 @@
 #include "base/command_line.h"
 #include "base/files/file_path.h"
 #include "base/i18n/icu_util.h"
+#include "base/logging.h"
 #include "base/memory/ptr_util.h"
 #include "base/path_service.h"
 #include "base/power_monitor/power_monitor.h"
@@ -76,6 +77,14 @@ int main() {
 #endif
 
   base::CommandLine::Init(argc, argv);
+
+  logging::LoggingSettings settings;
+  settings.logging_dest =
+      logging::LOG_TO_SYSTEM_DEBUG_LOG | logging::LOG_TO_STDERR;
+  bool success = logging::InitLogging(settings);
+
+  InitLogging();
+
 
   // Disabling Direct Composition works around the limitation that
   // InProcessContextFactory doesn't work with Direct Composition, causing the
