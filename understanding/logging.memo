@@ -23,3 +23,15 @@ const char kV[] = "v";
 // source files under a "foo/bar" directory.
 const char kVModule[] = "vmodule";
 
+
+
+  SetMinLogLevel(LOG_INFO);
+  EXPECT_TRUE(LOG_IS_ON(INFO));
+  EXPECT_TRUE(LOG_IS_ON(WARNING));
+  EXPECT_TRUE(LOG_IS_ON(ERROR));
+  EXPECT_TRUE(LOG_IS_ON(FATAL));
+  EXPECT_TRUE(LOG_IS_ON(DFATAL));
+通常のログレベルは指定以上の詳細データを表示する。
+INFOをMINLEVELに指定すればすべて表示される。
+
+

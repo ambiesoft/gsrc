@@ -1,0 +1,6 @@
+14.25 causes error, 14.24 must be installed by following command. vs_community__xx can be downloaded from the MS.
+
+this lacks x86/64.
+and ARM64 is not needed?
+
+vs_community__1654149128.1585698411.exe --add "Microsoft.VisualStudio.Component.VC.14.24.ARM64" --add "Microsoft.VisualStudio.Component.VC.14.24.ATL.ARM64" --add "Microsoft.VisualStudio.Component.VC.14.24.ATL" --add "Microsoft.VisualStudio.Component.VC.14.24.MFC.ARM64" --add "Microsoft.VisualStudio.Component.VC.14.24.MFC" --includeRecommended

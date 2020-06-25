@@ -23,7 +23,7 @@
 #include "components/viz/service/frame_sinks/frame_sink_manager_impl.h"
 #include "mojo/core/embedder/embedder.h"
 #include "ui/base/ime/init/input_method_initializer.h"
-#include "ui/base/material_design/material_design_controller.h"
+// #include "ui/base/material_design/material_design_controller.h"
 #include "ui/base/resource/resource_bundle.h"
 #include "ui/base/ui_base_paths.h"
 #include "ui/compositor/test/in_process_context_factory.h"
@@ -78,12 +78,12 @@ int main() {
 
   base::CommandLine::Init(argc, argv);
 
-  logging::LoggingSettings settings;
-  settings.logging_dest =
-      logging::LOG_TO_SYSTEM_DEBUG_LOG | logging::LOG_TO_STDERR;
-  bool success = logging::InitLogging(settings);
+//  logging::LoggingSettings settings;
+//  settings.logging_dest =
+//      logging::LOG_TO_SYSTEM_DEBUG_LOG | logging::LOG_TO_STDERR;
+//  bool success = logging::InitLogging(settings);
 
-  InitLogging();
+  // InitLogging();
 
 
   // Disabling Direct Composition works around the limitation that
@@ -140,10 +140,10 @@ int main() {
 #if defined(USE_AURA)
   std::unique_ptr<aura::Env> env = aura::Env::CreateInstance();
   aura::Env::GetInstance()->set_context_factory(context_factory.get());
-  aura::Env::GetInstance()->set_context_factory_private(context_factory.get());
+  // aura::Env::GetInstance()->set_context_factory_private(context_factory.get());
 #endif
   ui::InitializeInputMethodForTesting();
-  ui::MaterialDesignController::Initialize();
+  // ui::MaterialDesignController::Initialize();
 
   {
     views::DesktopTestViewsDelegate views_delegate;
@@ -157,7 +157,7 @@ int main() {
 #endif
 
     // This app isn't a test and shouldn't timeout.
-    base::RunLoop::ScopedDisableRunTimeoutForTest disable_timeout;
+    // base::RunLoop::ScopedDisableRunTimeoutForTest disable_timeout;
 
     base::RunLoop run_loop;
     mysrc::ShowExamplesWindow(run_loop.QuitClosure());
