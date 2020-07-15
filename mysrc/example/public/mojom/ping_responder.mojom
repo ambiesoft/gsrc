@@ -1,0 +1,6 @@
+module example.mojom;
+
+interface PingResponder {
+	// Receives a "Ping" and responds with a random integer.
+	Ping() => (int random);
+};

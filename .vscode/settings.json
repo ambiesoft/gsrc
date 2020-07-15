@@ -1,7 +1,6 @@
 {
     "files.eol": "\n",
     "terminal.integrated.env.windows": {
-        "PATH": "${env:PATH};C:/code/depot_tools/bootstrap-3_8_0b1_chromium_1_bin/python/bin/python.exe"
-    },
-    "python.pythonPath": "C:/code/depot_tools/bootstrap-3_8_0b1_chromium_1_bin/python/bin/python.exe"
+        "PATH": "${env:PATH};C:/code/depot_tools/bootstrap-3_8_0_chromium_8_bin/python3/bin/python3.exe"
+    }
 }

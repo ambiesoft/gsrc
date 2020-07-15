@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "rebase-update",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/depot_tools/git_rebase_update.py",
+            "console": "integratedTerminal",
+            "args": [],
+            "cwd": "${workspaceFolder}/chromium/src"
+        },
+        {
             "name": "fetch",
             "type": "python",
             "request": "launch",
