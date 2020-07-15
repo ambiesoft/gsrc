@@ -1,6 +1,7 @@
 vivaldi-source/
 myinfo/
 *~
+.~lock*#
 /tmp/
 .idea/
 angle/

@@ -1,1 +1,1 @@
-chrome.lnk --no-sandbox --trace-startup=*,disabled-by-default-memory-infra --trace-startup-file=%~dp0foo.json --trace-startup-duration=5  http://ambiesoft.mooo.com/webapp/testclient/html5videoMDP.html
+"%~dp0..\..\chromium\src\out\release\chrome" --no-sandbox --trace-startup=*,disabled-by-default-memory-infra --trace-startup-file=%~dp0foo.json --trace-startup-duration=5  http://ambiesoft.mooo.com/webapp/testclient/

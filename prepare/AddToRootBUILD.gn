@@ -1,5 +1,0 @@
-group("myroot") {
-  deps = [
-    "//mysrc:mymain",
-  ]
-}
