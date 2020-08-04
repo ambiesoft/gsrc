@@ -1,5 +1,12 @@
-group("myroot") {
+
+
+group("mymain") {
   deps = [
     "//mysrc:mymain",
+  ]
+}
+group("gndev") {
+  deps = [
+    "//mysrc/gndev",
   ]
 }

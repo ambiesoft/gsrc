@@ -1,0 +1,45 @@
+
+import("//build/config/jumbo.gni")
+import("//build/config/ui.gni")
+import("//testing/test.gni")
+import("//tools/grit/grit_rule.gni")
+
+
+executable("gndev") {
+
+  sources = [ "gndev.cc" ]
+
+  deps = [
+    "//base:i18n",
+    "//base/third_party/dynamic_annotations",
+    "//cc/paint",
+    "//mojo/public/cpp/bindings",
+    "//skia",
+    "//third_party/icu",
+    "//ui/accessibility",
+    "//ui/base/clipboard",
+    "//ui/display",
+    "//ui/latency",
+    "//ui/native_theme",
+    "//ui/native_theme:native_theme_browser",
+    "//ui/resources",
+    "//ui/strings",
+    "//ui/views/resources",
+    "//url",
+  ]
+  deps += [
+    "//base",
+#    "//base/test:test_support",
+    "//build/win:default_exe_manifest",
+    "//ui/resources:ui_test_pak",
+  ]
+  
+  if (is_win) {
+    deps += [ "//third_party/wtl" ]
+  }
+    
+  if (use_aura) {
+    deps += [ "//ui/aura" ]
+  }
+}
+
