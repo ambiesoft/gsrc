@@ -6,11 +6,15 @@ import("//tools/grit/grit_rule.gni")
 
 
 executable("gndev") {
-
-  sources = [ "gndev.cc" ]
+  testonly = true
+  sources = [
+    "gndev.cc",
+    "gn_main_proc.cc",
+  ]
 
   deps = [
     "//base:i18n",
+    "//base:base_static",
     "//base/third_party/dynamic_annotations",
     "//cc/paint",
     "//mojo/public/cpp/bindings",
@@ -24,9 +28,39 @@ executable("gndev") {
     "//ui/native_theme:native_theme_browser",
     "//ui/resources",
     "//ui/strings",
+    "//ui/views",
     "//ui/views/resources",
+    "//ui/compositor:test_support",
+    "//ui/views:test_support",
     "//url",
   ]
+  deps += [
+    "//base",
+    "//cc/paint",
+    "//skia",
+    "//third_party/icu",
+    "//ui/base",
+    "//ui/events",
+    "//ui/gfx",
+    "//ui/gfx/geometry",
+    "//ui/native_theme",
+    "//ui/resources",
+    "//ui/resources:ui_test_pak",
+    "//ui/strings:ui_strings",
+    "//ui/views",
+  ]  
+  deps += [
+    "//base",
+    "//cc/paint",
+    "//components/viz/host",
+    "//components/viz/service",
+    "//mojo/core/embedder",
+    "//skia",
+    "//ui/base",
+    "//ui/compositor",
+    "//ui/gfx",
+    "//ui/views",
+  ]  
   deps += [
     "//base",
 #    "//base/test:test_support",

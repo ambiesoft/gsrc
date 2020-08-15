@@ -45,8 +45,7 @@
 <Function><Name>base::win::GenericScopedHandle&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::size&lt;.*&gt;</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::WeakPtrFactory&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
-
-
+<Function><Name>base::FilePath::.*</Name><Action>NoStepInto</Action></Function>
 
 
 
