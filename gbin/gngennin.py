@@ -95,6 +95,10 @@ def main():
   if(args.j):
     ninjaarg.append('-j')
     ninjaarg.append(str(args.j))
+  else:
+    ninjaarg.append('-j')
+    ninjaarg.append('6')
+    
   print(ninjaarg)
   ret = subprocess.call(['cmd', '/c'] + ninjaarg)
   if ret != 0:

@@ -1,0 +1,50 @@
+executable("dicregate") {
+  testonly = true
+
+  sources = [ 
+    "dicregate_content.cc",
+    "dicregate_content.h",
+    "dicregate_content_client.cc",
+    "dicregate_content_client.h",
+    "dicregate_content_browser_client.cc",
+    "dicregate_content_browser_client.h",
+    "dicregate_content_main_delegate.cc",
+    "dicregate_content_main_delegate.h",
+    "dicregate_content_client_main_parts.cc",
+    "dicregate_content_client_main_parts.h",
+    "dicregate_content_client_main_parts_desktop_aura.cc",
+    "dicregate_content_client_main_parts_aura.cc",
+    "dicregate_content_client_main_parts_aura.h",
+    "webview_dicregate.cc",
+    "webview_dicregate.h",
+    "dicregate_main.cc",
+    "dicregate_window.cc",
+    "dicregate_window.h",
+  ]
+
+  deps = [
+    "//base",
+    "//content",
+    "//content/shell:content_shell_lib",
+    "//skia",
+    "//ui/events",
+    "//ui/views",
+    "//ui/views/controls/webview",
+    "//url",
+    "//base",
+    "//build/win:default_exe_manifest",
+    "//content",
+    "//content:sandbox_helper_win",
+    "//sandbox",
+    "//ui/views_content_client",
+  ]
+
+  if (is_win) {
+    configs += [ "//build/config/win:windowed" ]
+    configs -= [ "//build/config/win:console" ]
+  }
+
+  if (is_mac) {
+    deps += [ "//sandbox/mac:seatbelt" ]
+  }
+}

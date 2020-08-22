@@ -1,0 +1,21 @@
+//ui/views/examples:views_examples_resources_grd_gritターゲット
+　　ui/views/examples/views_examples_resources.grdファイルから
+  //out/debug/gen/ui/views/examples/grit/views_examples_resources.h
+  //out/debug/gen/ui/views/examples/views_examples_resources.pak
+を作成する。
+
+//ui/views/examples:views_examples_resources_grdターゲット
+これを含めてgritから作成された.hをインクルードできるようにする。
+
+grdはXMLファイル。
+
+gn refs out\debug //ui/views/examples:views_examples_resources_grd_grit
+//ui/views/examples:views_examples_resources_grd
+
+gn refs out\debug //ui/views/examples:views_examples_resources_grd
+//ui/views/examples:views_examples_lib
+//ui/views/examples:views_examples_resources_pak
+//ui/views/examples:views_examples_with_content_lib
+
+//ui/views/examples:views_examples_resources_pakはpakをコピーする。
+
