@@ -1,0 +1,11 @@
+content_shell-------------
+IPC_MESSAGE_HANDLER(FrameHostMsg_ContextMenu, OnContextMenu)
+RenderFrameHostImpl::OnContextMenu
+WebContentsImpl::ShowContextMenu
+WebContentsDelegate::HandleContextMenu
+WebContentsViewAura::ShowContextMenu
+ShellWebContentsViewDelegate::ShowContextMenu
+
+
+dicregateにはWebContentsViewAura::delegate_がない
+

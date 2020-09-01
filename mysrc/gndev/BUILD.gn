@@ -35,6 +35,8 @@ executable("gndev") {
     "//url",
   ]
   deps += [
+    ":gndev_resources_grd",
+    ":gndev_resources_pak",
     "//base",
     "//cc/paint",
     "//skia",
@@ -77,3 +79,17 @@ executable("gndev") {
   }
 }
 
+grit("gndev_resources_grd") {
+  testonly = true
+  source = "gndev_resources.grd"
+  outputs = [
+    "grit/gndev_resources.h",
+    "gndev_resources.pak",
+  ]
+}
+copy("gndev_resources_pak") {
+  testonly = true
+  sources = [ "$target_gen_dir/gndev_resources.pak" ]
+  outputs = [ "$root_out_dir/gndev_resources.pak" ]
+  public_deps = [ ":gndev_resources_grd" ]
+}

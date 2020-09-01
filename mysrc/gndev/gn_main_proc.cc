@@ -54,6 +54,10 @@
 #include "ui/views/background.h"
 #include "ui/views/controls/table/table_view.h"
 #include "ui/views/controls/scroll_view.h"
+#include "mysrc/gndev/grit/gndev_resources.h"
+#include "ui/base/l10n/l10n_util.h"
+#include "base/process/launch.h"
+#include "base/files/file_util.h"
 
 #if defined(USE_AURA)
 #include "ui/aura/env.h"
@@ -75,6 +79,10 @@
 #endif
 
 using base::ASCIIToUTF16;
+using views::GridLayout;
+using views::TableView;
+using views::ColumnSet;
+using ui::TableColumn;
 
 namespace ambiesoft {
 namespace gndev {
@@ -84,129 +92,176 @@ const char kGndevWidgetName[] = "GndevWidget";
 base::LazyInstance<base::TestDiscardableMemoryAllocator>::DestructorAtExit
     g_discardable_memory_allocator = LAZY_INSTANCE_INITIALIZER;
 
-class GndevWindowContents : public views::WidgetDelegateView,
-                            public ui::TableModel {
- public:
-  GndevWindowContents(base::OnceClosure on_close)
-      : on_close_(std::move(on_close)) {
-    SetHasWindowSizeControls(true);
-
-    instance_ = this;
-
-    SetBackground(views::CreateThemedSolidBackground(
-        this, ui::NativeTheme::kColorId_DialogBackground));
-
-    views::GridLayout* layout =
-        SetLayoutManager(std::make_unique<views::GridLayout>());
-
-    // Create Table
-    std::vector<ui::TableColumn> columns;
-    ui::TableColumn column1;
-    column1.id = 0;
-    column1.title = ASCIIToUTF16("aaa");
-    column1.sortable = false;
-    columns.push_back(column1);
-
-    ui::TableColumn column2;
-    column2.id = 1;
-    column2.title = ASCIIToUTF16("bbb");
-    column2.sortable = false;
-    columns.push_back(column2);
-
-    auto table = std::make_unique<views::TableView>(this, columns,
-                                                    views::ICON_AND_TEXT, true);
-
-    // table->SetGrouper(this);
-    // table->set_observer(this);
-    // icon1_.allocN32Pixels(16, 16);
-    // SkCanvas canvas1(icon1_);
-    // canvas1.drawColor(SK_ColorRED);
-
-    // icon2_.allocN32Pixels(16, 16);
-    // SkCanvas canvas2(icon2_);
-    // canvas2.drawColor(SK_ColorBLUE);
-
-    views::ColumnSet* column_set = layout->AddColumnSet(0);
-    column_set->AddColumn(
-        views::GridLayout::FILL,        // h-align
-        views::GridLayout::FILL,        // v-align
-        1,                              // resize percent
-        views::GridLayout::ColumnSize::kUsePreferred, // 
-        0,                              // fixed width
-        0                               // min width
-    );
-    layout->StartRow(
-        1,      // expand (vertical resize)
-        0       // column set id
-    );
-    
-    layout->AddView(
-        views::TableView::CreateScrollViewWithTable(std::move(table)));
-
-    column_set->AddPaddingColumn(
-        0,      // resize percent
-        5       // width
-    );
-    layout->AddPaddingRow(
-        0,      // vertical resize
-        5       // pixel count
-    );
-
-
-    // status label
-    layout->StartRow(
-        0,      // no expand (vertical resize)
-        0       // column set id
-    );
-    status_label_ = layout->AddView(std::make_unique<views::Label>());
-    layout->AddPaddingRow(0, 5);
-  }
-
-  ~GndevWindowContents() override {}
-
-  // TableModel overrides
-  int RowCount() override { return 1; }
-  base::string16 GetText(int row, int column_id) override {
-    return ASCIIToUTF16("ggg");
-  }
-  void SetObserver(ui::TableModelObserver* observer) override {}
-
-
-  // Sets the status area (at the bottom of the window) to |status|.
-  void SetStatus(const std::string& status) {
-    status_label_->SetText(base::UTF8ToUTF16(status));
-  }
-
-  static GndevWindowContents* instance() { return instance_; }
-
- private:
-  // WidgetDelegateView:
-  base::string16 GetWindowTitle() const override {
-    return base::ASCIIToUTF16("Views Examples");
-  }
-  void WindowClosing() override {
-    instance_ = nullptr;
-    if (on_close_)
-      std::move(on_close_).Run();
-  }
-  gfx::Size CalculatePreferredSize() const override {
-    gfx::Size size(800, 300);
-    return size;
-  }
-
-  static GndevWindowContents* instance_;
-  // View* example_shown_ = nullptr;
-  views::Label* status_label_ = nullptr;
-  base::OnceClosure on_close_;
-  // Combobox* combobox_ = nullptr;
-  // Owned by |combobox_|.
-  // ComboboxModelExampleList* combobox_model_ = nullptr;
-
-  DISALLOW_COPY_AND_ASSIGN(GndevWindowContents);
-};
+base::FilePath gGnRoot;
 
 // static
 GndevWindowContents* GndevWindowContents::instance_ = nullptr;
+
+
+GndevWindowContents::GndevWindowContents(base::OnceClosure on_close)
+    : on_close_(std::move(on_close)) {
+  SetHasWindowSizeControls(true);
+
+  // std::string sss = l10n_util::GetStringUTF8(IDS_TEST);
+
+  instance_ = this;
+
+  SetBackground(views::CreateThemedSolidBackground(
+      this, ui::NativeTheme::kColorId_DialogBackground));
+
+  GridLayout* layout =
+      SetLayoutManager(std::make_unique<GridLayout>());
+
+  // Create Table
+  std::vector<TableColumn> columns;
+  {
+    TableColumn column1;
+    column1.id = kColumnFirst;
+    column1.title = ASCIIToUTF16("aaa");
+    column1.sortable = false;
+    columns.push_back(column1);
+  }
+  {
+    TableColumn column2;
+    column2.id = kColumnSecond;
+    column2.title = ASCIIToUTF16("bbb");
+    column2.sortable = false;
+    columns.push_back(column2);
+  }
+
+  auto table = std::make_unique<TableView>(
+      this, // TableModel
+      columns,
+      views::ICON_AND_TEXT, 
+      true  // single selection
+      );
+  table_ = table.get();
+  table->set_observer(this);
+  table->SetSortOnPaint(false);
+
+  // table->SetGrouper(this);
+  // table->set_observer(this);
+  // icon1_.allocN32Pixels(16, 16);
+  // SkCanvas canvas1(icon1_);
+  // canvas1.drawColor(SK_ColorRED);
+
+  // icon2_.allocN32Pixels(16, 16);
+  // SkCanvas canvas2(icon2_);
+  // canvas2.drawColor(SK_ColorBLUE);
+
+  constexpr int kColumnIdFirst = 0;
+  ColumnSet* column_set = layout->AddColumnSet(kColumnIdFirst);
+  column_set->AddColumn(GridLayout::FILL,  // h-align
+                        GridLayout::FILL,  // v-align
+                        1,                        // resize percent
+                        GridLayout::ColumnSize::kUsePreferred,  //
+                        0,  // fixed width
+                        0   // min width
+  );
+  layout->StartRow(1,  // expand (vertical resize)
+                   kColumnIdFirst  // column set id
+  );
+  layout->AddView(
+      TableView::CreateScrollViewWithTable(std::move(table)));
+
+
+  column_set->AddPaddingColumn(0,  // resize percent
+                               5   // width
+  );
+  layout->AddPaddingRow(0,  // vertical resize
+                        5   // pixel count
+  );
+
+
+  // status label
+  layout->StartRow(0,  // no expand (vertical resize)
+                   kColumnIdFirst  // column set id
+  );
+  status_label_ = layout->AddView(std::make_unique<views::Label>());
+  layout->AddPaddingRow(0, 5);
+}
+
+base::string16 GndevWindowContents::GetWindowTitle() const {
+  return base::ASCIIToUTF16("Views Examples");
+}
+void GndevWindowContents::WindowClosing() {
+  instance_ = nullptr;
+  if (on_close_)
+    std::move(on_close_).Run();
+}
+gfx::Size GndevWindowContents::CalculatePreferredSize() const {
+  gfx::Size size(800, 300);
+  return size;
+}
+void GndevWindowContents::OnWidgetInitialized() {
+  base::ThreadPool::PostTaskAndReplyWithResult(
+      FROM_HERE, {base::MayBlock()},
+      base::BindOnce(&GndevWindowContents::mytask, base::Unretained(this)),
+      base::BindOnce(&GndevWindowContents::mytask2, base::Unretained(this)));
+}
+std::string GndevWindowContents::mytask() {
+  base::CommandLine cmdLine =
+      base::CommandLine::FromString(ASCIIToUTF16("gn.bat"));
+  cmdLine.AppendArg("ls");
+
+  base::FilePath gnOut(gGnRoot);
+  gnOut = gnOut.AppendASCII("out/debug");
+  cmdLine.AppendArgPath(gnOut);
+
+  std::string output;
+  int exit_code = -1;
+  if (!base::GetAppOutputWithExitCode(cmdLine, &output, &exit_code)) {
+    // Failed to start process
+  }
+  if (exit_code != 0) {
+    // Command failed
+  }
+  return output;
+}
+
+void GndevWindowContents::mytask2(std::string output) {
+  gnls_.clear();
+
+  std::istringstream f(output);
+  std::string line;
+  while (std::getline(f, line)) {
+    gnls_.push_back(base::UTF8ToUTF16(line));
+  }
+  table_->OnItemsAdded(0, base::checked_cast<int>(gnls_.size()));
+}
+
+int GndevWindowContents::RowCount() {
+  return base::checked_cast<int>(gnls_.size());
+}
+base::string16 GndevWindowContents::GetText(int row, int column_id) {
+  static base::string16 ggg = ASCIIToUTF16("ggg");
+  switch (column_id) {
+    case kColumnFirst:
+      return gnls_[row];
+    case kColumnSecond:
+      return ggg;
+  }
+  return base::string16();
+}
+
+void GndevWindowContents::OnSelectionChanged() {
+  PrintStatus("Selected: %s",
+              base::UTF16ToASCII(GetText(table_->selection_model().active(), 0))
+                  .c_str());
+}
+void GndevWindowContents::OnDoubleClick() {
+  PrintStatus("Double Click: %s",
+              base::UTF16ToASCII(GetText(table_->selection_model().active(), 0))
+                  .c_str());
+}
+void GndevWindowContents::OnMiddleClick() {}
+void GndevWindowContents::OnKeyDown(ui::KeyboardCode virtual_keycode) {}
+
+
+
+void GndevWindowContents::SetStatus(const std::string& status) {
+  status_label_->SetText(base::UTF8ToUTF16(status));
+}
 
 void ShowGndevWindow(base::OnceClosure on_close) {
   if (GndevWindowContents::instance()) {
@@ -222,12 +277,33 @@ void ShowGndevWindow(base::OnceClosure on_close) {
   }
 }
 
+void SetGnRootPath(const base::FilePath& startPath) {
+  base::FilePath result;
+  base::FilePath path(startPath);
+  base::FilePath lastCheckPath;
+  const int kSafebound = 4096;
+  for (int up = 0; up < kSafebound; ++up) {
+    if (up != 0)
+      path = path.AppendASCII("..");
+    path = base::MakeAbsoluteFilePath(path);
+    if (path == lastCheckPath)
+      break;
+    lastCheckPath = path;
+    base::FilePath gnpath = path.AppendASCII(".gn");
+    if (base::PathExists(gnpath))
+      gGnRoot = path.NormalizePathSeparatorsTo('/');
+  }
+}
+    
 GndevExitCode GndevMainProc(bool under_test) {
 #if defined(OS_WIN)
   ui::ScopedOleInitializer ole_initializer;
 #endif
 
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
+
+  // Find gn root path
+  SetGnRootPath(base::FilePath(base::FilePath::kCurrentDirectory));
 
   // Disabling Direct Composition works around the limitation that
   // InProcessContextFactory doesn't work with Direct Composition, causing the
@@ -270,12 +346,12 @@ GndevExitCode GndevMainProc(bool under_test) {
   CHECK(base::PathService::Get(ui::UI_TEST_PAK, &ui_test_pak_path));
   ui::ResourceBundle::InitSharedInstanceWithPakPath(ui_test_pak_path);
 
-  base::FilePath views_examples_resources_pak_path;
+  base::FilePath gndev_resources_pak_path;
   CHECK(base::PathService::Get(base::DIR_MODULE,
-                               &views_examples_resources_pak_path));
+                               &gndev_resources_pak_path));
   ui::ResourceBundle::GetSharedInstance().AddDataPackFromPath(
-      views_examples_resources_pak_path.AppendASCII(
-          "views_examples_resources.pak"),
+      gndev_resources_pak_path.AppendASCII(
+          "gndev_resources.pak"),
       ui::SCALE_FACTOR_100P);
 
   base::DiscardableMemoryAllocator::SetInstance(
