@@ -236,7 +236,7 @@ executable("my_simple_views") {
 
   if (win_console_app) {
     defines += [ "WIN_CONSOLE_APP" ]
-  } else {
+  } else if(is_win) {
     # Set /SUBSYSTEM:WINDOWS unless a console build has been requested.
     configs -= [ "//build/config/win:console" ]
     configs += [ "//build/config/win:windowed" ]

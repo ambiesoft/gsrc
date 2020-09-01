@@ -6,6 +6,7 @@ group("mymain") {
   ]
 }
 group("gndev") {
+  testonly = true
   deps = [
     "//mysrc/gndev",
   ]
