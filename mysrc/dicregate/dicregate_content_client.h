@@ -10,6 +10,7 @@
 #include "build/build_config.h"
 #include "ui/gfx/native_widget_types.h"
 #include "ui/views_content_client/views_content_client_export.h"
+#include "content/shell/common/shell_content_client.h"
 
 namespace content {
 class BrowserContext;
@@ -45,7 +46,7 @@ namespace dicregate {
 //       base::BindOnce(&InitMyApp));
 //   return params.RunMain();
 // }
-class DicregateContentClient {
+class DicregateContentClient : public content::ShellContentClient {
  public:
   using OnPreMainMessageLoopRunCallback =
       base::OnceCallback<void(content::BrowserContext* browser_context,
@@ -59,9 +60,6 @@ class DicregateContentClient {
 #endif
 
   ~DicregateContentClient();
-
-  // Runs content::ContentMain() using the ExamplesMainDelegate.
-  int RunMain();
 
   // The task to run at the end of BrowserMainParts::PreMainMessageLoopRun().
   // Ignored if this is not the main process.
@@ -89,6 +87,15 @@ class DicregateContentClient {
     quit_closure_ = std::move(quit_closure);
   }
   base::OnceClosure& quit_closure() { return quit_closure_; }
+
+#if defined(OS_WIN)
+  HINSTANCE instance() { return instance_; }
+  sandbox::SandboxInterfaceInfo* sandbox_info() { return sandbox_info_; }
+#endif
+
+
+  // ContentClient
+  void AddAdditionalSchemes(Schemes* schemes) override {}
 
  private:
 #if defined(OS_WIN)

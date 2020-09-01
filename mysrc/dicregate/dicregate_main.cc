@@ -2,15 +2,18 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "dicregate_content.h"
+#include "dicregate_content_client.h"
+#include "dicregate_content_main_delegate.h"
+
 #include "base/bind.h"
 #include "base/command_line.h"
 #include "base/files/file_path.h"
 #include "base/path_service.h"
 #include "build/build_config.h"
 #include "content/public/browser/browser_context.h"
+#include "content/public/app/content_main.h"
 #include "ui/base/resource/resource_bundle.h"
-#include "dicregate_content.h"
-#include "dicregate_content_client.h"
 
 #if defined(OS_MACOSX)
 #include "sandbox/mac/seatbelt_exec.h"
@@ -67,6 +70,7 @@ int main(int argc, const char** argv) {
   DicregateContentClient dicregate_content_client(argc, argv);
 #endif
 
+
 #if defined(OS_MACOSX)
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
   // ViewsContentClient expects a const char** argv and
@@ -86,5 +90,17 @@ int main(int argc, const char** argv) {
   dicregate_content_client.set_on_pre_main_message_loop_run_callback(
       base::BindOnce(&ShowDicregate,
                      base::Unretained(&dicregate_content_client)));
-  return dicregate_content_client.RunMain();
+
+  ambiesoft::dicregate::DicregateContentMainDelegate delegate(&dicregate_content_client);
+  content::ContentMainParams params(&delegate);
+
+#if defined(OS_WIN)
+  params.instance = dicregate_content_client.instance();
+  params.sandbox_info = dicregate_content_client.sandbox_info();
+#else
+  params.argc = argc_;
+  params.argv = argv_;
+#endif
+
+  return content::ContentMain(params);
 }

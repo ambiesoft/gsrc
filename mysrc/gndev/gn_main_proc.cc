@@ -54,10 +54,14 @@
 #include "ui/views/background.h"
 #include "ui/views/controls/table/table_view.h"
 #include "ui/views/controls/scroll_view.h"
+#include "ui/views/controls/textfield/textfield.h"
 #include "mysrc/gndev/grit/gndev_resources.h"
 #include "ui/base/l10n/l10n_util.h"
 #include "base/process/launch.h"
 #include "base/files/file_util.h"
+#include "ui/gfx/native_widget_types.h"
+#include "ui/base/cursor/cursor.h"
+#include "ui/views/native_cursor.h"
 
 #if defined(USE_AURA)
 #include "ui/aura/env.h"
@@ -79,6 +83,7 @@
 #endif
 
 using base::ASCIIToUTF16;
+using views::View;
 using views::GridLayout;
 using views::TableView;
 using views::ColumnSet;
@@ -97,6 +102,17 @@ base::FilePath gGnRoot;
 // static
 GndevWindowContents* GndevWindowContents::instance_ = nullptr;
 
+class GnTestView : public View {
+  gfx::NativeCursor GetCursor(const ui::MouseEvent& event) override {
+    //bool platform_arrow = PlatformStyle::kTextfieldUsesDragCursorWhenDraggable;
+    //bool in_selection = GetRenderText()->IsPointInSelection(event.location());
+    //bool drag_event = event.type() == ui::ET_MOUSE_DRAGGED;
+    //bool text_cursor =
+    //    !initiating_drag_ && (drag_event || !in_selection || !platform_arrow);
+    //return text_cursor ? GetNativeIBeamCursor() : gfx::kNullCursor;
+    return views::GetNativeIBeamCursor();
+  }
+};
 
 GndevWindowContents::GndevWindowContents(base::OnceClosure on_close)
     : on_close_(std::move(on_close)) {
@@ -112,35 +128,7 @@ GndevWindowContents::GndevWindowContents(base::OnceClosure on_close)
   GridLayout* layout =
       SetLayoutManager(std::make_unique<GridLayout>());
 
-  // Create Table
-  std::vector<TableColumn> columns;
-  {
-    TableColumn column1;
-    column1.id = kColumnFirst;
-    column1.title = ASCIIToUTF16("aaa");
-    column1.sortable = false;
-    columns.push_back(column1);
-  }
-  {
-    TableColumn column2;
-    column2.id = kColumnSecond;
-    column2.title = ASCIIToUTF16("bbb");
-    column2.sortable = false;
-    columns.push_back(column2);
-  }
 
-  auto table = std::make_unique<TableView>(
-      this, // TableModel
-      columns,
-      views::ICON_AND_TEXT, 
-      true  // single selection
-      );
-  table_ = table.get();
-  table->set_observer(this);
-  table->SetSortOnPaint(false);
-
-  // table->SetGrouper(this);
-  // table->set_observer(this);
   // icon1_.allocN32Pixels(16, 16);
   // SkCanvas canvas1(icon1_);
   // canvas1.drawColor(SK_ColorRED);
@@ -153,24 +141,74 @@ GndevWindowContents::GndevWindowContents(base::OnceClosure on_close)
   ColumnSet* column_set = layout->AddColumnSet(kColumnIdFirst);
   column_set->AddColumn(GridLayout::FILL,  // h-align
                         GridLayout::FILL,  // v-align
-                        1,                        // resize percent
+                        .7,                        // resize percent
                         GridLayout::ColumnSize::kUsePreferred,  //
                         0,  // fixed width
                         0   // min width
   );
-  layout->StartRow(1,  // expand (vertical resize)
+  //column_set->AddPaddingColumn(0,  // resize percent
+  //                             5   // width
+  //);
+  column_set->AddColumn(GridLayout::FILL,     // h-align
+                        GridLayout::FILL,  // v-align
+                        .3,                // resize percent
+                        GridLayout::ColumnSize::kUsePreferred,  //
+                        0,                                      // fixed width
+                        0                                       // min width
+  );
+
+
+  // Create Table
+  {
+    std::vector<TableColumn> columns;
+    {
+      TableColumn column1;
+      column1.id = kColumnFirst;
+      column1.title = ASCIIToUTF16("aaa");
+      column1.sortable = false;
+      columns.push_back(column1);
+    }
+    {
+      TableColumn column2;
+      column2.id = kColumnSecond;
+      column2.title = ASCIIToUTF16("bbb");
+      column2.sortable = false;
+      columns.push_back(column2);
+    }
+
+    auto table = std::make_unique<TableView>(this,  // TableModel
+                                             columns, views::ICON_AND_TEXT,
+                                             true  // single selection
+    );
+    table_ = table.get();
+    table->set_observer(this);
+    table->SetSortOnPaint(false);
+
+    // table->SetGrouper(this);
+    // table->set_observer(this);
+
+    layout->StartRow(1,              // expand (vertical resize)
+                     kColumnIdFirst  // column set id
+    );
+    layout->AddView(TableView::CreateScrollViewWithTable(std::move(table)),2);
+  }
+
+
+
+  //layout->AddPaddingRow(0,  // vertical resize
+  //                      5   // pixel count
+  //);
+
+
+  // test add treeview
+  layout->StartRow(0,              // expand (vertical resize)
                    kColumnIdFirst  // column set id
   );
-  layout->AddView(
-      TableView::CreateScrollViewWithTable(std::move(table)));
+  layout->AddView(std::make_unique<GnTestView>());
+  //layout->AddPaddingRow(0,  // vertical resize
+  //                      5   // pixel count
+  //);
 
-
-  column_set->AddPaddingColumn(0,  // resize percent
-                               5   // width
-  );
-  layout->AddPaddingRow(0,  // vertical resize
-                        5   // pixel count
-  );
 
 
   // status label
@@ -178,7 +216,26 @@ GndevWindowContents::GndevWindowContents(base::OnceClosure on_close)
                    kColumnIdFirst  // column set id
   );
   status_label_ = layout->AddView(std::make_unique<views::Label>());
-  layout->AddPaddingRow(0, 5);
+  //layout->AddPaddingRow(0, 5);
+
+
+  //constexpr int kColumnIdSecond = 1;
+  //ColumnSet* column_set2 = layout->AddColumnSet(kColumnIdSecond);
+  ////////////////////
+  layout->StartRow(0,              // no expand (vertical resize)
+                   kColumnIdFirst  // column set id
+  );
+  {
+    views::Textfield* text =
+        layout->AddView(std::make_unique<views::Textfield>());
+    text->SetText(L"aaa");
+    //layout->AddPaddingRow(0, 5);
+  }
+  //{
+  //  views::Textfield* text =
+  //      layout->AddView(std::make_unique<views::Textfield>());
+  //  text->SetText(L"vvvvvvvvvvvvvvvv");
+  //}
 }
 
 base::string16 GndevWindowContents::GetWindowTitle() const {
@@ -200,23 +257,26 @@ void GndevWindowContents::OnWidgetInitialized() {
       base::BindOnce(&GndevWindowContents::mytask2, base::Unretained(this)));
 }
 std::string GndevWindowContents::mytask() {
-  base::CommandLine cmdLine =
-      base::CommandLine::FromString(ASCIIToUTF16("gn.bat"));
-  cmdLine.AppendArg("ls");
+  if (true)
+    return "aaa\nbbb\nccc";
 
-  base::FilePath gnOut(gGnRoot);
-  gnOut = gnOut.AppendASCII("out/debug");
-  cmdLine.AppendArgPath(gnOut);
+  //base::CommandLine cmdLine =
+  //    base::CommandLine::FromString(ASCIIToUTF16("gn.bat"));
+  //cmdLine.AppendArg("ls");
 
-  std::string output;
-  int exit_code = -1;
-  if (!base::GetAppOutputWithExitCode(cmdLine, &output, &exit_code)) {
-    // Failed to start process
-  }
-  if (exit_code != 0) {
-    // Command failed
-  }
-  return output;
+  //base::FilePath gnOut(gGnRoot);
+  //gnOut = gnOut.AppendASCII("out/debug");
+  //cmdLine.AppendArgPath(gnOut);
+
+  //std::string output;
+  //int exit_code = -1;
+  //if (!base::GetAppOutputWithExitCode(cmdLine, &output, &exit_code)) {
+  //  // Failed to start process
+  //}
+  //if (exit_code != 0) {
+  //  // Command failed
+  //}
+  //return output;
 }
 
 void GndevWindowContents::mytask2(std::string output) {

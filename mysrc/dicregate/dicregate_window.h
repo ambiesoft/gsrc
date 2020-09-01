@@ -15,6 +15,12 @@
 #include "ui/gfx/native_widget_types.h"
 #include "ui/views/widget/widget_delegate.h"
 #include "ui/views/controls/label.h"
+#include "ui/base/models/table_model.h"
+#include "ui/views/controls/table/table_view_observer.h"
+
+namespace views {
+class TableView;
+}  // namespace views
 
 namespace ambiesoft {
 namespace dicregate {
@@ -39,11 +45,29 @@ void PrintStatus(const char* format, Args... args) {
 }
 
 
-class DicregateWindowContents : public views::WidgetDelegateView {
+class DicregateWindowContents : public views::WidgetDelegateView,
+                                public ui::TableModel,
+                                public views::TableViewObserver {
+  enum {
+    kTableColumnWord,
+    kTableColumnDictionary,
+  };
  public:
   DicregateWindowContents(base::OnceClosure on_close,
                           std::unique_ptr<WebViewDicregate> webViewDicregate);
   ~DicregateWindowContents() override = default;
+
+  // TableModel overrides
+  int RowCount() override;
+  base::string16 GetText(
+      int row, int column_id) override;
+  void SetObserver(ui::TableModelObserver * observer) override {}
+
+  // TableViewObserver:
+  void OnSelectionChanged() override;
+  void OnDoubleClick() override;
+  void OnMiddleClick() override;
+  void OnKeyDown(ui::KeyboardCode virtual_keycode) override;
 
   // Sets the status area (at the bottom of the window) to |status|.
   void SetStatus(const std::string& status);
@@ -59,7 +83,9 @@ class DicregateWindowContents : public views::WidgetDelegateView {
   static DicregateWindowContents* instance_;
 
   base::OnceClosure on_close_;
-  WebViewDicregate* webViewDicregate_;
+
+  views::TableView* table_ = nullptr;
+  WebViewDicregate* webViewDicregate_ = nullptr;
   views::Label* status_label_ = nullptr;
 
   DISALLOW_COPY_AND_ASSIGN(DicregateWindowContents);

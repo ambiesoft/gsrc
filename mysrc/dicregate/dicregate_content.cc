@@ -9,8 +9,6 @@
 #include <vector>
 
 #include "content/public/browser/browser_context.h"
-// #include "ui/views/examples/create_examples.h"
-// #include "ui/views/examples/example_base.h"
 #include "webview_dicregate.h"
 
 namespace ambiesoft {

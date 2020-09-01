@@ -17,9 +17,8 @@ using views::FillLayout;
 namespace ambiesoft {
 namespace dicregate {
 
-WebViewDicregate::WebViewDicregate(content::BrowserContext* browser_context):
-      webview_(nullptr),
-      browser_context_(browser_context) {}
+WebViewDicregate::WebViewDicregate(content::BrowserContext* browser_context)
+    : webview_(nullptr), browser_context_(browser_context) {}
 
 WebViewDicregate::~WebViewDicregate() = default;
 
@@ -40,5 +39,5 @@ bool WebViewDicregate::HandleKeyboardEvent(
       event, webview_->GetFocusManager());
 }
 
-}  // namespace examples
-}  // namespace views
+}  // namespace dicregate
+}  // namespace ambiesoft

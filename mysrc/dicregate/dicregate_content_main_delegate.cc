@@ -43,6 +43,7 @@ DicregateContentMainDelegate::DicregateContentMainDelegate(
     DicregateContentClient* dicregate_content_client)
     : dicregate_content_client_(dicregate_content_client) {}
 
+
 DicregateContentMainDelegate::~DicregateContentMainDelegate() {}
 
 bool DicregateContentMainDelegate::BasicStartupComplete(int* exit_code) {
@@ -91,7 +92,7 @@ void DicregateContentMainDelegate::PreCreateMainMessageLoop() {
 }
 
 content::ContentClient* DicregateContentMainDelegate::CreateContentClient() {
-  return &content_client_;
+  return dicregate_content_client_;
 }
 
 content::ContentBrowserClient*

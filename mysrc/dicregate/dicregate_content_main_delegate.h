@@ -11,7 +11,6 @@
 
 #include "base/macros.h"
 #include "content/public/app/content_main_delegate.h"
-#include "content/shell/common/shell_content_client.h"
 #include "ui/views_content_client/views_content_browser_client.h"
 
 
@@ -37,7 +36,6 @@ class DicregateContentMainDelegate : public content::ContentMainDelegate {
 
  private:
   std::unique_ptr<DicregateContentBrowserClient> browser_client_;
-  content::ShellContentClient content_client_;
   DicregateContentClient* dicregate_content_client_;
 
   DISALLOW_COPY_AND_ASSIGN(DicregateContentMainDelegate);

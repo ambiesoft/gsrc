@@ -7,8 +7,6 @@
 
 #include "base/callback_forward.h"
 #include "ui/gfx/native_widget_types.h"
-// #include "ui/views/examples/examples_window.h"
-
 
 namespace content {
 class BrowserContext;
@@ -17,7 +15,6 @@ class BrowserContext;
 namespace ambiesoft {
 namespace dicregate {
 
-// Shows a window with the views examples in it.
 void ShowDicregateContent(
     base::OnceClosure on_close,
     content::BrowserContext* browser_context,

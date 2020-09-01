@@ -1,0 +1,10 @@
+chromeでwidgetはどこでいくつ使われているか？
+BrowserFrameがWidgetを継承している。これはタブごとに持つ
+StatusBubbleViewsがpopup_としてWidgetをもつ。
+Menuを表示するごとにWidgetをつくる
+Tooltipを表示するごとにWidgetをつくる
+TabをつくるときはWidgetはつくられない
+devtoolをつくるときもWidgetはつくられない
+
+ContentsLayoutManagerのstrategy_はどこで設定されるか？
+DevToolsWindowがリサイズ機能をもちここで設定されるようだ。

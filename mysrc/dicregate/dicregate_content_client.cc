@@ -26,20 +26,6 @@ DicregateContentClient::DicregateContentClient(int argc, const char** argv)
 
 DicregateContentClient::~DicregateContentClient() {}
 
-int DicregateContentClient::RunMain() {
-  DicregateContentMainDelegate delegate(this);
-  content::ContentMainParams params(&delegate);
-
-#if defined(OS_WIN)
-  params.instance = instance_;
-  params.sandbox_info = sandbox_info_;
-#else
-  params.argc = argc_;
-  params.argv = argv_;
-#endif
-
-  return content::ContentMain(params);
-}
 
 void DicregateContentClient::OnPreMainMessageLoopRun(
     content::BrowserContext* browser_context,
