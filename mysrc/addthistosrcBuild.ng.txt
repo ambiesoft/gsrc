@@ -1,5 +1,3 @@
-
-
 group("mymain") {
   deps = [
     "//mysrc:mymain",
@@ -9,5 +7,11 @@ group("gndev") {
   testonly = true
   deps = [
     "//mysrc/gndev",
+  ]
+}
+group("dicregate") {
+  testonly = true
+  deps = [
+    "//mysrc/dicregate",
   ]
 }

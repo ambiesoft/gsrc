@@ -55,7 +55,7 @@
 #include "ui/views/controls/table/table_view.h"
 #include "ui/views/controls/scroll_view.h"
 #include "ui/views/controls/textfield/textfield.h"
-#include "mysrc/gndev/grit/gndev_resources.h"
+// #include "mysrc/gndev/grit/gndev_resources.h"
 #include "ui/base/l10n/l10n_util.h"
 #include "base/process/launch.h"
 #include "base/files/file_util.h"
