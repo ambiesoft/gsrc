@@ -23,7 +23,7 @@ class GndevWindowContents : public views::WidgetDelegateView,
                             public views::TableViewObserver {
  public:
   GndevWindowContents(base::OnceClosure on_close);
-  ~GndevWindowContents() override {}
+  ~GndevWindowContents() override;
 
   enum { 
       kColumnFirst,

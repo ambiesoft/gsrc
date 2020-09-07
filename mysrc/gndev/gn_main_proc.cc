@@ -228,7 +228,7 @@ GndevWindowContents::GndevWindowContents(base::OnceClosure on_close)
   {
     views::Textfield* text =
         layout->AddView(std::make_unique<views::Textfield>());
-    text->SetText(L"aaa");
+    text->SetText(ASCIIToUTF16("ttt"));
     //layout->AddPaddingRow(0, 5);
   }
   //{
@@ -236,6 +236,9 @@ GndevWindowContents::GndevWindowContents(base::OnceClosure on_close)
   //      layout->AddView(std::make_unique<views::Textfield>());
   //  text->SetText(L"vvvvvvvvvvvvvvvv");
   //}
+}
+
+GndevWindowContents::~GndevWindowContents() {
 }
 
 base::string16 GndevWindowContents::GetWindowTitle() const {
