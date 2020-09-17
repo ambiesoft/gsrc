@@ -58,6 +58,7 @@ class GndevWindowContents : public views::WidgetDelegateView,
   void WindowClosing() override;
   gfx::Size CalculatePreferredSize() const override;
   void OnWidgetInitialized() override;
+  std::unique_ptr<views::TableView> CreateTable();
 
  public:
   std::string mytask();

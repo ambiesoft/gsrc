@@ -110,9 +110,37 @@ class GnTestView : public View {
     //bool text_cursor =
     //    !initiating_drag_ && (drag_event || !in_selection || !platform_arrow);
     //return text_cursor ? GetNativeIBeamCursor() : gfx::kNullCursor;
-    return views::GetNativeIBeamCursor();
+    return views::GetNativeColumnResizeCursor();
   }
 };
+
+std::unique_ptr<views::TableView> GndevWindowContents::CreateTable() {
+  DCHECK(!table_);
+  std::vector<TableColumn> columns;
+  {
+    TableColumn column1;
+    column1.id = kColumnFirst;
+    column1.title = ASCIIToUTF16("aaa");
+    column1.sortable = false;
+    columns.push_back(column1);
+  }
+  {
+    TableColumn column2;
+    column2.id = kColumnSecond;
+    column2.title = ASCIIToUTF16("bbb");
+    column2.sortable = false;
+    columns.push_back(column2);
+  }
+
+  auto table = std::make_unique<TableView>(this,  // TableModel
+                                           columns, views::ICON_AND_TEXT,
+                                           true  // single selection
+  );
+  table_ = table.get();
+  table->set_observer(this);
+  table->SetSortOnPaint(false);
+  return table;
+}
 
 GndevWindowContents::GndevWindowContents(base::OnceClosure on_close)
     : on_close_(std::move(on_close)) {
@@ -158,70 +186,27 @@ GndevWindowContents::GndevWindowContents(base::OnceClosure on_close)
   );
 
 
+  // first row
   // Create Table
-  {
-    std::vector<TableColumn> columns;
-    {
-      TableColumn column1;
-      column1.id = kColumnFirst;
-      column1.title = ASCIIToUTF16("aaa");
-      column1.sortable = false;
-      columns.push_back(column1);
-    }
-    {
-      TableColumn column2;
-      column2.id = kColumnSecond;
-      column2.title = ASCIIToUTF16("bbb");
-      column2.sortable = false;
-      columns.push_back(column2);
-    }
-
-    auto table = std::make_unique<TableView>(this,  // TableModel
-                                             columns, views::ICON_AND_TEXT,
-                                             true  // single selection
-    );
-    table_ = table.get();
-    table->set_observer(this);
-    table->SetSortOnPaint(false);
-
-    // table->SetGrouper(this);
-    // table->set_observer(this);
-
-    layout->StartRow(1,              // expand (vertical resize)
-                     kColumnIdFirst  // column set id
-    );
-    layout->AddView(TableView::CreateScrollViewWithTable(std::move(table)),2);
-  }
+  layout->StartRow(1,              // expand (vertical resize)
+                   kColumnIdFirst  // column set id
+  );
+  layout->AddView(TableView::CreateScrollViewWithTable(CreateTable()), 2);
 
 
 
-  //layout->AddPaddingRow(0,  // vertical resize
-  //                      5   // pixel count
-  //);
-
-
+  // second row
   // test add treeview
   layout->StartRow(0,              // expand (vertical resize)
                    kColumnIdFirst  // column set id
   );
   layout->AddView(std::make_unique<GnTestView>());
-  //layout->AddPaddingRow(0,  // vertical resize
-  //                      5   // pixel count
-  //);
-
-
-
   // status label
-  layout->StartRow(0,  // no expand (vertical resize)
-                   kColumnIdFirst  // column set id
-  );
   status_label_ = layout->AddView(std::make_unique<views::Label>());
-  //layout->AddPaddingRow(0, 5);
 
 
-  //constexpr int kColumnIdSecond = 1;
-  //ColumnSet* column_set2 = layout->AddColumnSet(kColumnIdSecond);
-  ////////////////////
+
+  // third row
   layout->StartRow(0,              // no expand (vertical resize)
                    kColumnIdFirst  // column set id
   );
@@ -229,13 +214,12 @@ GndevWindowContents::GndevWindowContents(base::OnceClosure on_close)
     views::Textfield* text =
         layout->AddView(std::make_unique<views::Textfield>());
     text->SetText(ASCIIToUTF16("ttt"));
-    //layout->AddPaddingRow(0, 5);
   }
-  //{
-  //  views::Textfield* text =
-  //      layout->AddView(std::make_unique<views::Textfield>());
-  //  text->SetText(L"vvvvvvvvvvvvvvvv");
-  //}
+  {
+    views::Textfield* text =
+        layout->AddView(std::make_unique<views::Textfield>());
+    text->SetText(L"vvvvvvvvvvvvvvvv");
+  }
 }
 
 GndevWindowContents::~GndevWindowContents() {

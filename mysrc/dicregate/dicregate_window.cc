@@ -57,6 +57,9 @@ DicregateWindowContents::DicregateWindowContents(
       this, ui::NativeTheme::kColorId_DialogBackground));
   GridLayout* rootLayout = SetLayoutManager(std::make_unique<GridLayout>());
 
+  enum { 
+      kGridColumnSetToolbar, kGridColumnSetMain,
+  };
   {
     ColumnSet* column_set_toolbar =
         rootLayout->AddColumnSet(kGridColumnSetToolbar);
@@ -84,13 +87,12 @@ DicregateWindowContents::DicregateWindowContents(
     );
 
     auto mainRootView = std::make_unique<View>();
-    BoxLayout* mainBox =
-        mainRootView->SetLayoutManager(std::make_unique<BoxLayout>(horizontal));
+    BoxLayout* mainBox = mainRootView->SetLayoutManager(
+        std::make_unique<BoxLayout>(BoxLayout::Orientation::kHorizontal));
 
     {
       auto leftView = std::make_unique<View>();
-      BoxLayout* leftBox =
-          leftView->SetLayoutManager(std::make_unique<BoxLayout>(vertical));
+      leftView->SetLayoutManager(std::make_unique<BoxLayout>(BoxLayout::Orientation::kVertical));
       
 
       // Create Table
@@ -118,8 +120,8 @@ DicregateWindowContents::DicregateWindowContents(
       table->set_observer(this);
       table->SetSortOnPaint(false);
 
-      mainBox->SetFlexForView(
-          TableView::CreateScrollViewWithTable(std::move(table)), 1);
+      View* v = leftView->AddChildView(TableView::CreateScrollViewWithTable(std::move(table)));
+      mainBox->SetFlexForView(v, 1);
 
       // Add TreeView for history
     }
@@ -127,7 +129,8 @@ DicregateWindowContents::DicregateWindowContents(
     {
       webViewDicregate->CreateDicregateView();
       webViewDicregate_ = webViewDicregate.get();
-      layout->SetFlexForView(std::move(webViewDicregate));
+      leftView->AddChildView(std::move(webViewDicregate));
+      layout->SetFlexForView(webViewDicregate_);
 
     }
   }
