@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 #include "dicregate_window.h"
+#include "splitter_view.h"
 
 #include <algorithm>
 #include <iterator>
@@ -22,7 +23,7 @@
 #include "ui/base/ui_base_paths.h"
 #include "ui/views/background.h"
 #include "ui/views/controls/combobox/combobox.h"
-#include "ui/views/controls/combobox/combobox_listener.h"
+// #include "ui/views/controls/combobox/combobox_listener.h"
 #include "ui/views/controls/label.h"
 #include "ui/views/controls/scroll_view.h"
 #include "ui/views/controls/table/table_view.h"
@@ -58,8 +59,10 @@ DicregateWindowContents::DicregateWindowContents(
   GridLayout* rootLayout = SetLayoutManager(std::make_unique<GridLayout>());
 
   enum { 
-      kGridColumnSetToolbar, kGridColumnSetMain,
+      kGridColumnSetToolbar, kGridColumnSetMain, kGridColumnSetStatus
   };
+
+  // toolbar column
   {
     ColumnSet* column_set_toolbar =
         rootLayout->AddColumnSet(kGridColumnSetToolbar);
@@ -75,27 +78,51 @@ DicregateWindowContents::DicregateWindowContents(
     // add toolbar
   }
 
+  // main column
   {
+    const float kInitResizePercents[] = {0.2f, 0.8f};
     ColumnSet* column_set_main = rootLayout->AddColumnSet(kGridColumnSetMain);
+    // Left pane
     column_set_main->AddColumn(
         GridLayout::FILL,
         GridLayout::FILL,                       // h- and v-align
-        1,                                      // resize percent
+        kInitResizePercents[0],  // resize percent
         GridLayout::ColumnSize::kUsePreferred,  // size
-        0,                                      // fix width
+        0,
+        //GridLayout::ColumnSize::kFixed,  // size
+        //70,  // fix width
         0                                       // minwidth
     );
 
-    auto mainRootView = std::make_unique<View>();
-    BoxLayout* mainBox = mainRootView->SetLayoutManager(
-        std::make_unique<BoxLayout>(BoxLayout::Orientation::kHorizontal));
+    // splitter
+    // column_set_main->AddPaddingColumn(0.0f, 10);
+    column_set_main->AddColumn(GridLayout::FILL,
+                               GridLayout::FILL,  // h- and v-align
+                               0.0f,              // resize percent
+                               GridLayout::ColumnSize::kFixed,  // size
+                               10,  // fix width
+                               10   // minwidth
+    );
 
+    // right pane
+    column_set_main->AddColumn(GridLayout::FILL,
+                               GridLayout::FILL,  // h- and v-align
+                               kInitResizePercents[1],  // resize percent
+                               GridLayout::ColumnSize::kUsePreferred,  // size
+                               0,  // fix width
+                               0   // minwidth
+    );
+
+    //auto mainRootView = std::make_unique<View>();
+    //BoxLayout* mainBox = mainRootView->SetLayoutManager(
+    //    std::make_unique<BoxLayout>(BoxLayout::Orientation::kHorizontal));
+
+    // auto leftRootView = std::make_unique<View>();
     {
-      auto leftView = std::make_unique<View>();
-      leftView->SetLayoutManager(std::make_unique<BoxLayout>(BoxLayout::Orientation::kVertical));
-      
+      //BoxLayout* leftBoxLayout = leftRootView->SetLayoutManager(
+      //    std::make_unique<BoxLayout>(BoxLayout::Orientation::kVertical));
 
-      // Create Table
+      // Create Table for heading search results
       std::vector<TableColumn> columns;
       {
         TableColumn column1;
@@ -120,31 +147,116 @@ DicregateWindowContents::DicregateWindowContents(
       table->set_observer(this);
       table->SetSortOnPaint(false);
 
-      View* v = leftView->AddChildView(TableView::CreateScrollViewWithTable(std::move(table)));
-      mainBox->SetFlexForView(v, 1);
+      // Create top-left view with scroll capability
+      auto vList = TableView::CreateScrollViewWithTable(std::move(table));
+      vTopLeft_ = vList.get();
+      gfx::Size size(100, 200);
+      vTopLeft_->SetPreferredSize(size);
+      vTopLeft_->SetSize(size);
+
+      // View* tv = v.get();
+      // leftRootView->AddChildView(std::move(v));
+      // leftBoxLayout->SetFlexForView(tv, 1);
+      // leftRootView->AddView(v);
 
       // Add TreeView for history
-    }
+      // TODO
+      auto vTree = std::make_unique<View>();
 
-    {
+    
+      // splitter
+      auto vSplitter = std::make_unique<SplitterView>(this);
+                      
+    
       webViewDicregate->CreateDicregateView();
       webViewDicregate_ = webViewDicregate.get();
-      leftView->AddChildView(std::move(webViewDicregate));
-      layout->SetFlexForView(webViewDicregate_);
+      //webViewDicregate_->SetPreferredSize(size);
+      //webViewDicregate_->SetSize(size);
+      // leftView->AddChildView(std::move(webViewDicregate));
+      //mainBox->SetFlexForView(webViewDicregate_,1);
 
+
+      rootLayout->StartRow(0.7f,  // expand?
+                           kGridColumnSetMain);
+      rootLayout->AddView(std::move(vList));
+      rootLayout->AddView(std::move(vSplitter), 1, 2);
+
+      // 2 rows
+      rootLayout->AddView(std::move(webViewDicregate), 1, 2);
+
+      rootLayout->StartRow(0.3f,  // expand?
+                           kGridColumnSetMain);
+      rootLayout->AddView(std::move(vTree));
     }
   }
 
 
   {
-    ColumnSet* column_set_status = layout->AddColumnSet(kGridColumnSetStatus);
-    layout->StartRow(0.0f,  // no expand
+    ColumnSet* column_set_status =
+        rootLayout->AddColumnSet(kGridColumnSetStatus);
+    column_set_status->AddColumn(
+        GridLayout::FILL,
+        GridLayout::FILL,                       // h- and v-align
+        1,                                      // resize percent
+        GridLayout::ColumnSize::kUsePreferred,  // size
+        0,                                      // fix width
+        0                                       // minwidth
+    );
+    rootLayout->StartRow(0.0f,  // no expand
                      kGridColumnSetStatus);
 
-    status_label_ = layout->AddView(std::make_unique<Label>());
-    layout->AddPaddingRow(0, 5);
+    status_label_ = rootLayout->AddView(std::make_unique<Label>());
+    // rootLayout->AddPaddingRow(0, 5);
   }
 }
+
+void DicregateWindowContents::OnResize(int resize_amount,
+                                       bool done_resizing) 
+{
+  VLOG(0) << resize_amount << ":" << done_resizing;
+  
+  if (!done_resizing)
+    return;
+  
+  // base::AutoReset<bool> auResizing(&resizing_, true);
+
+  //views::View* v = nullptr;
+  //
+  //if (resize_amount < 0) {
+  //  v = webViewDicregate_;
+  //  resize_amount = -resize_amount;
+  //} else {
+  //  v = vTopLeft_;
+  //}
+
+  //gfx::Size size = v->size();
+  //gfx::Size prefSize = v->GetPreferredSize();
+  //size.set_width(size.width() + resize_amount);
+  //size.set_height(prefSize.height());
+  //v->SetPreferredSize(size);
+
+
+  // gfx::Size size = vTopLeft_->size();
+  //gfx::Size prefSize = vTopLeft_->GetPreferredSize();
+  //size.set_width(size.width() + resize_amount);
+  //size.set_height(prefSize.height());
+  //vTopLeft_->SetPreferredSize(size);
+
+  // gfx::Size size = vTopLeft_->size();
+  gfx::Size prefSize = vTopLeft_->GetPreferredSize();
+  prefSize.set_width(prefSize.width() + resize_amount);
+  prefSize.set_height(prefSize.height());
+  vTopLeft_->SetPreferredSize(prefSize);
+  // vTopLeft_->SetSize(prefSize);
+
+  // Layout();
+}
+
+//void DicregateWindowContents::PreferredSizeChanged() {
+//  if (resizing_)
+//    return;
+//  views::WidgetDelegateView::PreferredSizeChanged();
+//}
 
 int DicregateWindowContents::RowCount() {
   return 1;
@@ -181,7 +293,7 @@ void DicregateWindowContents::WindowClosing() {
     std::move(on_close_).Run();
 }
 gfx::Size DicregateWindowContents::CalculatePreferredSize() const {
-  gfx::Size size(800, 300);
+  gfx::Size size(800, 600);
   // for (int i = 0; i < combobox_model_->GetItemCount(); i++) {
   //  size.set_height(
   //      std::max(size.height(),

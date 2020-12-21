@@ -10,6 +10,8 @@
 #include <vector>
 
 #include "webview_dicregate.h"
+#include "splitter_view_delegate.h"
+
 #include "base/callback_forward.h"
 #include "base/strings/stringprintf.h"
 #include "ui/gfx/native_widget_types.h"
@@ -47,7 +49,8 @@ void PrintStatus(const char* format, Args... args) {
 
 class DicregateWindowContents : public views::WidgetDelegateView,
                                 public ui::TableModel,
-                                public views::TableViewObserver {
+                                public views::TableViewObserver,
+                                public SplitterViewDelegate {
   enum {
     kTableColumnWord,
     kTableColumnDictionary,
@@ -69,6 +72,9 @@ class DicregateWindowContents : public views::WidgetDelegateView,
   void OnMiddleClick() override;
   void OnKeyDown(ui::KeyboardCode virtual_keycode) override;
 
+  // ResizeAreaDelegate:
+  void OnResize(int resize_amount, bool done_resizing) override;
+
   // Sets the status area (at the bottom of the window) to |status|.
   void SetStatus(const std::string& status);
 
@@ -84,6 +90,7 @@ class DicregateWindowContents : public views::WidgetDelegateView,
 
   base::OnceClosure on_close_;
 
+  views::View* vTopLeft_ = nullptr;
   views::TableView* table_ = nullptr;
   WebViewDicregate* webViewDicregate_ = nullptr;
   views::Label* status_label_ = nullptr;

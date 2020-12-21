@@ -1,0 +1,2 @@
+Creating own LayoutManager
+*difference between LayoutManager and LayoutManagerBase. Two version exists, one inherites LayoutManager(like BoxLayout), the other inherites LayoutMangerBase.

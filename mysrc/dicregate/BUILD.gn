@@ -20,6 +20,9 @@ executable("dicregate") {
     "dicregate_main.cc",
     "dicregate_window.cc",
     "dicregate_window.h",
+    "splitter_view.h",
+    "splitter_view.cc",
+    "splitter_view_delegate.h",
   ]
 
   deps = [
