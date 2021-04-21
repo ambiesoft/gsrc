@@ -1,0 +1,5 @@
+
+1. Install Wireshark
+2. Download chromium-ipc-sniffer https://github.com/tomer8007/chromium-ipc-sniffer
+3. Open CommandPrompt as admin
+4. Run chromeipc.exe
