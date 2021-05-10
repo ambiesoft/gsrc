@@ -3,7 +3,9 @@
 enable_nacl = false
 blink_symbol_level=2
 target_cpu = "x86"
-use_jumbo_build = false
+
+# deprecated
+# use_jumbo_build = false
 
 enable_mojo_tracing = true
 
