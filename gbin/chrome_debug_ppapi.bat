@@ -1,0 +1,1 @@
+start "" out\debug\chrome.exe --ppapi-startup-dialog --no-sandbox --remote-debugging-port=9222 http://ambiesoft.mooo.com/webapp/testclient/chromiumprint.html

@@ -1,0 +1,19 @@
+> windbg
+[File][Symbol Search Path]
+C:\code\chromium\src\out\debug
+
+[File][Source File Paht]
+C:\code\chromium\src
+
+[View][Source Language File Extension]
+add 'cc=C++'
+
+[File][Save Workspace]
+
+Exit Windbg 
+
+
+> windbg out\debug\chrome.exe
+>> x chrome!wWin*
+>> bp wWinMain
+>> g
