@@ -1,0 +1,8 @@
+--gtest_filter="PlatformAppBrowserTest.LoadAndLaunchAppWithFile"
+
+apps/load_and_launch_browsertest.cc
+
+bu0 @@masm(`browser_tests!load_and_launch_browsertest.cc:113+`);
+bm browser_tests!main
+
+windbg out\debug\browser_tests.exe --gtest_filter="PlatformAppBrowserTest.LoadAndLaunchAppWithFile" --single-process-tests --sigle-process

@@ -1,0 +1,1 @@
+.filter_step "blink_core!__security_check_cookie"
