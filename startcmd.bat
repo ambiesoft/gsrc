@@ -31,7 +31,7 @@ if not "%ProgramFiles(x86)%"=="" (
 )
 
 if not exist %~dp0depot_tools\ (
-    echo depot_tools not found
+    echo depot_tools not found at %~dp0depot_tools\
     echo Install depot_tools from https://commondatastorage.googleapis.com/chrome-infra-docs/flat/depot_tools/docs/html/depot_tools_tutorial.html
     pause
     exit
