@@ -11,7 +11,8 @@ if exist %~dp0gitinit.bat (
   call %~dp0gitinit.bat
 )
 
-if exist C:\LegacyPrograms\clink\clink.bat_zzz (
+:: clink is advanced command prompt, see https://mridgers.github.io/clink/
+if exist C:\LegacyPrograms\clink\clink.bat (
   C:\LegacyPrograms\clink\clink.bat
   exit /b
 ) else (
@@ -30,7 +31,7 @@ if not "%ProgramFiles(x86)%"=="" (
 )
 
 if not exist %~dp0depot_tools\ (
-    echo depot_tools not found
+    echo depot_tools not found at %~dp0depot_tools\
     echo Install depot_tools from https://commondatastorage.googleapis.com/chrome-infra-docs/flat/depot_tools/docs/html/depot_tools_tutorial.html
     pause
     exit
