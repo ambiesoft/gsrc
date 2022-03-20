@@ -1,1 +1,1 @@
-mklink /J "%USERPROFILE%\Documents\Visual Studio 2019\Visualizers" .\Visualizers
+mklink /J "%USERPROFILE%\Documents\Visual Studio 2022\Visualizers" .\Visualizers
