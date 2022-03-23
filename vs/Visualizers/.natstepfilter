@@ -46,9 +46,9 @@
 <Function><Name>base::size&lt;.*&gt;</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::WeakPtrFactory&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::FilePath::.*</Name><Action>NoStepInto</Action></Function>
-
-
-
+<Function><Name>base::trace_event::TraceLog::GetCategoryGroupEnabled</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::subtle::NoBarrier_Load</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::subtle::NoBarrier_Store</Name><Action>NoStepInto</Action></Function>
 
 <Function><Name>gfx::Rect::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>gfx::Size::.*</Name><Action>NoStepInto</Action></Function>
