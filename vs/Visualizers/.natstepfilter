@@ -79,6 +79,11 @@
 
 <Function><Name>CefCppToCRefCounted&lt;.*&gt;::Wrap</Name><Action>NoStepInto</Action></Function>
 
+<Function><Name>logging::CheckEQImpl&lt;.*&gt;</Name><Action>NoStepInto</Action></Function>
+<Function><Name>logging::CheckOpResult::.*</Name><Action>NoStepInto</Action></Function>
+
+
+
 
 
 </StepFilter>
