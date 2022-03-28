@@ -12,7 +12,7 @@ if exist %~dp0gitinit.bat (
 )
 
 :: clink is advanced command prompt, see https://mridgers.github.io/clink/
-if exist C:\LegacyPrograms\clink\clink.bat (
+if exist C:\LegacyPrograms\clink\clink.bat_skip (
   C:\LegacyPrograms\clink\clink.bat
   exit /b
 ) else (
