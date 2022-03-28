@@ -1,0 +1,41 @@
+# Build
+Build the target 'blink_tests'
+
+# Running
+
+#Inputs
+# third_party/blink/web_tests/*
+
+accessibility-hit-test-crash.html
+accessibility-hit-test-crash-expected.txt
+
+## TestExpectations
+The main test failure suppression file.
+In theory, this should be used for temporarily marking tests as flaky.
+
+The entry is relative path from 'third_party/blink/web_tests/'
+
+### Format
+https://chromium.googlesource.com/chromium/src/+/main/docs/testing/web_test_baseline_fallback.md
+
+#### Example
+```
+crbug.com/12345 [ Win Debug ] fast/html/keygen.html [ Crash ]
+```
+which indicates that the “fast/html/keygen.html” test file is expected to crash when run in the Debug configuration on Windows, and the tracking bug for this crash is bug #12345 in the Chromium issue tracker
+
+# Ref test
+https://trac.webkit.org/wiki/Writing%20Reftests
+
+# third_party/blink/tools/lint_test_expectations.py
+which will cycle through all of the possible combinations of configurations looking for problems.
+
+# Results
+Results are placed in out/release/layout_test_results/
+
+testharness.jsを利用するテストは期待結果を持たない。
+
+# Debugging
+https://chromium.googlesource.com/chromium/src/+/main/docs/testing/web_tests.md#debugging-web-tests
+
+
