@@ -12,7 +12,7 @@ if exist %~dp0gitinit.bat (
 )
 
 :: clink is advanced command prompt, see https://mridgers.github.io/clink/
-if exist C:\LegacyPrograms\clink\clink.bat_skip (
+if exist C:\LegacyPrograms\clink\clink.batZZZ (
   C:\LegacyPrograms\clink\clink.bat
   exit /b
 ) else (
@@ -46,8 +46,8 @@ REM (by default, depot_tools will try to use a google-internal version).
 set DEPOT_TOOLS_WIN_TOOLCHAIN=0
 
 
-if exist %~dp0cg\chromium\src (
-  cd %~dp0cg\chromium\src
+if exist %~dp0chromium\src (
+  cd %~dp0chromium\src
 )
 
 
