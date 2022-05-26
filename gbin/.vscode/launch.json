@@ -10,7 +10,9 @@
             "request": "launch",
             "python": "${workspaceFolder}/../depot_tools\\bootstrap-3_8_0b1_chromium_1_bin\\python\\bin\\python.exe",
             "program": "${workspaceFolder}\\real2gn.py",
-            "args": ["D:\\dsrc\\skia\\skia\\buildtools\\third_party\\libunwind\\OWNERS"],
+            "args": [
+                "D:\\dsrc\\skia\\skia\\buildtools\\third_party\\libunwind\\OWNERS"
+            ],
             "cwd": "D:\\dsrc\\skia\\skia",
             "console": "integratedTerminal"
         },
@@ -20,7 +22,9 @@
             "request": "launch",
             "python": "${workspaceFolder}/../depot_tools\\bootstrap-3_8_0b1_chromium_1_bin\\python\\bin\\python.exe",
             "program": "${workspaceFolder}\\gngennin.py",
-            "args": ["//mysrc:mymain"],
+            "args": [
+                "//mysrc:mymain"
+            ],
             "cwd": "${workspaceFolder}/../cg/chromium/src",
             "console": "integratedTerminal"
         },
@@ -30,9 +34,22 @@
             "request": "launch",
             "python": "${workspaceFolder}/../depot_tools\\bootstrap-3_8_0b1_chromium_1_bin\\python\\bin\\python.exe",
             "program": "${workspaceFolder}\\gnrefsr.py",
-            "args": ["D:\\dsrc\\skia\\skia\\buildtools\\third_party\\libunwind\\OWNERS"],
+            "args": [
+                "D:\\dsrc\\skia\\skia\\buildtools\\third_party\\libunwind\\OWNERS"
+            ],
             "cwd": "D:\\dsrc\\skia\\skia",
             "console": "integratedTerminal"
-        }
+        },
+        {
+            "name": "startsln",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\startsln.py",
+            "args": [
+                "mojo"
+            ],
+            "cwd": "${workspaceFolder}/../chromium/src",
+            "console": "integratedTerminal"
+        },
     ]
 }

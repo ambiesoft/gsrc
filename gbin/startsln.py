@@ -1,4 +1,3 @@
-
 import argparse
 import os
 
@@ -19,7 +18,6 @@ def main():
 
     args = parser.parse_args()
 
-    print(args)
     if not args.sln:
         exit('No string specified')
 

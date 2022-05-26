@@ -50,6 +50,11 @@
 <Function><Name>base::subtle::NoBarrier_Load</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::subtle::NoBarrier_Store</Name><Action>NoStepInto</Action></Function>
 
+
+<!-- absl -->
+<Function><Name>absl::optional&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+
+
 <Function><Name>gfx::Rect::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>gfx::Size::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>gfx::Point::.*</Name><Action>NoStepInto</Action></Function>
