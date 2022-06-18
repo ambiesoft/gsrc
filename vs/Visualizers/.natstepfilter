@@ -87,6 +87,14 @@
 <Function><Name>logging::CheckEQImpl&lt;.*&gt;</Name><Action>NoStepInto</Action></Function>
 <Function><Name>logging::CheckOpResult::.*</Name><Action>NoStepInto</Action></Function>
 
+<Function><Name>testing::internal::EqHelper::Compare&lt;.*&gt;</Name><Action>NoStepInto</Action></Function>
+
+<Function><Name>base::raw_ptr&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>testing::AssertionResult::.*</Name><Action>NoStepInto</Action></Function>
+
+<Function><Name>testing::internal::CmpHelperNE&lt;.*&gt;</Name><Action>NoStepInto</Action></Function>
+
+
 
 
 
