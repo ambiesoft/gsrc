@@ -37,7 +37,20 @@
             "request": "launch",
             "program": "${workspaceFolder}/depot_tools/fetch.py",
             "console": "integratedTerminal",
-            "args": ["--help"]
+            "args": [
+                "--help"
+            ]
+        },
+        {
+            "name": "startsln",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/gbin/startsln.py",
+            "cwd": "${workspaceFolder}/chromium/src",
+            "console": "integratedTerminal",
+            "args": [
+                "mojo_core"
+            ]
         },
         {
             "name": "Python: Current File",

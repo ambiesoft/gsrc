@@ -33,13 +33,23 @@ def main():
             continue
         if not file.startswith(args.sln):
             continue
-        print(file)
+        # print(file)
         slncands.append(file)
 
     if not slncands:
         exit('not found')
 
-    sln_to_start = os.path.join(debugdir, slncands[0])
+    sln_to_start = ''
+    if len(slncands) > 1:
+        message = ''
+        for i, x in enumerate(slncands):
+            message += '{}: {}\n'.format(i+1,x)
+        message += 'Enter Number: '
+        inpnum = int(input(message))
+        sln_to_start = os.path.join(debugdir, slncands[inpnum-1])
+    else:
+        sln_to_start = os.path.join(debugdir, slncands[0])
+
     print("Starting solution '{}'...".format(sln_to_start))
     os.startfile(sln_to_start)
 
