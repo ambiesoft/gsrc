@@ -1,3 +1,3 @@
 @echo off
-dir out\debug\*.exe %*
+dir out\%CURRENT_DEBUGDIR%\*.exe %*
 

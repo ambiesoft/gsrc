@@ -10,7 +10,10 @@ IF "%1"=="2ndlaunch" (
 if exist %~dp0gitinit.bat (
   call %~dp0gitinit.bat
 )
-
+REM Env
+if exist %~dp0.startenv.bat (
+  call %~dp0.startenv.bat
+)
 :: clink is advanced command prompt, see https://mridgers.github.io/clink/
 if exist C:\LegacyPrograms\clink\clink.batZZZ (
   C:\LegacyPrograms\clink\clink.bat

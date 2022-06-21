@@ -1,3 +1,3 @@
-@echo off
-gn gen out\debug %*
+REM @echo off
+gn gen out\%CURRENT_DEBUGDIR% %*
 

@@ -31,3 +31,6 @@ src/
 
 gitinit.bat
 vs/Visualizers/attribcache90.bin
+
+.startenv.bat
+

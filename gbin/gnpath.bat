@@ -1,3 +1,3 @@
 @echo off
-gn path out\debug %*
+gn path out\%CURRENT_DEBUGDIR% %*
 

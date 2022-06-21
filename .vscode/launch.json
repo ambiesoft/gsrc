@@ -42,15 +42,17 @@
             ]
         },
         {
-            "name": "startsln",
+            "name": "startfile",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/gbin/startsln.py",
+            "program": "${workspaceFolder}/gbin/startfile.py",
             "cwd": "${workspaceFolder}/chromium/src",
             "console": "integratedTerminal",
             "args": [
-                "mojo_core"
-            ]
+                "-t",
+                "exe",
+                "brot",
+            ],
         },
         {
             "name": "Python: Current File",

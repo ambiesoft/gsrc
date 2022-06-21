@@ -1,3 +1,3 @@
 @echo off
-ninja -C out\debug %*
+ninja -C out\%CURRENT_DEBUGDIR% %*
 

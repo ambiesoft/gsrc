@@ -1,2 +1,2 @@
 @echo off
-python %~dp0startsln.py %*
+python %~dp0startfile.py -t sln %*
