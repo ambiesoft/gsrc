@@ -32,6 +32,7 @@
 <Function><Name>base::RefCountedThreadSafe&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::RepeatingCallback&lt;.*&gt;::RepeatingCallback*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::RepeatingCallback&lt;.*&gt;::~RepeatingCallback</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::RepeatingCallback&lt;.*&gt;::operator=</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::SequenceChecker::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::SequenceCheckerImpl::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::StackVector&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
@@ -49,6 +50,10 @@
 <Function><Name>base::trace_event::TraceLog::GetCategoryGroupEnabled</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::subtle::NoBarrier_Load</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::subtle::NoBarrier_Store</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::Location::Current</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::NoDestructor&lt;.*&gt;::operator\*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::NoDestructor&lt;.*&gt;::get</Name><Action>NoStepInto</Action></Function>
+
 
 
 <!-- absl -->
@@ -64,6 +69,9 @@
 <Function><Name>mojo::ScopedHandleBase&lt;.*&gt;::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>mojo::core::ports::PortName::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>mojo::core::ports::NodeName::.*</Name><Action>NoStepInto</Action></Function>
+
+
+<Function><Name>trace_event_internal::ScopedTracer::.*</Name><Action>NoStepInto</Action></Function>
 
 
 
