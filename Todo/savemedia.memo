@@ -1,0 +1,5 @@
+code is placed at ./info/cont-savemovie
+
+https://ambiesoft.com/webapp/testclient/ に置いてある各種再生方法の違う動画から
+内部的にどう動くのかを調べて、すべてにおいて動画が保存できるようにする。
+
