@@ -53,6 +53,8 @@
 <Function><Name>base::Location::Current</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::NoDestructor&lt;.*&gt;::operator\*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::NoDestructor&lt;.*&gt;::get</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::TimeTicks::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::internal::CheckedLock::.*</Name><Action>NoStepInto</Action></Function>
 
 
 
