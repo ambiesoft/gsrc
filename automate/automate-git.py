@@ -2,8 +2,11 @@
 # reserved. Use of this source code is governed by a BSD-style license that
 # can be found in the LICENSE file.
 
+from __future__ import absolute_import
+from __future__ import print_function
 from datetime import datetime
 import json
+from io import open
 from optparse import OptionParser
 import os
 import re
@@ -12,9 +15,15 @@ import shutil
 import subprocess
 import sys
 import tempfile
-import urllib
-import urllib2
 import zipfile
+
+is_python2 = sys.version_info.major == 2
+
+if is_python2:
+  from urllib import FancyURLopener
+  from urllib2 import urlopen
+else:
+  from urllib.request import FancyURLopener, urlopen
 
 ##
 # Default URLs.
@@ -61,14 +70,14 @@ def run(command_line, working_dir, depot_tools_dir=None, output_file=None):
           args, cwd=working_dir, env=env, shell=(sys.platform == 'win32'))
     try:
       msg('Writing %s' % output_file)
-      with open(output_file, "w") as f:
+      with open(output_file, 'w', encoding='utf-8') as fp:
         return subprocess.check_call(
             args,
             cwd=working_dir,
             env=env,
             shell=(sys.platform == 'win32'),
             stderr=subprocess.STDOUT,
-            stdout=f)
+            stdout=fp)
     except subprocess.CalledProcessError:
       msg('ERROR Run failed. See %s for output.' % output_file)
       raise
@@ -133,11 +142,12 @@ def exec_cmd(cmd, path):
         stderr=subprocess.PIPE,
         shell=(sys.platform == 'win32'))
     out, err = process.communicate()
-  except IOError, (errno, strerror):
+  except IOError as e:
+    (errno, strerror) = e.args
     raise
   except:
     raise
-  return {'out': out, 'err': err}
+  return {'out': out.decode('utf-8'), 'err': err.decode('utf-8')}
 
 
 def get_git_hash(path, branch):
@@ -175,7 +185,7 @@ def download_and_extract(src, target):
 
   if src[:4] == 'http':
     # Attempt to download a URL.
-    opener = urllib.FancyURLopener({})
+    opener = FancyURLopener({})
     response = opener.open(src)
 
     temporary = True
@@ -209,12 +219,25 @@ def download_and_extract(src, target):
 def read_file(path):
   """ Read a file. """
   if os.path.exists(path):
-    fp = open(path, 'r')
-    data = fp.read()
-    fp.close()
-    return data
+    with open(path, 'r', encoding='utf-8') as fp:
+      return fp.read()
   else:
     raise Exception("Path does not exist: %s" % (path))
+
+
+def write_fp(fp, data):
+  if is_python2:
+    fp.write(data.decode('utf-8'))
+  else:
+    fp.write(data)
+
+
+def write_file(path, data):
+  """ Write a file. """
+  msg('Writing %s' % path)
+  if not options.dryrun:
+    with open(path, 'w', encoding='utf-8') as fp:
+      write_fp(fp, data)
 
 
 def read_config_file(path):
@@ -225,14 +248,11 @@ def read_config_file(path):
 
 def write_config_file(path, contents):
   """ Write a configuration file. """
-  msg('Writing file: %s' % path)
-  if not options.dryrun:
-    fp = open(path, 'w')
-    fp.write("{\n")
-    for key in sorted(contents.keys()):
-      fp.write("  '%s': '%s',\n" % (key, contents[key]))
-    fp.write("}\n")
-    fp.close()
+  data = "{\n"
+  for key in sorted(contents.keys()):
+    data += "  '%s': '%s',\n" % (key, contents[key])
+  data += "}\n"
+  write_file(path, data)
 
 
 def read_branch_config_file(path):
@@ -252,59 +272,29 @@ def write_branch_config_file(path, branch):
     write_config_file(config_file, {'branch': branch})
 
 
-def remove_deps_entry(path, entry):
-  """ Remove an entry from the Chromium DEPS file at the specified path. """
-  msg('Updating DEPS file: %s' % path)
-  if not options.dryrun:
-    # Read the DEPS file.
-    fp = open(path, 'r')
-    lines = fp.readlines()
-    fp.close()
-
-    # Write the DEPS file.
-    # Each entry takes 2 lines. Skip both lines if found.
-    fp = open(path, 'w')
-    skip_next = False
-    for line in lines:
-      if skip_next:
-        skip_next = False
-        continue
-      elif line.find(entry) >= 0:
-        skip_next = True
-        continue
-      fp.write(line)
-    fp.close()
+def apply_patch(name):
+  patch_file = os.path.join(cef_dir, 'patch', 'patches', name)
+  if os.path.exists(patch_file + ".patch"):
+    # Attempt to apply the patch file.
+    patch_tool = os.path.join(cef_dir, 'tools', 'patcher.py')
+    run('%s %s --patch-file "%s" --patch-dir "%s"' %
+        (python_exe, patch_tool, patch_file,
+         chromium_src_dir), chromium_src_dir, depot_tools_dir)
 
 
 def apply_deps_patch():
-  """ Patch the Chromium DEPS file if necessary. """
-  # Starting with 43.0.2357.126 the DEPS file is now 100% Git and the .DEPS.git
-  # file is no longer created. Look for the older file first in case we're
-  # building an older branch version.
-  deps_file = '.DEPS.git'
+  """ Patch the Chromium DEPS file before `gclient sync` if necessary. """
   deps_path = os.path.join(chromium_src_dir, deps_file)
-  if not os.path.isfile(deps_path):
-    deps_file = 'DEPS'
-    deps_path = os.path.join(chromium_src_dir, deps_file)
-
   if os.path.isfile(deps_path):
     msg("Chromium DEPS file: %s" % (deps_path))
-    patch_file = os.path.join(cef_dir, 'patch', 'patches', deps_file)
-    if os.path.exists(patch_file + ".patch"):
-      if branch_is_3029_or_older:
-        patch_file = patch_file + ".patch"
-      # Attempt to apply the DEPS patch file that may exist with newer branches.
-      patch_tool = os.path.join(cef_dir, 'tools', 'patcher.py')
-      run('%s %s --patch-file "%s" --patch-dir "%s"' %
-          (python_exe, patch_tool, patch_file,
-           chromium_src_dir), chromium_src_dir, depot_tools_dir)
-    elif cef_branch != 'trunk' and int(cef_branch) <= 1916:
-      # Release branch DEPS files older than 37.0.2007.0 may include a 'src'
-      # entry. This entry needs to be removed otherwise `gclient sync` will
-      # fail.
-      remove_deps_entry(deps_path, "'src'")
+    apply_patch(deps_file)
   else:
     raise Exception("Path does not exist: %s" % (deps_path))
+
+
+def apply_runhooks_patch():
+  """ Patch the Chromium runhooks files before `gclient runhooks` if necessary. """
+  apply_patch('runhooks')
 
 
 def run_patch_updater(args='', output_file=None):
@@ -339,8 +329,7 @@ def onerror(func, path, exc_info):
 def read_json_url(url):
   """ Read a JSON URL. """
   msg('Downloading %s' % url)
-  response = urllib2.urlopen(url)
-  return json.loads(response.read())
+  return json.loads(urlopen(url).read())
 
 
 g_channel_data = None
@@ -380,23 +369,23 @@ def get_chromium_channel_version(os, channel):
   return get_chromium_channel_data(os, channel, 'current_version')
 
 
-def get_chromium_master_position(commit):
-  """ Returns the closest master position for the specified Chromium commit. """
+def get_chromium_main_position(commit):
+  """ Returns the closest main position for the specified Chromium commit. """
   # Using -2 because a "Publish DEPS" commit which does not have a master
   # position may be first.
   cmd = "%s log -2 %s" % (git_exe, commit)
   result = exec_cmd(cmd, chromium_src_dir)
   if result['out'] != '':
-    match = re.search(r'refs/heads/master@{#([\d]+)}', result['out'])
+    match = re.search(r'refs/heads/(?:master|main)@{#([\d]+)}', result['out'])
     assert match != None, 'Failed to find position'
     return int(match.groups()[0])
   return None
 
 
-def get_chromium_master_commit(position):
-  """ Returns the master commit for the specified Chromium commit position. """
-  cmd = '%s log -1 --grep=refs/heads/master@{#%s} origin/master' % (
-      git_exe, str(position))
+def get_chromium_main_commit(position):
+  """ Returns the main commit for the specified Chromium commit position. """
+  cmd = '%s log -1 --grep=refs/heads/master@{#%s} --grep=refs/heads/main@{#%s} origin/main' % (
+      git_exe, str(position), str(position))
   result = exec_cmd(cmd, chromium_src_dir)
   if result['out'] != '':
     match = re.search(r'^commit ([a-f0-9]+)', result['out'])
@@ -415,15 +404,16 @@ def get_chromium_versions(commit):
   return None
 
 
-def get_chromium_compat_version():
-  """ Returns the compatible Chromium version specified by the CEF checkout. """
+def get_build_compat_versions():
+  """ Returns the compatible Chromium and (optionally) depot_tools versions
+      specified by the CEF checkout. """
   compat_path = os.path.join(cef_dir, 'CHROMIUM_BUILD_COMPATIBILITY.txt')
   msg("Reading %s" % compat_path)
   config = read_config_file(compat_path)
 
-  if 'chromium_checkout' in config:
-    return config['chromium_checkout']
-  raise Exception("Missing chromium_checkout value in %s" % (compat_path))
+  if not 'chromium_checkout' in config:
+    raise Exception("Missing chromium_checkout value in %s" % (compat_path))
+  return config
 
 
 def get_chromium_target_version(os='win', channel='canary', target_distance=0):
@@ -438,13 +428,13 @@ def get_chromium_target_version(os='win', channel='canary', target_distance=0):
       # Closest version may not align with the compat position, so adjust the
       # commit to match.
       compat_commit = get_git_hash(chromium_src_dir, compat_version)
-  compat_position = get_chromium_master_position(compat_commit)
+  compat_position = get_chromium_main_position(compat_commit)
   compat_date = get_git_date(chromium_src_dir, compat_commit)
 
   # The most recent channel version from the Chromium website.
   channel_version = 'refs/tags/' + get_chromium_channel_version(os, channel)
   channel_commit = get_chromium_channel_commit(os, channel)
-  channel_position = get_chromium_master_position(channel_commit)
+  channel_position = get_chromium_main_position(channel_commit)
   channel_date = get_git_date(chromium_src_dir, channel_commit)
 
   if compat_position >= channel_position:
@@ -462,14 +452,14 @@ def get_chromium_target_version(os='win', channel='canary', target_distance=0):
   else:
     # Find an intermediary version that's within the target distance.
     target_position = compat_position + target_distance
-    target_commit = get_chromium_master_commit(target_position)
+    target_commit = get_chromium_main_commit(target_position)
     versions = get_chromium_versions(target_commit)
     if len(versions) > 0:
       target_version = 'refs/tags/' + versions[0]
       # Closest version may not align with the target position, so adjust the
       # commit and position to match.
       target_commit = get_git_hash(chromium_src_dir, target_version)
-      target_position = get_chromium_master_position(target_commit)
+      target_position = get_chromium_main_position(target_commit)
     else:
       target_version = target_commit
     target_date = get_git_date(chromium_src_dir, target_commit)
@@ -490,22 +480,17 @@ def get_chromium_target_version(os='win', channel='canary', target_distance=0):
 
 def get_build_directory_name(is_debug):
   build_dir = ('Debug' if is_debug else 'Release') + '_'
-  if use_gn:
-    # CEF uses a consistent directory naming scheme for GN via
-    # GetAllPlatformConfigs in tools/gn_args.py.
-    if options.x64build:
-      build_dir += 'GN_x64'
-    elif options.armbuild:
-      build_dir += 'GN_arm'
-    elif options.arm64build:
-      build_dir += 'GN_arm64'
-    else:
-      build_dir += 'GN_x86'
+
+  # CEF uses a consistent directory naming scheme for GN via
+  # GetAllPlatformConfigs in tools/gn_args.py.
+  if options.x64build:
+    build_dir += 'GN_x64'
+  elif options.armbuild:
+    build_dir += 'GN_arm'
+  elif options.arm64build:
+    build_dir += 'GN_arm64'
   else:
-    # GYP outputs both x86 and x64 builds to the same directory on Linux and
-    # Mac OS X. On Windows it suffixes the directory name for x64 builds.
-    if platform == 'windows' and options.x64build:
-      build_dir += 'x64'
+    build_dir += 'GN_x86'
   return build_dir
 
 
@@ -531,18 +516,16 @@ def log_chromium_changes():
     if os.path.exists(out_file):
       os.remove(out_file)
 
-    old_commit = get_chromium_master_commit(
-        get_chromium_master_position(chromium_compat_version))
-    new_commit = get_chromium_master_commit(
-        get_chromium_master_position(chromium_checkout))
+    old_commit = get_chromium_main_commit(
+        get_chromium_main_position(chromium_compat_version))
+    new_commit = get_chromium_main_commit(
+        get_chromium_main_position(chromium_checkout))
 
     cmd = '%s diff --relative --no-prefix %s..%s -- %s' % (
         git_exe, old_commit, new_commit, ' '.join(config['files']))
     result = exec_cmd(cmd, chromium_src_dir)
     if result['out'] != '':
-      msg('Writing %s' % out_file)
-      with open(out_file, 'w') as fp:
-        fp.write(result['out'])
+      write_file(out_file, result['out'])
 
 
 def check_pattern_matches(output_file=None):
@@ -557,7 +540,7 @@ def check_pattern_matches(output_file=None):
       fp = sys.stdout
     else:
       msg('Writing %s' % output_file)
-      fp = open(output_file, 'w')
+      fp = open(output_file, 'w', encoding='utf-8')
 
     has_output = False
     for entry in config['patterns']:
@@ -585,20 +568,21 @@ def check_pattern_matches(output_file=None):
           if not skip:
             if write_msg:
               if has_output:
-                fp.write('\n')
-              fp.write('!!!! WARNING: FOUND PATTERN: %s\n' % entry['pattern'])
+                write_fp(fp, '\n')
+              write_fp(fp,
+                       '!!!! WARNING: FOUND PATTERN: %s\n' % entry['pattern'])
               if 'message' in entry:
-                fp.write(entry['message'] + '\n')
-              fp.write('\n')
+                write_fp(fp, entry['message'] + '\n')
+              write_fp(fp, '\n')
               write_msg = False
-            fp.write(line + '\n')
+            write_fp(fp, line + '\n')
             has_output = True
 
     if not output_file is None:
       if has_output:
         msg('ERROR Matches found. See %s for output.' % out_file)
       else:
-        fp.write('Good news! No matches.\n')
+        write_fp(fp, 'Good news! No matches.\n')
       fp.close()
 
     if has_output:
@@ -639,11 +623,11 @@ parser.add_option('--depot-tools-archive', dest='depottoolsarchive',
                   help='Zip archive file that contains a single top-level '+\
                        'depot_tools directory.', default='')
 parser.add_option('--branch', dest='branch',
-                  help='Branch of CEF to build (trunk, 1916, ...). This '+\
+                  help='Branch of CEF to build (master, 3987, ...). This '+\
                        'will be used to name the CEF download directory and '+\
                        'to identify the correct URL if --url is not '+\
-                       'specified. The default value is trunk.',
-                  default='trunk')
+                       'specified. The default value is master.',
+                  default='master')
 parser.add_option('--url', dest='url',
                   help='CEF download URL. If not specified the default URL '+\
                        'will be used.',
@@ -695,7 +679,7 @@ parser.add_option(
     help="Output commands without executing them.")
 parser.add_option('--dry-run-platform', dest='dryrunplatform', default=None,
                   help='Simulate a dry run on the specified platform '+\
-                       '(windows, macosx, linux). Must be used in combination'+\
+                       '(windows, mac, linux). Must be used in combination'+\
                        ' with the --dry-run flag.')
 
 # Update-related options.
@@ -928,15 +912,22 @@ parser.add_option(
     dest='cleanartifacts',
     default=False,
     help='Clean the artifacts output directory.')
-parser.add_option('--distrib-subdir', dest='distribsubdir',
-                  help='CEF distrib dir name, child of '+\
-                       'chromium/src/cef/binary_distrib',
-                  default='')
+parser.add_option(
+    '--distrib-subdir',
+    dest='distribsubdir',
+    default='',
+    help='CEF distrib dir name, child of chromium/src/cef/binary_distrib')
+parser.add_option(
+    '--distrib-subdir-suffix',
+    dest='distribsubdirsuffix',
+    default='',
+    help='CEF distrib dir name suffix, child of chromium/src/cef/binary_distrib'
+)
 
 (options, args) = parser.parse_args()
 
 if options.downloaddir is None:
-  print "The --download-dir option is required."
+  print("The --download-dir option is required.")
   parser.print_help(sys.stderr)
   sys.exit()
 
@@ -955,7 +946,7 @@ if (options.nochromiumupdate and options.forceupdate) or \
    (options.nodistrib and options.forcedistrib) or \
    ((options.forceclean or options.forcecleandeps) and options.fastupdate) or \
    (options.chromiumcheckout and options.chromiumchannel):
-  print "Invalid combination of options."
+  print("Invalid combination of options.")
   parser.print_help(sys.stderr)
   sys.exit()
 
@@ -963,152 +954,100 @@ if (options.noreleasebuild and \
      (options.minimaldistrib or options.minimaldistribonly or \
       options.clientdistrib or options.clientdistribonly)) or \
    (options.minimaldistribonly + options.clientdistribonly + options.sandboxdistribonly > 1):
-  print 'Invalid combination of options.'
+  print('Invalid combination of options.')
   parser.print_help(sys.stderr)
   sys.exit()
 
 if options.x64build + options.armbuild + options.arm64build > 1:
-  print 'Invalid combination of options.'
+  print('Invalid combination of options.')
   parser.print_help(sys.stderr)
   sys.exit()
 
 if (options.buildtests or options.runtests) and len(options.testtarget) == 0:
-  print "A test target must be specified via --test-target."
+  print("A test target must be specified via --test-target.")
   parser.print_help(sys.stderr)
   sys.exit()
 
 # Operating system.
 if options.dryrun and options.dryrunplatform is not None:
   platform = options.dryrunplatform
-  if not platform in ['windows', 'macosx', 'linux']:
-    print 'Invalid dry-run-platform value: %s' % (platform)
+  if not platform in ['windows', 'mac', 'linux']:
+    print('Invalid dry-run-platform value: %s' % (platform))
     sys.exit()
 elif sys.platform == 'win32':
   platform = 'windows'
 elif sys.platform == 'darwin':
-  platform = 'macosx'
+  platform = 'mac'
 elif sys.platform.startswith('linux'):
   platform = 'linux'
 else:
-  print 'Unknown operating system platform'
+  print('Unknown operating system platform')
   sys.exit()
 
-# Script extension.
-if platform == 'windows':
-  script_ext = '.bat'
-else:
-  script_ext = '.sh'
-
 if options.clientdistrib or options.clientdistribonly:
-  if platform == 'linux':
+  if platform == 'linux' or (platform == 'windows' and options.arm64build):
     client_app = 'cefsimple'
   else:
     client_app = 'cefclient'
   if options.buildtarget.find(client_app) == -1:
-    print 'A client distribution cannot be generated if --build-target '+\
-          'excludes %s.' % client_app
+    print('A client distribution cannot be generated if --build-target ' +
+          'excludes %s.' % client_app)
     parser.print_help(sys.stderr)
     sys.exit()
 
 # CEF branch.
-if options.branch != 'trunk' and not options.branch.isdigit():
-  print 'Invalid branch value: %s' % (options.branch)
-  sys.exit()
-
 cef_branch = options.branch
 
-if cef_branch != 'trunk' and int(cef_branch) <= 1453:
-  print 'The requested branch is too old to build using this tool.'
+branch_is_master = (cef_branch == 'master' or cef_branch == 'trunk')
+if not branch_is_master:
+  # Verify that the branch value is numeric.
+  if not cef_branch.isdigit():
+    print('Invalid branch value: %s' % cef_branch)
+    sys.exit()
+
+  # Verify the minimum supported branch number.
+  if int(cef_branch) < 3071:
+    print('The requested branch (%s) is too old to build using this tool. ' +
+          'The minimum supported branch is 3071.' % cef_branch)
+    sys.exit()
+
+# True if the requested branch is 3538 or newer.
+branch_is_3538_or_newer = (branch_is_master or int(cef_branch) >= 3538)
+
+# True if the requested branch is 3945 or newer.
+branch_is_3945_or_newer = (branch_is_master or int(cef_branch) >= 3945)
+
+# Enable Python 3 usage in Chromium for branches 3945 and newer.
+if branch_is_3945_or_newer and not is_python2 and \
+    not 'GCLIENT_PY3' in os.environ.keys():
+  os.environ['GCLIENT_PY3'] = '1'
+
+if not branch_is_3945_or_newer and \
+  (not is_python2 or bool(int(os.environ.get('GCLIENT_PY3', '0')))):
+  print('Python 3 is not supported with branch 3904 and older ' +
+        '(set GCLIENT_PY3=0 and run with Python 2 executable).')
   sys.exit()
 
-# True if the requested branch is 2272 or newer.
-branch_is_2272_or_newer = (cef_branch == 'trunk' or int(cef_branch) >= 2272)
-
-# True if the requested branch is 2357 or newer.
-branch_is_2357_or_newer = (cef_branch == 'trunk' or int(cef_branch) >= 2357)
-
-# True if the requested branch is 2743 or older.
-branch_is_2743_or_older = (cef_branch != 'trunk' and int(cef_branch) <= 2743)
-
-# True if the requested branch is newer than 2785.
-branch_is_newer_than_2785 = (cef_branch == 'trunk' or int(cef_branch) > 2785)
-
-# True if the requested branch is newer than 2840.
-branch_is_newer_than_2840 = (cef_branch == 'trunk' or int(cef_branch) > 2840)
-
-# True if the requested branch is 3029 or older.
-branch_is_3029_or_older = (cef_branch != 'trunk' and int(cef_branch) <= 3029)
-
-# True if the requested branch is newer than 3497.
-branch_is_newer_than_3497 = (cef_branch == 'trunk' or int(cef_branch) > 3497)
-
-# Enable GN by default for branches newer than 2785.
-if branch_is_newer_than_2785 and not 'CEF_USE_GN' in os.environ.keys():
-  os.environ['CEF_USE_GN'] = '1'
-
-# Whether to use GN or GYP. GYP is currently the default for older branches.
-use_gn = bool(int(os.environ.get('CEF_USE_GN', '0')))
-if use_gn:
-  if branch_is_2743_or_older:
-    print 'GN is not supported with branch 2743 and older (set CEF_USE_GN=0).'
+if options.armbuild:
+  if platform != 'linux':
+    print('The ARM build option is only supported on Linux.')
     sys.exit()
 
-  if options.armbuild:
-    if platform != 'linux':
-      print 'The ARM build option is only supported on Linux.'
-      sys.exit()
+deps_file = 'DEPS'
 
-    if not branch_is_newer_than_2785:
-      print 'The ARM build option is not supported with branch 2785 and older.'
-      sys.exit()
-
-  if options.arm64build:
-    if platform != 'linux' and platform != 'windows':
-      print 'The ARM64 build option is only supported on Linux and Windows.'
-      sys.exit()
-
-    if not branch_is_newer_than_2840:
-      print 'The ARM build option is not supported with branch 2840 and older.'
-      sys.exit()
-
-else:
-  if options.armbuild or options.arm64build:
-    print 'The ARM build option is not supported by GYP.'
-    sys.exit()
-
-  if options.x64build and platform != 'windows' and platform != 'macosx':
-    print 'The x64 build option is only used on Windows and Mac OS X.'
-    sys.exit()
-
-  if platform == 'windows' and not 'GYP_MSVS_VERSION' in os.environ.keys():
-    print 'You must set the GYP_MSVS_VERSION environment variable on Windows.'
-    sys.exit()
-
-  # True if GYP_DEFINES=target_arch=x64 must be set.
-  gyp_needs_target_arch_x64 = options.x64build and \
-    (platform == 'windows' or \
-      (platform == 'macosx' and not branch_is_2272_or_newer))
-
-# Starting with 43.0.2357.126 the DEPS file is now 100% Git and the .DEPS.git
-# file is no longer created.
-if branch_is_2357_or_newer:
-  deps_file = 'DEPS'
-else:
-  deps_file = '.DEPS.git'
-
-if platform == 'macosx' and not options.x64build and branch_is_2272_or_newer:
-  print '32-bit Mac OS X builds are no longer supported with 2272 branch and '+\
-        'newer. Add --x64-build flag to generate a 64-bit build.'
+if platform == 'mac' and not (options.x64build or options.arm64build):
+  print('32-bit MacOS builds are not supported. ' +
+        'Add --x64-build or --arm64-build flag to generate a 64-bit build.')
   sys.exit()
 
 # Platforms that build a cef_sandbox library.
 sandbox_lib_platforms = ['windows']
-if branch_is_newer_than_3497:
-  sandbox_lib_platforms.append('macosx')
+if branch_is_3538_or_newer:
+  sandbox_lib_platforms.append('mac')
 
 if not platform in sandbox_lib_platforms and (options.sandboxdistrib or
                                               options.sandboxdistribonly):
-  print 'The sandbox distribution is not supported on this platform.'
+  print('The sandbox distribution is not supported on this platform.')
   sys.exit()
 
 # Options that force the sources to change.
@@ -1118,7 +1057,8 @@ force_change = options.forceclean or options.forceupdate
 discard_local_changes = force_change or options.forcecefupdate
 
 if options.resave and (options.forcepatchupdate or discard_local_changes):
-  print '--resave cannot be combined with options that modify or discard patches.'
+  print('--resave cannot be combined with options that modify or discard ' +
+        'patches.')
   parser.print_help(sys.stderr)
   sys.exit()
 
@@ -1187,16 +1127,17 @@ if not options.nodepottoolsupdate:
 if platform == 'windows':
   # Force use of the version bundled with depot_tools.
   git_exe = os.path.join(depot_tools_dir, 'git.bat')
-  python_exe = os.path.join(depot_tools_dir, 'python.bat')
+  python_bat = 'python.bat' if is_python2 else 'python3.bat'
+  python_exe = os.path.join(depot_tools_dir, python_bat)
   if options.dryrun and not os.path.exists(git_exe):
     sys.stdout.write("WARNING: --dry-run assumes that depot_tools" \
                      " is already in your PATH. If it isn't\nplease" \
                      " specify a --depot-tools-dir value.\n")
     git_exe = 'git.bat'
-    python_exe = 'python.bat'
+    python_exe = python_bat
 else:
   git_exe = 'git'
-  python_exe = 'python'
+  python_exe = sys.executable
 
 ##
 # Manage the cef directory.
@@ -1211,10 +1152,9 @@ if os.path.exists(cef_dir) and not is_git_checkout(cef_dir):
   raise Exception("Not a valid CEF Git checkout: %s" % (cef_dir))
 
 # Determine the CEF download URL to use.
-if options.url == '':
+cef_url = options.url.strip()
+if cef_url == '':
   cef_url = cef_git_url
-else:
-  cef_url = options.url
 
 # Verify that the requested CEF URL matches the existing checkout.
 if not options.nocefupdate and os.path.exists(cef_dir):
@@ -1231,7 +1171,7 @@ msg("CEF Source Directory: %s" % (cef_dir))
 # Determine the CEF Git branch to use.
 if options.checkout == '':
   # Target the most recent branch commit from the remote repo.
-  if cef_branch == 'trunk':
+  if branch_is_master:
     cef_checkout = 'origin/master'
   else:
     cef_checkout = 'origin/' + cef_branch
@@ -1274,6 +1214,19 @@ if not options.nocefupdate and os.path.exists(cef_dir):
       cef_dir, depot_tools_dir)
 else:
   cef_checkout_changed = False
+
+build_compat_versions = get_build_compat_versions()
+
+if not options.nodepottoolsupdate and \
+    'depot_tools_checkout' in build_compat_versions:
+  # Update the depot_tools checkout.
+  depot_tools_compat_version = build_compat_versions['depot_tools_checkout']
+  run('%s checkout %s%s' %
+      (git_exe, '--force ' if discard_local_changes else '', depot_tools_compat_version), \
+      depot_tools_dir, depot_tools_dir)
+
+# Disable further depot_tools updates.
+os.environ['DEPOT_TOOLS_UPDATE'] = '0'
 
 ##
 # Manage the out directory.
@@ -1326,16 +1279,15 @@ if not os.path.exists(gclient_file) or options.forceconfig:
         "'safesync_url': ''"+\
       "}]"
 
-  msg('Writing file: %s' % gclient_file)
+  msg('Writing %s' % gclient_file)
   if not options.dryrun:
-    fp = open(gclient_file, 'w')
-    fp.write(gclient_spec)
-    fp.close()
+    with open(gclient_file, 'w', encoding='utf-8') as fp:
+      write_fp(fp, gclient_spec)
 
 # Initial Chromium checkout.
 if not options.nochromiumupdate and not os.path.exists(chromium_src_dir):
   chromium_checkout_new = True
-  run("gclient sync --nohooks --with_branch_heads --disable-syntax-validation --jobs 16", \
+  run("gclient sync --nohooks --with_branch_heads --jobs 16", \
       chromium_dir, depot_tools_dir)
 else:
   chromium_checkout_new = False
@@ -1356,7 +1308,7 @@ if not options.nochromiumupdate and os.path.exists(chromium_src_dir):
   run("%s fetch --tags" % (git_exe), chromium_src_dir, depot_tools_dir)
 
 # Determine the Chromium checkout options required by CEF.
-chromium_compat_version = get_chromium_compat_version()
+chromium_compat_version = build_compat_versions['chromium_checkout']
 if len(options.chromiumcheckout) > 0:
   chromium_checkout = options.chromiumcheckout
 elif len(options.chromiumchannel) > 0:
@@ -1422,16 +1374,15 @@ if chromium_checkout_changed:
   # Patch the Chromium DEPS file if necessary.
   apply_deps_patch()
 
-  # Set the GYP_CHROMIUM_NO_ACTION value temporarily so that `gclient sync` does
-  # not run gyp.
-  os.environ['GYP_CHROMIUM_NO_ACTION'] = '1'
-
   # Update third-party dependencies including branch/tag information.
-  run("gclient sync %s--with_branch_heads --disable-syntax-validation --jobs 16" % \
+  run("gclient sync %s--nohooks --with_branch_heads --jobs 16" % \
       ('--reset ' if discard_local_changes else ''), chromium_dir, depot_tools_dir)
 
-  # Clear the GYP_CHROMIUM_NO_ACTION value.
-  del os.environ['GYP_CHROMIUM_NO_ACTION']
+  # Patch the Chromium runhooks scripts if necessary.
+  apply_runhooks_patch()
+
+  # Runs hooks for files that have been modified in the local working copy.
+  run("gclient runhooks --jobs 16", chromium_dir, depot_tools_dir)
 
   # Delete the src/out directory created by `gclient sync`.
   delete_directory(out_src_dir)
@@ -1493,36 +1444,22 @@ if not options.nobuild and (chromium_checkout_changed or \
   # Building should also force a distribution.
   options.forcedistrib = True
 
-  if use_gn:
-    # Make sure the GN configuration exists.
-    if not options.dryrun and \
-      not os.path.exists(os.path.join(cef_src_dir, 'BUILD.gn')):
-      raise Exception('GN configuration does not exist; set CEF_USE_GN=0')
-  else:
-    # Make sure the GYP configuration exists.
-    if not options.dryrun and \
-      not os.path.exists(os.path.join(cef_src_dir, 'cef.gyp')):
-      raise Exception('GYP configuration does not exist; set CEF_USE_GN=1')
-
-    # Set GYP environment variables.
-    os.environ['GYP_GENERATORS'] = 'ninja'
-    if gyp_needs_target_arch_x64:
-      if 'GYP_DEFINES' in os.environ.keys():
-        os.environ['GYP_DEFINES'] = os.environ['GYP_DEFINES'] + ' ' + \
-                                    'target_arch=x64'
-      else:
-        os.environ['GYP_DEFINES'] = 'target_arch=x64'
+  # Make sure the GN configuration exists.
+  if not options.dryrun and \
+    not os.path.exists(os.path.join(cef_src_dir, 'BUILD.gn')):
+    raise Exception('GN configuration does not exist.')
 
   # Print all build-related environment variables including any that were set
   # previously.
   for key in os.environ.keys():
-    if key.startswith('CEF_') or key.startswith('GN_') or \
-       key.startswith('GYP_') or key.startswith('DEPOT_TOOLS_'):
+    if key.startswith('CEF_') or key.startswith('GCLIENT_') or \
+       key.startswith('GN_') or key.startswith('GYP_') or \
+       key.startswith('DEPOT_TOOLS_'):
       msg('%s=%s' % (key, os.environ[key]))
 
-  # Run the cef_create_projects script to generate project files.
-  path = os.path.join(cef_src_dir, 'cef_create_projects' + script_ext)
-  run(path, cef_src_dir, depot_tools_dir)
+  # Generate project files.
+  tool = os.path.join(cef_src_dir, 'tools', 'gclient_hook.py')
+  run('%s %s' % (python_exe, tool), cef_src_dir, depot_tools_dir)
 
   # Build using Ninja.
   command = 'ninja '
@@ -1540,15 +1477,14 @@ if not options.nobuild and (chromium_checkout_changed or \
   # Make a CEF Debug build.
   if not options.nodebugbuild:
     build_path = os.path.join('out', get_build_directory_name(True))
-    if use_gn:
-      args_path = os.path.join(chromium_src_dir, build_path, 'args.gn')
-      msg(args_path + ' contents:\n' + read_file(args_path))
+    args_path = os.path.join(chromium_src_dir, build_path, 'args.gn')
+    msg(args_path + ' contents:\n' + read_file(args_path))
 
     run(command + build_path + target, chromium_src_dir, depot_tools_dir,
         os.path.join(download_dir, 'build-%s-debug.log' % (cef_branch)) \
           if options.buildlogfile else None)
 
-    if use_gn and platform in sandbox_lib_platforms:
+    if platform in sandbox_lib_platforms:
       # Make the separate cef_sandbox build when GN is_official_build=true.
       build_path += '_sandbox'
       if os.path.exists(os.path.join(chromium_src_dir, build_path)):
@@ -1562,15 +1498,14 @@ if not options.nobuild and (chromium_checkout_changed or \
   # Make a CEF Release build.
   if not options.noreleasebuild:
     build_path = os.path.join('out', get_build_directory_name(False))
-    if use_gn:
-      args_path = os.path.join(chromium_src_dir, build_path, 'args.gn')
-      msg(args_path + ' contents:\n' + read_file(args_path))
+    args_path = os.path.join(chromium_src_dir, build_path, 'args.gn')
+    msg(args_path + ' contents:\n' + read_file(args_path))
 
     run(command + build_path + target, chromium_src_dir, depot_tools_dir,
         os.path.join(download_dir, 'build-%s-release.log' % (cef_branch)) \
           if options.buildlogfile else None)
 
-    if use_gn and platform in sandbox_lib_platforms:
+    if platform in sandbox_lib_platforms:
       # Make the separate cef_sandbox build when GN is_official_build=true.
       build_path += '_sandbox'
       if os.path.exists(os.path.join(chromium_src_dir, build_path)):
@@ -1592,7 +1527,7 @@ elif not options.nobuild:
 if options.runtests:
   if platform == 'windows':
     test_exe = '%s.exe' % options.testtarget
-  elif platform == 'macosx':
+  elif platform == 'mac':
     test_exe = '%s.app/Contents/MacOS/%s' % (options.testtarget,
                                              options.testtarget)
   elif platform == 'linux':
@@ -1655,37 +1590,40 @@ if not options.nodistrib and (chromium_checkout_changed or \
   # Create the requested distribution types.
   first_type = True
   for type in distrib_types:
-    path = os.path.join(cef_tools_dir, 'make_distrib' + script_ext)
+    path = '%s make_distrib.py --output-dir=../binary_distrib/' % python_exe
+
     if options.nodebugbuild or options.noreleasebuild or type != 'standard':
-      path = path + ' --allow-partial'
+      path += ' --allow-partial'
     path = path + ' --ninja-build'
     if options.x64build:
-      path = path + ' --x64-build'
+      path += ' --x64-build'
     elif options.armbuild:
-      path = path + ' --arm-build'
+      path += ' --arm-build'
     elif options.arm64build:
-      path = path + ' --arm64-build'
+      path += ' --arm64-build'
 
     if type == 'minimal':
-      path = path + ' --minimal'
+      path += ' --minimal'
     elif type == 'client':
-      path = path + ' --client'
+      path += ' --client'
     elif type == 'sandbox':
-      path = path + ' --sandbox'
+      path += ' --sandbox'
 
     if first_type:
       if options.nodistribdocs:
-        path = path + ' --no-docs'
+        path += ' --no-docs'
       if options.nodistribarchive:
-        path = path + ' --no-archive'
+        path += ' --no-archive'
       first_type = False
     else:
       # Don't create the symbol archives or documentation more than once.
-      path = path + ' --no-symbols --no-docs'
+      path += ' --no-symbols --no-docs'
 
     # Override the subdirectory name of binary_distrib if the caller requested.
     if options.distribsubdir != '':
-      path = path + ' --distrib-subdir=' + options.distribsubdir
+      path += ' --distrib-subdir=' + options.distribsubdir
+    if options.distribsubdirsuffix != '':
+      path += ' --distrib-subdir-suffix=' + options.distribsubdirsuffix
 
     # Create the distribution.
     run(path, cef_tools_dir, depot_tools_dir)
