@@ -55,6 +55,8 @@
 <Function><Name>base::NoDestructor&lt;.*&gt;::get</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::TimeTicks::.*</Name><Action>NoStepInto</Action></Function>
 <Function><Name>base::internal::CheckedLock::.*</Name><Action>NoStepInto</Action></Function>
+<Function><Name>base::TimeDelta::.*</Name><Action>NoStepInto</Action></Function>
+
 
 
 
