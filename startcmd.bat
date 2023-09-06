@@ -19,7 +19,8 @@ if exist C:\LegacyPrograms\clink\clink.batZZZ (
   C:\LegacyPrograms\clink\clink.bat
   exit /b
 ) else (
-  ::start cmd /k
+  :: start powershell
+  :: start cmd /k
   start powershell
 )
 exit
@@ -56,6 +57,6 @@ if exist %~dp0chromium\src (
 
 REM always launch 64bit cmd
 REM echo start %SystemPath%\cmd.exe /k %~dp0%~nx0 2ndlaunch
-call %~dp0gbin\settarget32.bat
+call %~dp0gbin\settarget.bat
 start %SystemPath%\cmd.exe /k %~dp0%~nx0 2ndlaunch
 
