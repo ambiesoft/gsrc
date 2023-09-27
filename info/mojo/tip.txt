@@ -1,0 +1,12 @@
+So if you want to find out
+what's calling a Mojo method,the most reliable way is to
+go to the mojom definition first, and then click-- get the cross
+references from there.
+
+#static or dynamic
+static initialization:
+//mojo/core/embedder and call mojo::core::init
+
+dynamic initialization:
+MojoInitialize()
+
